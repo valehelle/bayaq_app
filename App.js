@@ -4,8 +4,30 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import { configureStore } from '@reduxjs/toolkit'
 import AppNavigator from './navigation/AppNavigator';
+import { Provider } from 'react-redux'
+import rootReducer from './reducers'
+import createSagaMiddleware from 'redux-saga'
+import mySaga from './sagas'
+
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware()
+
+const logger = store => next => action => {
+  console.log('prev state', store.getState())
+  console.log('dispatching', action)
+  let result = next(action)
+  return result
+}
+
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: [sagaMiddleware, logger]
+})
+
+sagaMiddleware.run(mySaga)
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -22,7 +44,9 @@ export default function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
+        <Provider store={store}>
+          <AppNavigator />
+        </Provider>
       </View>
     );
   }
