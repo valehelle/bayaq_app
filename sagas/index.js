@@ -1,10 +1,10 @@
 import { all } from 'redux-saga/effects';
 
-import { todoSaga } from '../features/todos/todoSaga'
+import { billSaga } from '../features/bills/billsSaga'
 
 
 function* watchAll() {
-    yield all([...todoSaga]);
+    yield all([...billSaga]);
 }
 
 

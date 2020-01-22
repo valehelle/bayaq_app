@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import todosReducer from '../features/todos/todosSlice'
+import billsReducer from '../features/bills/billsSlice'
 
 export default combineReducers({
-    todos: todosReducer,
+    bills: billsReducer,
 })

@@ -10,19 +10,20 @@ import {
   View,
 } from 'react-native';
 
-import { MonoText } from '../components/StyledText';
 import { useSelector, useDispatch } from 'react-redux'
-import { addTodo } from '../features/todos/todosSlice'
-
-export default function HomeScreen() {
-  const todo = useSelector(state => state.todos)
+import { addBill } from '../features/bills/billsSlice'
+export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch()
+
+  addBillPressed = () => {
+    navigation.navigate('SelectBill')
+  }
   return (
     <View style={styles.container}>
-      <Text>{todo.text}</Text>
-      <TouchableOpacity onPress={() => dispatch(addTodo())}>
-        <Text>Touch Me</Text>
+      <TouchableOpacity onPress={() => addBillPressed()}>
+        <Text>Press me</Text>
       </TouchableOpacity>
+
     </View>
   );
 }
