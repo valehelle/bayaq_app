@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Image,
   Platform,
@@ -10,14 +10,14 @@ import {
   View,
 } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { addBill } from '../features/bills/billsSlice'
 import { lineNetwork, waterWorks } from '../constants/JomPay'
 export default function SelectBillScreen({ navigation }) {
 
-  selectBillPressed = (bill) => {
+  const selectBillPressed = (bill) => {
     navigation.navigate('InsertBillDetail', { bill })
   }
+
+
   return (
     <View style={styles.container}>
       <Text>SELECT BILL</Text>
@@ -39,6 +39,8 @@ export default function SelectBillScreen({ navigation }) {
 SelectBillScreen.navigationOptions = {
   header: null,
 };
+
+SelectBillScreen.path = ''
 
 const styles = StyleSheet.create({
   container: {

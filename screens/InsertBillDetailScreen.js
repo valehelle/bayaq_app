@@ -11,43 +11,54 @@ import {
   TextInput
 } from 'react-native';
 
-import { useSelector, useDispatch } from 'react-redux'
-import { addBill } from '../features/bills/billsSlice'
-import { lineNetwork, waterWorks } from '../constants/JomPay'
+import { useDispatch } from 'react-redux'
+import { addBill } from '../features/bills/billsSaga'
+import { NavigationActions } from 'react-navigation';
+
 
 export default function InsertBillDetailScreen({ navigation }) {
   const dispatch = useDispatch()
-  const [jomPay, setJomPay] = useState({
+  const [bill, setBill] = useState({
     ref1: '',
     ref2: '',
     billerCode: '',
   })
   useEffect(() => {
-    bill = navigation.getParam('bill', 'NO-ID')
-    setJomPay({ billerCode: bill.billerCode })
-  }, [])
-  createBillPressed = () => {
+    console.log(navigation)
+    const bill = navigation.getParam('bill', 'NO-ID')
+    if (typeof bill === 'string' || bill instanceof String) {
 
-    dispatch(addBill(jomPay))
+      navigation.navigate('Home')
+    } else {
+      setBill({ billerCode: bill.billerCode })
+    }
+  }, [])
+
+  const createBillPressed = () => {
+    dispatch(addBill({ bill, billCreated }))
+  }
+
+  const billCreated = () => {
+    navigation.navigate('Home')
   }
   return (
     <View style={styles.container}>
       <TextInput
         editable={false}
         maxLength={40}
-        value={jomPay.billerCode.toString()}
+        value={bill.billerCode.toString()}
       />
       <TextInput
         editable
         maxLength={40}
-        onChangeText={(text) => setJomPay({ ...jomPay, ref1: text })}
-        value={jomPay.ref1}
+        onChangeText={(text) => setBill({ ...bill, ref1: text })}
+        value={bill.ref1}
       />
       <TextInput
         editable
         maxLength={40}
-        onChangeText={(text) => setJomPay({ ...jomPay, ref2: text })}
-        value={jomPay.ref2}
+        onChangeText={(text) => setBill({ ...bill, ref2: text })}
+        value={bill.ref2}
 
       />
       <TouchableOpacity onPress={createBillPressed}>
@@ -60,6 +71,7 @@ export default function InsertBillDetailScreen({ navigation }) {
 InsertBillDetailScreen.navigationOptions = {
   header: null,
 };
+InsertBillDetailScreen.path = ''
 
 const styles = StyleSheet.create({
   container: {

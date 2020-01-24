@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Image,
   Platform,
@@ -9,20 +9,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
 import { useSelector, useDispatch } from 'react-redux'
-import { addBill } from '../features/bills/billsSlice'
+import { billsSelector } from '../features/bills/billsSlice'
+
+
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch()
-
-  addBillPressed = () => {
+  const bills = useSelector(state => billsSelector(state))
+  const addBillPressed = () => {
     navigation.navigate('SelectBill')
   }
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => addBillPressed()}>
+      <TouchableOpacity onPress={addBillPressed}>
         <Text>Press me</Text>
       </TouchableOpacity>
+      {bills.map((bill) => <Text>{bill.billerCode}</Text>)}
 
     </View>
   );
@@ -31,6 +33,7 @@ export default function HomeScreen({ navigation }) {
 HomeScreen.navigationOptions = {
   header: null,
 };
+HomeScreen.path = ''
 
 function DevelopmentModeNotice() {
   if (__DEV__) {

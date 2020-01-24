@@ -9,7 +9,7 @@ import SelectBillScreen from '../screens/SelectBillScreen';
 import InsertBillDetailScreen from '../screens/InsertBillDetailScreen';
 
 const config = Platform.select({
-  web: { headerMode: 'screen' },
+  web: { headerMode: 'screen', initialRouteName: 'Home' },
   default: {},
 });
 

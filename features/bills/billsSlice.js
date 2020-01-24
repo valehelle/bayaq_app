@@ -1,5 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createSelector } from '@reduxjs/toolkit'
 
+export const billsSelector = createSelector(
+    state => state.bills,
+    bills => bills.list
+)
 const billsSlice = createSlice({
     name: 'bills',
     initialState: {
@@ -14,8 +18,8 @@ const billsSlice = createSlice({
     reducers: {
         addBill: {
             reducer(state, action) {
-                bill = action.payload
-                list = state.list
+                const bill = action.payload
+                const list = state.list
                 list.push(bill)
             }
         }
@@ -24,6 +28,4 @@ const billsSlice = createSlice({
 
 
 
-export const { addBill } = billsSlice.actions
-
-export default billsSlice.reducer
+export default billsSlice
