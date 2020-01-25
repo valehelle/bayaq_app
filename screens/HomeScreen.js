@@ -20,7 +20,7 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('SelectBill')
   }
   const billPressed = (bill) => {
-    navigation.navigate('AddAmount', { bill })
+    navigation.navigate('AddAmount', { bill, billStatus: 'UPDATE' })
   }
   useEffect(() => {
     dispatch(getBill())

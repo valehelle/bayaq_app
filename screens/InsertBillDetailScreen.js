@@ -34,11 +34,7 @@ export default function InsertBillDetailScreen({ navigation }) {
   }, [])
 
   const createBillPressed = () => {
-    dispatch(addBill({ bill, billCreated }))
-  }
-
-  const billCreated = () => {
-    navigation.navigate('Home')
+    navigation.navigate('AddAmount', { bill, billStatus: 'CREATE' })
   }
 
   return (
@@ -54,13 +50,7 @@ export default function InsertBillDetailScreen({ navigation }) {
         onChangeText={(text) => setBill({ ...bill, ref1: text })}
         value={bill.ref1}
       />
-      <TextInput
-        editable
-        maxLength={40}
-        onChangeText={(text) => setBill({ ...bill, ref2: text })}
-        value={bill.ref2}
 
-      />
       <TouchableOpacity onPress={createBillPressed}>
         <Text>Click Me</Text>
       </TouchableOpacity>

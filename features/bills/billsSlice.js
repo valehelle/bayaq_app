@@ -25,10 +25,10 @@ const billsSlice = createSlice({
         },
         updateBill: {
             reducer(state, action) {
-                const bill = action.payload
-                const billIndex = state.list.findIndex((bill) => bill.id)
+                const newBill = action.payload
+                const billIndex = state.list.findIndex((bill) => bill.id == newBill.id)
                 const list = state.list
-                list[billIndex] = bill
+                list[billIndex] = newBill
             }
         },
     }
