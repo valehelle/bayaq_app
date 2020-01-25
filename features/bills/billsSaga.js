@@ -35,8 +35,17 @@ export function* updateBillSaga({ payload }) {
     yield call(AsyncStorage.setItem, 'bayaqBills', JSON.stringify(bills))
     billCreated()
 }
+
+export function* payBillsSaga() {
+    const bills = yield select(billsSelector)
+    console.log(bills)
+}
+
+
 export const billSaga = [
     takeLatest(addBill.type, addBillSaga),
     takeLatest(getBill.type, getBillSaga),
     takeLatest(updateBill.type, updateBillSaga),
+    takeLatest(billsAction.payBills.type, payBillsSaga)
+
 ]
