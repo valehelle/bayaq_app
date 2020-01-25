@@ -7,7 +7,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SelectBillScreen from '../screens/SelectBillScreen';
 import InsertBillDetailScreen from '../screens/InsertBillDetailScreen';
-
+import AddAmountScreen from '../screens/AddAmountScreen'
 const config = Platform.select({
   web: { headerMode: 'screen', initialRouteName: 'Home' },
   default: {},
@@ -17,7 +17,8 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     SelectBill: SelectBillScreen,
-    InsertBillDetail: InsertBillDetailScreen
+    InsertBillDetail: InsertBillDetailScreen,
+    AddAmount: AddAmountScreen
   },
   config
 );

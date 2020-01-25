@@ -15,7 +15,6 @@ export function* saveEmailSaga({ payload }) {
 }
 export function* getEmailSaga() {
     const email = yield call(AsyncStorage.getItem, 'bayaqUserEmail')
-    console.log(email)
 }
 
 export const userSaga = [

@@ -23,7 +23,7 @@ export default function LandingScreen({ navigation }) {
 LandingScreen.navigationOptions = {
   header: null,
 };
-LandingScreen.path = '/landing'
+LandingScreen.path = ''
 
 const styles = StyleSheet.create({
   container: {

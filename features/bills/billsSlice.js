@@ -7,13 +7,7 @@ export const billsSelector = createSelector(
 const billsSlice = createSlice({
     name: 'bills',
     initialState: {
-        list: [
-            {
-                billerCode: '',
-                ref1: '',
-                ref2: ''
-            }
-        ]
+        list: []
     },
     reducers: {
         addBill: {
@@ -22,7 +16,21 @@ const billsSlice = createSlice({
                 const list = state.list
                 list.push(bill)
             }
-        }
+        },
+        setBill: {
+            reducer(state, action) {
+                const bills = action.payload
+                state.list = bills
+            }
+        },
+        updateBill: {
+            reducer(state, action) {
+                const bill = action.payload
+                const billIndex = state.list.findIndex((bill) => bill.id)
+                const list = state.list
+                list[billIndex] = bill
+            }
+        },
     }
 })
 

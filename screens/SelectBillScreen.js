@@ -40,7 +40,7 @@ SelectBillScreen.navigationOptions = {
   header: null,
 };
 
-SelectBillScreen.path = ''
+SelectBillScreen.path = 'select_bill'
 
 const styles = StyleSheet.create({
   container: {

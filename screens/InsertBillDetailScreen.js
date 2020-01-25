@@ -13,7 +13,6 @@ import {
 
 import { useDispatch } from 'react-redux'
 import { addBill } from '../features/bills/billsSaga'
-import { NavigationActions } from 'react-navigation';
 
 
 export default function InsertBillDetailScreen({ navigation }) {
@@ -22,15 +21,15 @@ export default function InsertBillDetailScreen({ navigation }) {
     ref1: '',
     ref2: '',
     billerCode: '',
+    amount: 0
   })
   useEffect(() => {
-    console.log(navigation)
-    const bill = navigation.getParam('bill', 'NO-ID')
-    if (typeof bill === 'string' || bill instanceof String) {
+    const billDetail = navigation.getParam('bill', 'NO-ID')
+    if (typeof billDetail === 'string' || billDetail instanceof String) {
 
       navigation.navigate('Home')
     } else {
-      setBill({ billerCode: bill.billerCode })
+      setBill({ ...bill, billerCode: billDetail.billerCode })
     }
   }, [])
 
@@ -41,6 +40,7 @@ export default function InsertBillDetailScreen({ navigation }) {
   const billCreated = () => {
     navigation.navigate('Home')
   }
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -71,7 +71,7 @@ export default function InsertBillDetailScreen({ navigation }) {
 InsertBillDetailScreen.navigationOptions = {
   header: null,
 };
-InsertBillDetailScreen.path = ''
+InsertBillDetailScreen.path = 'insert_bill'
 
 const styles = StyleSheet.create({
   container: {
