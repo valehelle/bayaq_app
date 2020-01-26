@@ -12,8 +12,10 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import billsSlice, { billsSelector, totalBillsAmountSelector } from '../features/bills/billsSlice'
 import { getBill } from '../features/bills/billsSaga'
-
+import { getEmail } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
+import Dinero from 'dinero.js'
+
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch()
@@ -24,18 +26,31 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('SelectBill')
   }
   const billPressed = (bill) => {
-    navigation.navigate('AddAmount', { bill, billStatus: 'UPDATE' })
+    const newBill = { ...bill, amount: Dinero({ amount: bill.amount }).toFormat("0.00") }
+    navigation.navigate('AddAmount', { bill: newBill, billStatus: 'UPDATE' })
   }
   const payBillsPressed = () => {
     dispatch(billsAction.payBills())
   }
   useEffect(() => {
     dispatch(getBill())
+    dispatch(getEmail())
+    const script = document.createElement('script');
+
+    script.src = "https://js.stripe.com/v3/";
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    }
+
   }, [])
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={payBillsPressed}>
-        <Text>Pay {amount}</Text>
+        <Text>Pay {Dinero({ amount: amount }).toFormat("0.00")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={addBillPressed}>
         <Text>Press me</Text>

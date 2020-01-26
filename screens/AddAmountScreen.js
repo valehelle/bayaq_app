@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-nati
 import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
 import { addBill } from '../features/bills/billsSaga'
-
+import Dinero from 'dinero.js'
 
 const buttonPressed = (myr, setMyr, text) => {
     if (text === '.') {
@@ -41,8 +41,9 @@ export default function AddAmountScreen({ navigation }) {
 
     const changeBill = () => {
         const billStatus = navigation.getParam('billStatus', 'NO-ID')
-
-        const newBill = { ...billDetail, amount: parseFloat(myr) }
+        console.log(parseFloat(myr) * 100)
+        const amount = Dinero({ amount: parseFloat(myr) * 100, currency: 'MYR' }).getAmount()
+        const newBill = { ...billDetail, amount: amount }
         if (billStatus === 'UPDATE') {
             dispatch(updateBill({ bill: newBill, billCreated }))
         } else {

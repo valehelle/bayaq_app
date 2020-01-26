@@ -2190,6 +2190,10 @@ diff-sequences@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
 
+dinero.js@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/dinero.js/-/dinero.js-1.6.0.tgz#d1e4fc4c1784cd8a853c2f1f1b1bb765736ec709"
+
 domexception@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/domexception/-/domexception-1.0.1.tgz#937442644ca6a31261ef36e3ec677fe805582c90"

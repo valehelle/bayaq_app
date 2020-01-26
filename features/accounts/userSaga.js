@@ -6,6 +6,7 @@ const userAction = userSlice.actions
 
 
 export const saveEmail = createAction(`${userSlice.name}/saveEmailSaga`)
+export const getEmail = createAction(`${userSlice.name}/getEmailSaga`)
 
 
 export function* saveEmailSaga({ payload }) {
@@ -15,8 +16,10 @@ export function* saveEmailSaga({ payload }) {
 }
 export function* getEmailSaga() {
     const email = yield call(AsyncStorage.getItem, 'bayaqUserEmail')
+    yield put(userAction.addEmail(email))
 }
 
 export const userSaga = [
     takeLatest(saveEmail.type, saveEmailSaga),
+    takeLatest(getEmail.type, getEmailSaga),
 ]

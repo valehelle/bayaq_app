@@ -1,7 +1,8 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit'
 
-export const userSelector = createSelector(
-    state => state.user
+export const userEmailSelector = createSelector(
+    state => state.user,
+    user => user.email
 )
 const userSlice = createSlice({
     name: 'user',

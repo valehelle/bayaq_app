@@ -1,9 +1,13 @@
 import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
+import { userEmailSelector } from '../accounts/userSlice'
 import billsSlice, { billsSelector } from './billsSlice'
+import { payBill } from '../../services/api'
+
 const billsAction = billsSlice.actions
 const uuidv4 = require('uuid/v4');
+
 
 export const addBill = createAction(`${billsSlice.name}/addBillSaga`)
 export const getBill = createAction(`${billsSlice.name}/getBillSaga`)
@@ -38,7 +42,28 @@ export function* updateBillSaga({ payload }) {
 
 export function* payBillsSaga() {
     const bills = yield select(billsSelector)
-    console.log(bills)
+    const userEmail = yield select(userEmailSelector)
+    const body = {
+        email: userEmail,
+        bills
+    }
+    const response = yield call(payBill, body)
+    if (response.ok) {
+        const payload = yield response.json()
+        const stripe = Stripe('pk_test_Uxe4unnl26w2juaWX7YErdfg00CmH5qqg0')
+        stripe.redirectToCheckout({
+            // Make the id field from the Checkout Session creation API response
+            // available to this file, so you can provide it as parameter here
+            // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+            sessionId: payload.stripe_id
+        }).then(function (result) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer
+            // using `result.error.message`.
+        });
+        console.log(payload)
+    }
+
 }
 
 
