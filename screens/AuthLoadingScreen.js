@@ -15,7 +15,7 @@ export default function AuthLoadingScreen({ navigation }) {
 
   async function isLoggedIn(navigation) {
     try {
-      const value = await AsyncStorage.getItem('bayaqUserEmail');
+      const value = await AsyncStorage.getItem('bayaqUserInfo');
       navigation.navigate(value ? 'Main' : 'Landing');
     } catch (error) {
       console.log(error)

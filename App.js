@@ -14,17 +14,11 @@ import mySaga from './sagas'
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
 
-const logger = store => next => action => {
-  console.log('prev state', store.getState())
-  console.log('dispatching', action)
-  let result = next(action)
-  return result
-}
 
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: [sagaMiddleware, logger]
+  middleware: [sagaMiddleware]
 })
 
 sagaMiddleware.run(mySaga)

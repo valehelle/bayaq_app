@@ -1,9 +1,9 @@
-import { takeLatest, select, put, call } from 'redux-saga/effects';
+import { takeLatest, select, put, call, takeEvery, delay } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
-import { userEmailSelector } from '../accounts/userSlice'
+import { userInfoSelector } from '../accounts/userSlice'
 import billsSlice, { billsSelector } from './billsSlice'
-import { payBill } from '../../services/api'
+import { payBill, getBillAmountAPI } from '../../services/api'
 
 const billsAction = billsSlice.actions
 const uuidv4 = require('uuid/v4');
@@ -12,6 +12,9 @@ const uuidv4 = require('uuid/v4');
 export const addBill = createAction(`${billsSlice.name}/addBillSaga`)
 export const getBill = createAction(`${billsSlice.name}/getBillSaga`)
 export const updateBill = createAction(`${billsSlice.name}/updateBillSaga`)
+export const getBillAmount = createAction(`${billsSlice.name}/getBillAmountSaga`)
+export const getBillAmountFromServer = createAction(`${billsSlice.name}/getBillAmountFromServerSaga`)
+
 
 export function* addBillSaga({ payload }) {
     const { bill, billCreated } = payload
@@ -42,10 +45,12 @@ export function* updateBillSaga({ payload }) {
 
 export function* payBillsSaga() {
     const bills = yield select(billsSelector)
-    const userEmail = yield select(userEmailSelector)
+    const userInfo = yield select(userInfoSelector)
+    const billsWithEmail = bills.map((bill) => { return { ...bill, email: userInfo.email, ref2: userInfo.phone } })
+
     const body = {
-        email: userEmail,
-        bills
+        email: userInfo.email,
+        bills: billsWithEmail
     }
     const response = yield call(payBill, body)
     if (response.ok) {
@@ -66,11 +71,45 @@ export function* payBillsSaga() {
 
 }
 
+export function* getBillAmountSaga() {
+    const bills = yield select(billsSelector)
+    const selectedBills = bills.filter((bill) => bill.billerCode == 68502 || bill.billerCode == 5454)
+    for (let i = 0; i < selectedBills.length; i++) {
+        const bill = selectedBills[i]
+        yield put(getBillAmountFromServer(bill))
+    }
+}
+
+export function* getBillAmountFromServerSaga({ payload }) {
+    const { billerCode, ref1 } = payload
+
+    const body = {
+        account: ref1,
+        billerCode
+    }
+
+    const response = yield call(getBillAmountAPI, body)
+
+    if (response.ok) {
+        const { amount } = yield response.json()
+        const bill = {
+            ...payload,
+            amount: amount
+        }
+        yield put(updateBill({ bill, billCreated: () => { } }))
+
+    }
+
+
+
+}
+
 
 export const billSaga = [
     takeLatest(addBill.type, addBillSaga),
     takeLatest(getBill.type, getBillSaga),
     takeLatest(updateBill.type, updateBillSaga),
-    takeLatest(billsAction.payBills.type, payBillsSaga)
-
+    takeLatest(billsAction.payBills.type, payBillsSaga),
+    takeLatest(billsAction.setBill, getBillAmountSaga),
+    takeEvery(getBillAmountFromServer.type, getBillAmountFromServerSaga)
 ]

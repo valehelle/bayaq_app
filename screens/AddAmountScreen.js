@@ -41,7 +41,6 @@ export default function AddAmountScreen({ navigation }) {
 
     const changeBill = () => {
         const billStatus = navigation.getParam('billStatus', 'NO-ID')
-        console.log(parseFloat(myr) * 100)
         const amount = Dinero({ amount: parseFloat(myr) * 100, currency: 'MYR' }).getAmount()
         const newBill = { ...billDetail, amount: amount }
         if (billStatus === 'UPDATE') {

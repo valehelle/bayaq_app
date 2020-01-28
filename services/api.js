@@ -30,3 +30,17 @@ export const payBill = (body) => {
 
     return fetchRequest(path, config)
 }
+export const getBillAmountAPI = (body) => {
+
+    const path = '/bill/amount'
+    const config = {
+        method: 'GET',
+        "headers": {
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+    }
+
+
+    return fetchRequest(path, config)
+}

@@ -13,7 +13,7 @@ const config = Platform.select({
   default: {},
 });
 
-const HomeStack = createStackNavigator(
+const MainStack = createStackNavigator(
   {
     Home: HomeScreen,
     SelectBill: SelectBillScreen,
@@ -23,7 +23,7 @@ const HomeStack = createStackNavigator(
   config
 );
 
-HomeStack.navigationOptions = {
+MainStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -37,12 +37,7 @@ HomeStack.navigationOptions = {
   ),
 };
 
-HomeStack.path = '';
+MainStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-});
+export default MainStack
 
-tabNavigator.path = '';
-
-export default tabNavigator;

@@ -29,7 +29,7 @@ export default function InsertBillDetailScreen({ navigation }) {
 
       navigation.navigate('Home')
     } else {
-      setBill({ ...bill, billerCode: billDetail.billerCode })
+      setBill({ ...bill, billerCode: billDetail.billerCode, companyName: billDetail.companyName })
     }
   }, [])
 

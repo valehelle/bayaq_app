@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 import billsSlice, { billsSelector, totalBillsAmountSelector } from '../features/bills/billsSlice'
-import { getBill } from '../features/bills/billsSaga'
-import { getEmail } from '../features/accounts/userSaga'
+import { getBill, getBillAmount } from '../features/bills/billsSaga'
+import { getUserInfo } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
 import Dinero from 'dinero.js'
 
@@ -34,7 +34,8 @@ export default function HomeScreen({ navigation }) {
   }
   useEffect(() => {
     dispatch(getBill())
-    dispatch(getEmail())
+    dispatch(getUserInfo())
+    dispatch(getBillAmount())
     const script = document.createElement('script');
 
     script.src = "https://js.stripe.com/v3/";
@@ -55,14 +56,14 @@ export default function HomeScreen({ navigation }) {
       <TouchableOpacity onPress={addBillPressed}>
         <Text>Press me</Text>
       </TouchableOpacity>
-      {bills.length > 0 && bills.map((bill) => <TouchableOpacity onPress={() => billPressed(bill)} ><Text>{bill.billerCode}</Text></TouchableOpacity>)}
+      {bills.length > 0 && bills.map((bill) => <TouchableOpacity onPress={() => billPressed(bill)} ><Text>{bill.billerCode} - {bill.amount} - {bill.companyName}</Text></TouchableOpacity>)}
 
     </View>
   );
 }
 
 HomeScreen.navigationOptions = {
-  header: null,
+
 };
 HomeScreen.path = ''
 

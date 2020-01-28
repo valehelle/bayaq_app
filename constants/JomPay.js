@@ -21,6 +21,10 @@ export const lineNetwork = [
         companyName: 'Streamyx',
         billerCode: '2345',
     },
+    {
+        companyName: 'Tenaga Nasional Berhad',
+        billerCode: '5454',
+    },
 ]
 
 

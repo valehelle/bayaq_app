@@ -4,22 +4,20 @@ import { createAction } from '@reduxjs/toolkit'
 import userSlice from './userSlice'
 const userAction = userSlice.actions
 
-
-export const saveEmail = createAction(`${userSlice.name}/saveEmailSaga`)
-export const getEmail = createAction(`${userSlice.name}/getEmailSaga`)
+export const getUserInfo = createAction(`${userSlice.name}/getUserInfo`)
 
 
-export function* saveEmailSaga({ payload }) {
-    const { email } = payload
-    yield put(userAction.addEmail(email))
-    yield call(AsyncStorage.setItem, 'bayaqUserEmail', email)
+export function* saveUserInfoSaga({ payload }) {
+    const { email, phone, userInfoCreated } = payload
+    yield call(AsyncStorage.setItem, 'bayaqUserInfo', JSON.stringify({ email, phone }))
+    userInfoCreated()
 }
-export function* getEmailSaga() {
-    const email = yield call(AsyncStorage.getItem, 'bayaqUserEmail')
-    yield put(userAction.addEmail(email))
+export function* getUserInfoSaga() {
+    const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserInfo')
+    yield put(userAction.addUserInfo({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
 }
 
 export const userSaga = [
-    takeLatest(saveEmail.type, saveEmailSaga),
-    takeLatest(getEmail.type, getEmailSaga),
+    takeLatest(userAction.addUserInfo.type, saveUserInfoSaga),
+    takeLatest(getUserInfo.type, getUserInfoSaga),
 ]
