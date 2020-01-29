@@ -4,6 +4,8 @@ import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
 import { addBill } from '../features/bills/billsSaga'
 import Dinero from 'dinero.js'
+import { getBillAmountFromServerWithCallback } from '../features/bills/billsSaga'
+
 
 const buttonPressed = (myr, setMyr, text) => {
     if (text === '.') {
@@ -51,6 +53,7 @@ export default function AddAmountScreen({ navigation }) {
     }
     useEffect(() => {
         const billDetail = navigation.getParam('bill', 'NO-ID')
+        const billStatus = navigation.getParam('billStatus', 'NO-ID')
 
         if (typeof billDetail === 'string' || billDetail instanceof String) {
 
@@ -58,9 +61,18 @@ export default function AddAmountScreen({ navigation }) {
         } else {
             setBillDetail(billDetail)
             setMyr(billDetail.amount.toString())
+            if (billStatus != 'UPDATE') {
+                if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454) {
+                    dispatch(getBillAmountFromServerWithCallback({ bill: billDetail, callback: updateAmount }))
+                }
+            }
         }
 
     }, [])
+    const updateAmount = ({ amount }) => {
+        const newAmount = Dinero({ amount: amount }).toFormat("0.00")
+        if (amount > 0) setMyr(newAmount.toString())
+    }
     const billCreated = () => {
         navigation.navigate('Home', { bill: null })
     }

@@ -32,13 +32,12 @@ export const payBill = (body) => {
 }
 export const getBillAmountAPI = (body) => {
 
-    const path = '/bill/amount'
+    const path = `/bill/amount?billerCode=${body.billerCode}&account=${body.account}`
     const config = {
         method: 'GET',
         "headers": {
             ...headers,
         },
-        body: JSON.stringify({ ...body })
     }
 
 

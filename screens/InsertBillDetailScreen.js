@@ -12,8 +12,6 @@ import {
 } from 'react-native';
 
 import { useDispatch } from 'react-redux'
-import { addBill } from '../features/bills/billsSaga'
-
 
 export default function InsertBillDetailScreen({ navigation }) {
   const dispatch = useDispatch()

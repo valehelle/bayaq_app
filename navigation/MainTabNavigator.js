@@ -36,7 +36,6 @@ MainStack.navigationOptions = {
     />
   ),
 };
-
 MainStack.path = '';
 
 export default MainStack

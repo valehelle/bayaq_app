@@ -14,7 +14,7 @@ export const getBill = createAction(`${billsSlice.name}/getBillSaga`)
 export const updateBill = createAction(`${billsSlice.name}/updateBillSaga`)
 export const getBillAmount = createAction(`${billsSlice.name}/getBillAmountSaga`)
 export const getBillAmountFromServer = createAction(`${billsSlice.name}/getBillAmountFromServerSaga`)
-
+export const getBillAmountFromServerWithCallback = createAction(`${billsSlice.name}/getBillAmountFromServerWithCallbackSaga`)
 
 export function* addBillSaga({ payload }) {
     const { bill, billCreated } = payload
@@ -100,10 +100,25 @@ export function* getBillAmountFromServerSaga({ payload }) {
 
     }
 
-
-
 }
 
+export function* getBillAmountFromServerWithCallbackSaga({ payload }) {
+    const { billerCode, ref1 } = payload.bill
+    const { callback } = payload
+    const body = {
+        account: ref1,
+        billerCode
+    }
+
+    const response = yield call(getBillAmountAPI, body)
+
+    if (response.ok) {
+        const { amount } = yield response.json()
+        callback({ amount })
+
+    }
+
+}
 
 export const billSaga = [
     takeLatest(addBill.type, addBillSaga),
@@ -111,5 +126,6 @@ export const billSaga = [
     takeLatest(updateBill.type, updateBillSaga),
     takeLatest(billsAction.payBills.type, payBillsSaga),
     takeLatest(billsAction.setBill, getBillAmountSaga),
-    takeEvery(getBillAmountFromServer.type, getBillAmountFromServerSaga)
+    takeEvery(getBillAmountFromServer.type, getBillAmountFromServerSaga),
+    takeLatest(getBillAmountFromServerWithCallback.type, getBillAmountFromServerWithCallbackSaga)
 ]
