@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
-import billsSlice, { billsSelector, totalBillsAmountSelector } from '../features/bills/billsSlice'
+import billsSlice, { billsSelector, totalBillsAmountSelector, selectedBillsSelector } from '../features/bills/billsSlice'
 import { getBill, getBillAmount } from '../features/bills/billsSaga'
 import { getUserInfo } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
@@ -22,7 +22,12 @@ export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch()
   const bills = useSelector(state => billsSelector(state))
   const amount = useSelector(state => totalBillsAmountSelector(state))
+  const selectedBills = useSelector(state => selectedBillsSelector(state))
 
+
+  const isBillSelected = (id) => {
+    return selectedBills.filter((bill) => bill.id == id).length > 0 ? true : false
+  }
   const addBillPressed = () => {
     navigation.navigate('SelectBill')
   }
@@ -49,9 +54,6 @@ export default function HomeScreen({ navigation }) {
     }
 
   }, [])
-  useEffect(() => {
-    console.log('dddd')
-  }, bills)
   return (
     <View style={styles.container}>
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 20 }}>
@@ -76,7 +78,7 @@ export default function HomeScreen({ navigation }) {
             return (
               <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => billPressed(bill)} >
                 <View style={{ flex: .1 }}>
-                  <Ionicons style={{}} name="ios-checkmark-circle" color={Colors.primaryColor} size={30} />
+                  <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.primaryColor : "lightgrey"} size={30} />
                 </View>
                 <View style={{ flex: .9, paddingLeft: 5 }}>
                   <Text style={{ fontSize: 14, fontWeight: 600 }}>{bill.companyName}</Text>

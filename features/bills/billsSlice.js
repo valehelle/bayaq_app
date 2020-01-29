@@ -5,9 +5,14 @@ export const billsSelector = createSelector(
     bills => bills.list
 )
 
+export const selectedBillsSelector = createSelector(
+    state => state.bills,
+    bills => bills.selectedBills
+)
+
 export const totalBillsAmountSelector = createSelector(
     state => state.bills,
-    bills => bills.list.reduce(reducer, 0)
+    bills => bills.selectedBills.reduce(reducer, 0)
 )
 
 const reducer = (accumulator, bill) => accumulator + bill.amount;
@@ -16,7 +21,8 @@ const reducer = (accumulator, bill) => accumulator + bill.amount;
 const billsSlice = createSlice({
     name: 'bills',
     initialState: {
-        list: []
+        list: [],
+        selectedBills: []
     },
     reducers: {
         addBill: {
@@ -30,6 +36,7 @@ const billsSlice = createSlice({
             reducer(state, action) {
                 const bills = action.payload
                 state.list = bills
+                state.selectedBills = bills.filter((bill) => bill.amount > 0)
             }
         },
         updateBill: {
@@ -45,6 +52,11 @@ const billsSlice = createSlice({
                 state
             }
         },
+        setSelectedBills: {
+            reducer(state, action) {
+                state.selectedBills = state.list.filter((bill) => bill.amount > 0)
+            }
+        }
     }
 })
 
