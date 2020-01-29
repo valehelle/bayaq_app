@@ -49,6 +49,9 @@ export default function HomeScreen({ navigation }) {
     }
 
   }, [])
+  useEffect(() => {
+    console.log('dddd')
+  }, bills)
   return (
     <View style={styles.container}>
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 20 }}>
@@ -84,11 +87,15 @@ export default function HomeScreen({ navigation }) {
               </TouchableOpacity>)
           })
           }
+          <View style={{ marginTop: 20 }}>
+            <Text style={{ fontWeight: 600 }}>Total RM {Dinero({ amount: amount }).toFormat("0.00")}</Text>
+            <TouchableOpacity onPress={payBillsPressed} style={{ marginTop: 10, paddingHorizontal: 10, backgroundColor: Colors.primaryColor, borderRadius: 5, paddingVertical: 10 }}>
+              <Text style={{ color: 'white', fontWeight: 600, textAlign: 'center' }}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-      <TouchableOpacity onPress={payBillsPressed}>
-        <Text>Pay {Dinero({ amount: amount }).toFormat("0.00")}</Text>
-      </TouchableOpacity>
+
     </View>
   );
 }

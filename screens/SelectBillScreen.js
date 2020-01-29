@@ -20,13 +20,25 @@ export default function SelectBillScreen({ navigation }) {
     navigation.navigate('InsertBillDetail', { bill })
   }
 
+  const backButtonPressed = () => {
+    navigation.goBack()
+  }
+
 
   return (
     <View style={styles.container}>
-      <View style={{ backgroundColor: 'white', paddingHorizontal: 20, marginTop: 50, paddingTop: 20, height: '100%', borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+      <View style={{ backgroundColor: 'white', paddingHorizontal: 20, marginTop: 10, paddingTop: 20, height: '100%', borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
         <View style={{ flexDirection: 'row' }}>
-          <Text style={{ flex: .5, color: Colors.primaryColor, textAlign: 'left' }}>Cancel</Text>
-          <Text style={{ flex: .5, color: Colors.primaryColor, textAlign: 'right' }}>Next</Text>
+          <View style={{ flex: .5, }}>
+            <TouchableOpacity onPress={backButtonPressed}>
+              <Text style={{ color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ flex: .5, }}>
+            <TouchableOpacity onPress={backButtonPressed}>
+              <Text style={{ color: Colors.primaryColor, textAlign: 'right' }}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={{ marginTop: 10 }}>
           {lineNetwork.map((bill) =>
