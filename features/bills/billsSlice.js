@@ -30,6 +30,8 @@ const billsSlice = createSlice({
                 const bill = action.payload
                 const list = state.list
                 list.push(bill)
+                state.selectedBills = list.filter((bill) => bill.amount > 0)
+
             }
         },
         setBill: {

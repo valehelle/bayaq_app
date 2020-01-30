@@ -4,26 +4,32 @@ export const lineNetwork = [
     {
         companyName: 'Celcom',
         billerCode: '2881',
+        type: 'TELCO'
     },
     {
         companyName: 'Maxis',
         billerCode: '1123',
+        type: 'TELCO'
     },
     {
         companyName: 'Digi',
         billerCode: '1016',
+        type: 'TELCO'
     },
     {
         companyName: 'Unifi',
         billerCode: '8888',
+        type: 'INTERNET'
     },
     {
         companyName: 'Streamyx',
         billerCode: '2345',
+        type: 'INTERNET'
     },
     {
         companyName: 'Tenaga Nasional Berhad',
         billerCode: '5454',
+        type: 'UTILITY'
     },
 ]
 
