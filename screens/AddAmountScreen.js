@@ -30,7 +30,7 @@ const buttonPressed = (myr, setMyr, text) => {
 const _button = (text, krw, setKrw) => {
     return (
         <View style={{ flex: 1 / 3, alignItems: 'center', justifyContent: 'center', padding: .5, backgroundColor: 'silver' }}>
-            <TouchableOpacity style={{ backgroundColor: 'grey', width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', }} onPress={() => buttonPressed(krw, setKrw, text)}>
+            <TouchableOpacity style={{ backgroundColor: 'grey', width: '100%', height: '100%', justifyContent: 'center' }} onPress={() => buttonPressed(krw, setKrw, text)}>
                 <Text style={{ textAlign: 'center', fontSize: 35, color: 'white' }}>{text}</Text>
             </TouchableOpacity>
         </View >
@@ -85,26 +85,35 @@ export default function AddAmountScreen({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <View><Text style={{ color: 'white', fontSize: 16, padding: 10, fontWeight: 'bold' }}>Set Amount</Text></View>
-            <View style={{ backgroundColor: 'white', paddingTop: 20, height: '100%', borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: Colors.primaryColor, paddingTop: 15 }}>
+
+            <View>
+                <Text style={{ color: 'white', fontSize: 16, padding: 10, fontWeight: 'bold' }}>Set Amount</Text>
+            </View>
+            <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: .5, paddingLeft: 20 }}>
-                        <TouchableOpacity style={{ width: 50, padding: 5, paddingLeft: 0 }} onPress={backButtonPressed}>
-                            <Text style={{ color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
+                    <View style={{ flex: .5 }}>
+                        <TouchableOpacity style={{ padding: 5, paddingLeft: 0 }} onPress={backButtonPressed}>
+                            <Text style={{ paddingLeft: 20, color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flex: .5, paddingRight: 20 }}>
-                        <TouchableOpacity style={{ width: 80, padding: 5, paddingRight: 0, textAlign: 'right', alignSelf: 'end' }} onPress={changeBill}>
+                        <TouchableOpacity style={{ padding: 5, paddingRight: 0 }} onPress={changeBill}>
                             <Text style={{ color: Colors.primaryColor, textAlign: 'right' }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View style={{ marginTop: 10, height: '100%' }}>
-                    <View style={{ flex: .1, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 10 }}>
-                        <Text style={{ fontSize: 60, textAlign: 'right' }}>{myr}<Text style={{ fontSize: 12 }}>MYR</Text></Text>
+                <View style={{ marginTop: 10, flex: 1 }}>
+                    <View style={{ flex: .1, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
+                        <Text style={{ fontSize: 20 }}>{billDetail.companyName}</Text>
+                        <Text style={{ fontSize: 16 }}>{billDetail.ref1}</Text>
+                        <Text style={{ fontSize: 12 }}>{billDetail.ref2}</Text>
                     </View>
-                    <View style={{ flex: .9, justifyContent: 'center' }}>
+                    <View style={{ flex: .2, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
+                        <Text style={{ fontSize: 60, textAlign: 'right' }}>RM{myr}</Text>
+                    </View>
+
+                    <View style={{ flex: .7, justifyContent: 'flex-end' }}>
                         <View style={{ flex: .2, flexDirection: 'row' }}>
                             {_button('1', myr, setMyr)}
                             {_button('2', myr, setMyr)}
@@ -128,7 +137,7 @@ export default function AddAmountScreen({ navigation }) {
                     </View>
                 </View>
             </View>
-        </View >
+        </ScrollView >
     );
 }
 
@@ -139,7 +148,7 @@ AddAmountScreen.path = 'amount'
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: '100%',
         paddingTop: 15,
         backgroundColor: Colors.primaryColor,
     },

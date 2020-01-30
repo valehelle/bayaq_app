@@ -55,8 +55,8 @@ export default function HomeScreen({ navigation }) {
 
   }, [])
   return (
-    <View style={styles.container}>
-      <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingHorizontal: 20 }}>
+    <ScrollView style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
+      <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
         <View style={{ justifyContent: 'center' }}>
           <Image
             style={{ width: 22, height: 22, borderRadius: 150 / 2 }}
@@ -64,12 +64,12 @@ export default function HomeScreen({ navigation }) {
           />
         </View>
         <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center', marginLeft: 10 }}>Bayaq</Text>
-        <TouchableOpacity style={{ flex: .1 }} onPress={addBillPressed}>
+        <TouchableOpacity style={{ flex: .3, paddingRight: 20 }} onPress={addBillPressed}>
           <Ionicons style={{ textAlign: 'right' }} name="ios-add" color={"white"} size={35} />
         </TouchableOpacity>
 
       </View>
-      <View style={{ backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10, height: '100%' }}>
+      <View style={{ backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
         <View style={{ flexDirection: 'row' }}>
           <Text style={{ flex: .9, fontSize: 14, fontWeight: 'bold', alignSelf: 'center', color: 'grey' }}>Bills</Text>
         </View>
@@ -89,7 +89,7 @@ export default function HomeScreen({ navigation }) {
               </TouchableOpacity>)
           })
           }
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: 20, marginBottom: 20 }}>
             <Text style={{ fontWeight: 600 }}>Total RM {Dinero({ amount: amount }).toFormat("0.00")}</Text>
             <TouchableOpacity onPress={payBillsPressed} style={{ marginTop: 10, paddingHorizontal: 10, backgroundColor: Colors.primaryColor, borderRadius: 5, paddingVertical: 10 }}>
               <Text style={{ color: 'white', fontWeight: 600, textAlign: 'center' }}>Next</Text>
@@ -98,7 +98,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </View>
 
-    </View>
+    </ScrollView>
   );
 }
 
@@ -109,7 +109,6 @@ HomeScreen.path = ''
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: Colors.primaryColor,
   },
 });

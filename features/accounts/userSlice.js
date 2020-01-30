@@ -8,14 +8,12 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         email: '',
-        phone: ''
     },
     reducers: {
         addUserInfo: {
             reducer(state, action) {
                 const { email, phone } = action.payload
                 state.email = email
-                state.phone = phone
             }
         }
     }

@@ -48,16 +48,18 @@ export default function InsertBillDetailScreen({ navigation }) {
       <View><Text style={{ color: 'white', fontSize: 16, padding: 10, fontWeight: 'bold' }}>{bill.companyName}</Text></View>
       <View style={{ backgroundColor: 'white', paddingTop: 20, height: '100%', borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: .5, paddingLeft: 20 }}>
-            <TouchableOpacity style={{ width: 50, padding: 5, paddingLeft: 0 }} onPress={backButtonPressed}>
-              <Text style={{ color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
+          <View style={{ flex: .5 }}>
+            <TouchableOpacity style={{ padding: 5, paddingLeft: 0 }} onPress={backButtonPressed}>
+              <Text style={{ marginLeft: 20, color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
             </TouchableOpacity>
           </View>
-          <View style={{ flex: .5, paddingRight: 20 }}>
-            <TouchableOpacity style={{ width: 50, padding: 5, paddingRight: 0, textAlign: 'right', alignSelf: 'end' }} onPress={createBillPressed}>
-              <Text style={{ color: Colors.primaryColor, textAlign: 'right' }}>Next</Text>
+          <View style={{ flex: .5 }}>
+            <TouchableOpacity style={{ padding: 5, paddingRight: 0 }} onPress={createBillPressed}>
+              <Text style={{ marginRight: 20, color: Colors.primaryColor, textAlign: 'right' }}>Next</Text>
             </TouchableOpacity>
           </View>
+
+
         </View>
 
         <View style={{ marginTop: 10, paddingHorizontal: 20 }}>
