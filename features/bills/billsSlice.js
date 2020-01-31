@@ -47,6 +47,7 @@ const billsSlice = createSlice({
                 const billIndex = state.list.findIndex((bill) => bill.id == newBill.id)
                 const list = state.list
                 list[billIndex] = newBill
+                state.selectedBills = list.filter((bill) => bill.amount > 0)
             }
         },
         payBills: {

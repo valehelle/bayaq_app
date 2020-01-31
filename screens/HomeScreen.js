@@ -81,7 +81,7 @@ export default function HomeScreen({ navigation }) {
                   <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.primaryColor : "lightgrey"} size={30} />
                 </View>
                 <View style={{ marginLeft: 15, flexGrow: 1, paddingLeft: 5 }}>
-                  <Text style={{ fontSize: 14, fontWeight: 600 }}>{bill.companyName}</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
                   <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != '' && ` - ${bill.ref2}`}</Text>
                   <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
                 </View>
@@ -90,9 +90,9 @@ export default function HomeScreen({ navigation }) {
           })
           }
           <View style={{ marginTop: 20, marginBottom: 20 }}>
-            <Text style={{ fontWeight: 600 }}>Total RM {Dinero({ amount: amount }).toFormat("0.00")}</Text>
+            <Text style={{ fontWeight: '600' }}>Total RM {Dinero({ amount: amount }).toFormat("0.00")}</Text>
             <TouchableOpacity onPress={payBillsPressed} style={{ marginTop: 10, paddingHorizontal: 10, backgroundColor: Colors.primaryColor, borderRadius: 5, paddingVertical: 10 }}>
-              <Text style={{ color: 'white', fontWeight: 600, textAlign: 'center' }}>Next</Text>
+              <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center' }}>Next</Text>
             </TouchableOpacity>
           </View>
         </View>

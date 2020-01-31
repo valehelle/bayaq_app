@@ -19,7 +19,7 @@ export default function InsertBillDetailScreen({ navigation }) {
     ref1: '',
     ref2: '',
     billerCode: '',
-    amount: 0
+    amount: '0.00',
   })
   useEffect(() => {
     const billDetail = navigation.getParam('bill', 'NO-ID')
@@ -68,7 +68,6 @@ export default function InsertBillDetailScreen({ navigation }) {
             maxLength={40}
             onChangeText={(text) => setBill({ ...bill, ref1: text })}
             value={bill.ref1}
-            keyboardType='decimal-pad'
             style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           {bill.type == 'TELCO' && (

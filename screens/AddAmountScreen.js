@@ -8,11 +8,14 @@ import { getBillAmountFromServerWithCallback } from '../features/bills/billsSaga
 import Colors from '../constants/Colors'
 
 const buttonPressed = (myr, setMyr, text) => {
-    if (text === '.') {
+    if (myr === '0.00') {
+        setMyr(text)
+    }
+    else if (text === '.') {
         const amount = myr.includes(".") ? myr : `${myr}.`
         setMyr(amount)
     } else if (text == 'clear') {
-        setMyr(`0`)
+        setMyr(`0.00`)
     } else {
         if (myr.includes(".")) {
             const myrArray = myr.split(".")
@@ -37,7 +40,7 @@ const _button = (text, krw, setKrw) => {
     )
 }
 export default function AddAmountScreen({ navigation }) {
-    const [myr, setMyr] = useState(0)
+    const [myr, setMyr] = useState('0.00')
     const [billDetail, setBillDetail] = useState({})
     const [billStatus, setBillStatus] = useState('UPDATE')
     const dispatch = useDispatch()
@@ -83,7 +86,6 @@ export default function AddAmountScreen({ navigation }) {
     const backButtonPressed = () => {
         navigation.goBack()
     }
-
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: Colors.primaryColor, paddingTop: 15 }}>
 

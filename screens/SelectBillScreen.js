@@ -36,9 +36,9 @@ export default function SelectBillScreen({ navigation }) {
         </View>
         <View style={{ marginTop: 10 }}>
           {lineNetwork.map((bill, index) =>
-            <View style={{ paddingLeft: 20 }} >
+            <View key={index} style={{ paddingLeft: 20 }} >
               <TouchableOpacity style={{ borderTopWidth: index != 0 ? 1 : 0, borderBottomWidth: index == lineNetwork.length - 1 ? 1 : 0, paddingVertical: 10, borderColor: "lightgrey" }} onPress={() => selectBillPressed(bill)}>
-                <Text style={{ fontWeight: 600 }}>{bill.companyName}</Text>
+                <Text style={{ fontWeight: '600' }}>{bill.companyName}</Text>
               </TouchableOpacity>
             </View>
           )}
