@@ -6,7 +6,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  TextInput
+  TextInput,
+  ScrollView
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import userSlice from '../features/accounts/userSlice'
@@ -17,16 +18,29 @@ export default function LandingScreen({ navigation }) {
   const [email, setEmail] = useState('')
   const dispatch = useDispatch()
   const submitPressed = () => {
-
-    dispatch(userAction.addUserInfo({ email, userInfoCreated }))
+    if (email != '') {
+      dispatch(userAction.addUserInfo({ email, userInfoCreated }))
+    } else {
+      alert('Please enter valid email address for invoice purpose.')
+    }
   }
   const userInfoCreated = () => {
     navigation.navigate("Main")
   }
   return (
-    <View style={styles.container}>
-      <Text style={{ marginTop: '20vh', fontWeight: 600, color: 'white', fontSize: 40 }}>Pay all your bills in once click</Text>
-      <View style={{ marginTop: 20 }}>
+    <ScrollView style={styles.container}>
+      <View style={{ height: '30vh', justifyContent: 'flex-end' }}>
+        <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
+        <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay all your bills in one click</Text>
+      </View>
+      <View style={{ height: '100vh', padding: 5, alignItems: 'center' }}>
+        <Image resizeMode='contain' style={{
+          width: '100%',
+          height: '100vh',
+        }}
+          source={require('../assets/images/dashboard.png')} />
+      </View>
+      <View style={{ marginTop: 5 }}>
         <Text style={{ color: 'white' }}>Email</Text>
         <TextInput
           maxLength={40}
@@ -35,11 +49,11 @@ export default function LandingScreen({ navigation }) {
           keyboardType='email-address'
           style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <TouchableOpacity onPress={submitPressed}>
-          <Text style={{ color: 'white', display: 'inline-block', fontSize: 20, marginTop: 10 }}>Submit</Text>
+        <TouchableOpacity style={{ marginTop: 10 }} onPress={submitPressed}>
+          <Text style={{ color: 'white', fontSize: 20, marginTop: 10, textAlign: 'center' }}>Start</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -50,9 +64,8 @@ LandingScreen.path = ''
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingHorizontal: 20,
-
+    paddingBottom: 50,
     backgroundColor: Colors.primaryColor,
   },
 });
