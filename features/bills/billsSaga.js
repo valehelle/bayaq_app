@@ -2,7 +2,7 @@ import { takeLatest, select, put, call, takeEvery, delay } from 'redux-saga/effe
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import { userInfoSelector } from '../accounts/userSlice'
-import billsSlice, { billsSelector, selectedBillsSelector } from './billsSlice'
+import billsSlice, { billsSelector, selectedBillsSelector, isSuccessBillSelector } from './billsSlice'
 import { payBill, getBillAmountAPI, wakeUp } from '../../services/api'
 
 const billsAction = billsSlice.actions
@@ -33,7 +33,11 @@ export function* getBillSaga() {
         yield put(billsAction.setBill(bills))
     }
     yield call(wakeUp)
-
+    const isSuccess = yield select(isSuccessBillSelector)
+    if (isSuccess) {
+        alert('Thank You for your payment. We will email you once all your bills have been processed')
+        yield put(billsAction.setIsSuccess({ isSuccess: false }))
+    }
 }
 
 export function* updateBillSaga({ payload }) {

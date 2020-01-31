@@ -39,6 +39,7 @@ export default function HomeScreen({ navigation }) {
     dispatch(billsAction.payBills())
   }
   useEffect(() => {
+
     dispatch(getBill())
     dispatch(getUserInfo())
     dispatch(getBillAmount())

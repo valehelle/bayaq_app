@@ -15,6 +15,12 @@ export const totalBillsAmountSelector = createSelector(
     bills => bills.selectedBills.reduce(reducer, 0)
 )
 
+export const isSuccessBillSelector = createSelector(
+    state => state.bills,
+    bills => bills.success
+)
+
+
 const reducer = (accumulator, bill) => accumulator + bill.amount;
 
 
@@ -22,9 +28,15 @@ const billsSlice = createSlice({
     name: 'bills',
     initialState: {
         list: [],
-        selectedBills: []
+        selectedBills: [],
+        success: false,
     },
     reducers: {
+        setIsSuccess: {
+            reducer(state, action) {
+                state.success = action.payload.isSuccess
+            }
+        },
         addBill: {
             reducer(state, action) {
                 const bill = action.payload

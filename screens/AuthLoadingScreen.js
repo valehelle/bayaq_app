@@ -11,9 +11,13 @@ import {
   AsyncStorage
 } from 'react-native';
 import Colors from '../constants/Colors'
+import billsSlice from '../features/bills/billsSlice'
+const billsAction = billsSlice.actions
+import { useDispatch } from 'react-redux'
+
 
 export default function AuthLoadingScreen({ navigation }) {
-
+  const dispatch = useDispatch()
   async function isLoggedIn(navigation) {
     try {
       const value = await AsyncStorage.getItem('bayaqUserInfo');
@@ -25,6 +29,10 @@ export default function AuthLoadingScreen({ navigation }) {
   }
 
   useEffect(() => {
+    const isSuccess = navigation.getParam('success', 'NO-ID') === 'NO-ID' ? false : true
+    if (isSuccess) {
+      dispatch(billsAction.setIsSuccess({ isSuccess }))
+    }
     isLoggedIn(navigation)
   }, [])
 
