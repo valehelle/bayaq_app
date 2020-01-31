@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
 import { addBill } from '../features/bills/billsSaga'
 import Dinero from 'dinero.js'
 import { getBillAmountFromServerWithCallback } from '../features/bills/billsSaga'
+import billsSlice from '../features/bills/billsSlice'
 import Colors from '../constants/Colors'
+const billsAction = billsSlice.actions
+
 
 const buttonPressed = (myr, setMyr, text) => {
     if (myr === '0.00') {
@@ -86,6 +89,14 @@ export default function AddAmountScreen({ navigation }) {
     const backButtonPressed = () => {
         navigation.goBack()
     }
+    const deleteButtonPressed = () => {
+        const result = window.confirm("Are you sure you want to delete this bill?");
+        if (result) {
+            dispatch(billsAction.removeBill({ billId: billDetail.id }))
+            navigation.goBack()
+
+        }
+    }
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: Colors.primaryColor, paddingTop: 15 }}>
 
@@ -94,12 +105,17 @@ export default function AddAmountScreen({ navigation }) {
             </View>
             <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: .5 }}>
+                    <View style={{ flex: 1 / 3 }}>
                         <TouchableOpacity style={{ padding: 5, paddingLeft: 0 }} onPress={backButtonPressed}>
                             <Text style={{ paddingLeft: 20, color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flex: .5, paddingRight: 20 }}>
+                    <View style={{ flex: 1 / 3 }}>
+                        <TouchableOpacity style={{ padding: 5, paddingLeft: 0 }} onPress={deleteButtonPressed}>
+                            <Text style={{ paddingLeft: 20, color: 'red', textAlign: 'center' }}>Delete</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 1 / 3, paddingRight: 20 }}>
                         <TouchableOpacity style={{ padding: 5, paddingRight: 0 }} onPress={changeBill}>
                             <Text style={{ color: Colors.primaryColor, textAlign: 'right' }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
                         </TouchableOpacity>

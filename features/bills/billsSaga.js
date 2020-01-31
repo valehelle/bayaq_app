@@ -119,6 +119,11 @@ export function* getBillAmountFromServerWithCallbackSaga({ payload }) {
     }
 
 }
+export function* removeBillSaga() {
+    const bills = yield select(billsSelector)
+    yield call(AsyncStorage.setItem, 'bayaqBills', JSON.stringify(bills))
+}
+
 
 export const billSaga = [
     takeLatest(addBill.type, addBillSaga),
@@ -127,5 +132,6 @@ export const billSaga = [
     takeLatest(billsAction.payBills.type, payBillsSaga),
     takeLatest(billsAction.setBill, getBillAmountSaga),
     takeEvery(getBillAmountFromServer.type, getBillAmountFromServerSaga),
-    takeLatest(getBillAmountFromServerWithCallback.type, getBillAmountFromServerWithCallbackSaga)
+    takeLatest(getBillAmountFromServerWithCallback.type, getBillAmountFromServerWithCallbackSaga),
+    takeLatest(billsAction.removeBill, removeBillSaga)
 ]

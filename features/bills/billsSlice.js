@@ -59,6 +59,13 @@ const billsSlice = createSlice({
             reducer(state, action) {
                 state.selectedBills = state.list.filter((bill) => bill.amount > 0)
             }
+        },
+        removeBill: {
+            reducer(state, action) {
+                const { billId } = action.payload
+                state.selectedBills = state.list.filter((bill) => bill.id != billId)
+                state.list = state.list.filter((bill) => bill.id != billId)
+            }
         }
     }
 })
