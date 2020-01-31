@@ -2,8 +2,8 @@ import { takeLatest, select, put, call, takeEvery, delay } from 'redux-saga/effe
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import { userInfoSelector } from '../accounts/userSlice'
-import billsSlice, { billsSelector } from './billsSlice'
-import { payBill, getBillAmountAPI } from '../../services/api'
+import billsSlice, { billsSelector, selectedBillsSelector } from './billsSlice'
+import { payBill, getBillAmountAPI, wakeUp } from '../../services/api'
 
 const billsAction = billsSlice.actions
 const uuidv4 = require('uuid/v4');
@@ -32,6 +32,7 @@ export function* getBillSaga() {
     if (bills) {
         yield put(billsAction.setBill(bills))
     }
+    yield call(wakeUp)
 
 }
 
@@ -44,7 +45,7 @@ export function* updateBillSaga({ payload }) {
 }
 
 export function* payBillsSaga() {
-    const bills = yield select(billsSelector)
+    const bills = yield select(selectedBillsSelector)
     const userInfo = yield select(userInfoSelector)
     const billsWithEmail = bills.map((bill) => { return { ...bill, email: userInfo.email, ref2: userInfo.phone } })
 

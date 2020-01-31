@@ -1,5 +1,6 @@
-const BASE_URL = 'http://localhost:3000'
-//const BASE_URL = 'https://cmms.peinfra.com/cmms-staging/mobile/aduan'
+//const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'https://boiling-island-04628.herokuapp.com'
+
 const getUrl = (path) => {
     return BASE_URL + path
 }
@@ -30,6 +31,21 @@ export const payBill = (body) => {
 
     return fetchRequest(path, config)
 }
+
+export const wakeUp = () => {
+
+    const path = '/wakeup'
+    const config = {
+        method: 'get',
+        "headers": {
+            ...headers,
+        },
+    }
+
+
+    return fetchRequest(path, config)
+}
+
 export const getBillAmountAPI = (body) => {
 
     const path = `/bill/amount?billerCode=${body.billerCode}&account=${body.account}`
