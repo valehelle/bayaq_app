@@ -10,6 +10,7 @@ import {
   View,
   AsyncStorage
 } from 'react-native';
+import Colors from '../constants/Colors'
 
 export default function AuthLoadingScreen({ navigation }) {
 
@@ -43,7 +44,6 @@ AuthLoadingScreen.path = ''
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 400,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.primaryColor,
   },
 });
