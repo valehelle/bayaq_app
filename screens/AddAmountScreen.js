@@ -105,17 +105,19 @@ export default function AddAmountScreen({ navigation }) {
             </View>
             <View style={{ flex: 1, backgroundColor: 'white', paddingTop: 20, borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
                 <View style={{ flexDirection: 'row' }}>
-                    <View style={{ flex: 1 / 3 }}>
+                    <View style={{ flex: billStatus != "UPDATE" ? .5 : 1 / 3 }}>
                         <TouchableOpacity style={{ padding: 5, paddingLeft: 0 }} onPress={backButtonPressed}>
                             <Text style={{ paddingLeft: 20, color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flex: 1 / 3 }}>
-                        <TouchableOpacity style={{ padding: 5, paddingLeft: 0 }} onPress={deleteButtonPressed}>
-                            <Text style={{ paddingLeft: 20, color: 'red', textAlign: 'center' }}>Delete</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ flex: 1 / 3, paddingRight: 20 }}>
+                    {billStatus === 'UPDATE' &&
+                        <View style={{ flex: 1 / 3 }}>
+                            <TouchableOpacity style={{ padding: 5, paddingLeft: 0 }} onPress={deleteButtonPressed}>
+                                <Text style={{ paddingLeft: 20, color: 'red', textAlign: 'center' }}>Delete</Text>
+                            </TouchableOpacity>
+                        </View>}
+
+                    <View style={{ flex: billStatus != "UPDATE" ? .5 : 1 / 3, paddingRight: 20 }}>
                         <TouchableOpacity style={{ padding: 5, paddingRight: 0 }} onPress={changeBill}>
                             <Text style={{ color: Colors.primaryColor, textAlign: 'right' }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
                         </TouchableOpacity>
