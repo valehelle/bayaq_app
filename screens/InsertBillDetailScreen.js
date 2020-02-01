@@ -68,6 +68,8 @@ export default function InsertBillDetailScreen({ navigation }) {
             maxLength={40}
             onChangeText={(text) => setBill({ ...bill, ref1: text })}
             value={bill.ref1}
+            keyboardType='phone-pad'
+            placeholder='12948847628383'
             style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           {bill.type == 'TELCO' && (
@@ -76,6 +78,8 @@ export default function InsertBillDetailScreen({ navigation }) {
               <TextInput
                 maxLength={40}
                 value={bill.ref2}
+                keyboardType='phone-pad'
+                placeholder='0173566778'
                 onChangeText={(text) => setBill({ ...bill, ref2: text })}
                 style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
               />

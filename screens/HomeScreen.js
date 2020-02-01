@@ -22,6 +22,7 @@ export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch()
   const bills = useSelector(state => billsSelector(state))
   const amount = useSelector(state => totalBillsAmountSelector(state))
+
   const selectedBills = useSelector(state => selectedBillsSelector(state))
 
 
@@ -36,7 +37,16 @@ export default function HomeScreen({ navigation }) {
     navigation.navigate('AddAmount', { bill: newBill, billStatus: 'UPDATE' })
   }
   const payBillsPressed = () => {
-    dispatch(billsAction.payBills())
+    if (selectedBills.length >= 2) {
+      if (amount <= 50000) {
+        dispatch(billsAction.payBills())
+      } else {
+        alert('For now we only allow payment up to RM500.')
+      }
+    } else {
+      alert('You need to pay a minimum of 2 bills.')
+    }
+
   }
   useEffect(() => {
 
@@ -58,7 +68,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
-        <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center', marginLeft: 10 }}>Bayaq</Text>
+        <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center' }}>Bayaq</Text>
         <TouchableOpacity style={{ flex: .3, paddingRight: 20 }} onPress={addBillPressed}>
           <Ionicons style={{ textAlign: 'right' }} name="ios-add" color={"white"} size={35} />
         </TouchableOpacity>

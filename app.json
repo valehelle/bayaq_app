@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "bayaq",
+    "name": "Bayaq",
     "slug": "bayaq_app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -15,8 +15,13 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#3F51B5"
     },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#3F51B5"
+    },
+    "primaryColor": "#3F51B5",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
