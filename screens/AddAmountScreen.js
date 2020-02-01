@@ -10,8 +10,10 @@ import Colors from '../constants/Colors'
 const billsAction = billsSlice.actions
 
 
-const buttonPressed = (myr, setMyr, text) => {
-    if (myr === '0.00') {
+const buttonPressed = (myr, setMyr, text, setFirstTime, firstTime) => {
+
+    if (myr === '0.00' || firstTime) {
+        setFirstTime(false)
         setMyr(text)
     }
     else if (text === '.') {
@@ -33,10 +35,10 @@ const buttonPressed = (myr, setMyr, text) => {
     }
 
 }
-const _button = (text, krw, setKrw) => {
+const _button = (text, krw, setKrw, setFirstTime, firstTime) => {
     return (
         <View style={{ flex: 1 / 3, alignItems: 'center', justifyContent: 'center', padding: .5, backgroundColor: 'silver' }}>
-            <TouchableOpacity style={{ backgroundColor: 'grey', width: '100%', height: '100%', justifyContent: 'center' }} onPress={() => buttonPressed(krw, setKrw, text)}>
+            <TouchableOpacity style={{ backgroundColor: 'grey', width: '100%', height: '100%', justifyContent: 'center' }} onPress={() => buttonPressed(krw, setKrw, text, setFirstTime, firstTime)}>
                 <Text style={{ textAlign: 'center', fontSize: 35, color: 'white' }}>{text}</Text>
             </TouchableOpacity>
         </View >
@@ -46,6 +48,7 @@ export default function AddAmountScreen({ navigation }) {
     const [myr, setMyr] = useState('0.00')
     const [billDetail, setBillDetail] = useState({})
     const [billStatus, setBillStatus] = useState('UPDATE')
+    const [firstTime, setFirstTime] = useState(true)
     const dispatch = useDispatch()
 
     const changeBill = () => {
@@ -126,8 +129,7 @@ export default function AddAmountScreen({ navigation }) {
                 <View style={{ marginTop: 10, flex: 1 }}>
                     <View style={{ flex: .1, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
                         <Text style={{ fontSize: 20 }}>{billDetail.companyName}</Text>
-                        <Text style={{ fontSize: 16 }}>{billDetail.ref1}</Text>
-                        <Text style={{ fontSize: 12 }}>{billDetail.ref2}</Text>
+                        <Text style={{ fontSize: 16 }}>{billDetail.ref1}{billDetail.ref2 != '' && ` (${billDetail.ref2})`}</Text>
                     </View>
                     <View style={{ flex: .2, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
                         <Text style={{ fontSize: 60, textAlign: 'right' }}>RM{myr}</Text>
@@ -135,24 +137,24 @@ export default function AddAmountScreen({ navigation }) {
 
                     <View style={{ flex: .7, justifyContent: 'flex-end' }}>
                         <View style={{ flex: .2, flexDirection: 'row' }}>
-                            {_button('1', myr, setMyr)}
-                            {_button('2', myr, setMyr)}
-                            {_button('3', myr, setMyr)}
+                            {_button('1', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('2', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('3', myr, setMyr, setFirstTime, firstTime)}
                         </View>
                         <View style={{ flex: .2, flexDirection: 'row' }}>
-                            {_button('4', myr, setMyr)}
-                            {_button('5', myr, setMyr)}
-                            {_button('6', myr, setMyr)}
+                            {_button('4', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('5', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('6', myr, setMyr, setFirstTime, firstTime)}
                         </View>
                         <View style={{ flex: .2, flexDirection: 'row' }}>
-                            {_button('7', myr, setMyr)}
-                            {_button('8', myr, setMyr)}
-                            {_button('9', myr, setMyr)}
+                            {_button('7', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('8', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('9', myr, setMyr, setFirstTime, firstTime)}
                         </View>
                         <View style={{ flex: .2, flexDirection: 'row' }}>
-                            {_button('clear', myr, setMyr)}
-                            {_button('0', myr, setMyr)}
-                            {_button('.', myr, setMyr)}
+                            {_button('clear', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('0', myr, setMyr, setFirstTime, firstTime)}
+                            {_button('.', myr, setMyr, setFirstTime, firstTime)}
                         </View>
                     </View>
                 </View>
