@@ -38,7 +38,7 @@ export default function AuthLoadingScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text>Loading</Text>
+      <Text style={{ textAlign: 'center', color: 'white', fontSize: 40, fontWeight: 'bold' }}>BAYAQ</Text>
     </View>
   );
 }
@@ -53,5 +53,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primaryColor,
+    justifyContent: 'center'
   },
 });
