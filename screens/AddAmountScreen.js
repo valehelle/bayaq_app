@@ -13,8 +13,13 @@ const billsAction = billsSlice.actions
 const buttonPressed = (myr, setMyr, text, setFirstTime, firstTime) => {
 
     if (myr === '0.00' || firstTime) {
-        setFirstTime(false)
-        setMyr(text)
+        if (text != 'clear') {
+            setFirstTime(false)
+            setMyr(text)
+        } else {
+            setMyr(`0.00`)
+        }
+
     }
     else if (text === '.') {
         const amount = myr.includes(".") ? myr : `${myr}.`
@@ -53,7 +58,8 @@ export default function AddAmountScreen({ navigation }) {
 
     const changeBill = () => {
         const billStatus = navigation.getParam('billStatus', 'NO-ID')
-        const amount = Dinero({ amount: parseFloat(myr) * 100, currency: 'MYR' }).getAmount()
+        const floatAmount = (parseFloat(myr) * 100).toFixed(0)
+        const amount = Dinero({ amount: parseInt(floatAmount), currency: 'MYR' }).getAmount()
         const newBill = { ...billDetail, amount: amount }
         if (billStatus == 'UPDATE') {
             dispatch(updateBill({ bill: newBill, billCreated }))
