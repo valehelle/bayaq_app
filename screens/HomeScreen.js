@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
-        <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center' }}>Bayaq</Text>
+        <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center' }}>eBayaq</Text>
         <TouchableOpacity style={{ flex: .3, paddingRight: 20 }} onPress={addBillPressed}>
           <Ionicons style={{ textAlign: 'right' }} name="ios-add" color={"white"} size={35} />
         </TouchableOpacity>
