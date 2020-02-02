@@ -51,7 +51,7 @@ export function* updateBillSaga({ payload }) {
 export function* payBillsSaga() {
     const bills = yield select(selectedBillsSelector)
     const userInfo = yield select(userInfoSelector)
-    const billsWithEmail = bills.map((bill) => { return { ...bill, email: userInfo.email, ref2: userInfo.phone } })
+    const billsWithEmail = bills.map((bill) => { return { ...bill, email: userInfo.email } })
 
     const body = {
         email: userInfo.email,
@@ -60,7 +60,7 @@ export function* payBillsSaga() {
     const response = yield call(payBill, body)
     if (response.ok) {
         const payload = yield response.json()
-        const stripe = Stripe('pk_test_Uxe4unnl26w2juaWX7YErdfg00CmH5qqg0')
+        const stripe = Stripe('pk_live_zfDeWPmspcM0S1ZrT2KSyoBg00EpWFojAP')
         stripe.redirectToCheckout({
             // Make the id field from the Checkout Session creation API response
             // available to this file, so you can provide it as parameter here
