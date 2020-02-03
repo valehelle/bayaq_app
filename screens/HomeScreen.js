@@ -44,7 +44,13 @@ export default function HomeScreen({ navigation }) {
   const payBillsPressed = () => {
     if (selectedBills.length >= 2) {
       if (amount <= 50000) {
-        dispatch(billsAction.payBills())
+        const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
+        if (allBillsFinishedLoading == undefined) {
+          dispatch(billsAction.payBills())
+        } else {
+          alert('Please wait until all bills finish getting the latest data.')
+        }
+
       } else {
         alert('For now we only allow payment up to RM500.')
       }
