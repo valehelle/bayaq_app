@@ -86,12 +86,18 @@ export function* getBillAmountSaga() {
 }
 
 export function* getBillAmountFromServerSaga({ payload }) {
-    const { billerCode, ref1 } = payload
+    const { billerCode, ref1, id } = payload
 
     const body = {
         account: ref1,
         billerCode
     }
+    const param = {
+        id,
+        loading: true
+    }
+
+    yield put(billsAction.setBillStatus(param))
 
     const response = yield call(getBillAmountAPI, body)
 
@@ -104,6 +110,12 @@ export function* getBillAmountFromServerSaga({ payload }) {
         yield put(updateBill({ bill, billCreated: () => { } }))
 
     }
+    const loadingParam = {
+        id,
+        loading: false
+    }
+
+    yield put(billsAction.setBillStatus(loadingParam))
 
 }
 
@@ -121,8 +133,9 @@ export function* getBillAmountFromServerWithCallbackSaga({ payload }) {
         const { amount } = yield response.json()
         callback({ amount })
 
+    } else {
+        callback({ amount: 0 })
     }
-
 }
 export function* removeBillSaga() {
     const bills = yield select(billsSelector)

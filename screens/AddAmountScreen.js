@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
 import { addBill } from '../features/bills/billsSaga'
@@ -54,18 +54,22 @@ export default function AddAmountScreen({ navigation }) {
     const [billDetail, setBillDetail] = useState({})
     const [billStatus, setBillStatus] = useState('UPDATE')
     const [firstTime, setFirstTime] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch()
 
     const changeBill = () => {
-        const billStatus = navigation.getParam('billStatus', 'NO-ID')
-        const floatAmount = (parseFloat(myr) * 100).toFixed(0)
-        const amount = Dinero({ amount: parseInt(floatAmount), currency: 'MYR' }).getAmount()
-        const newBill = { ...billDetail, amount: amount }
-        if (billStatus == 'UPDATE') {
-            dispatch(updateBill({ bill: newBill, billCreated }))
-        } else {
-            dispatch(addBill({ bill: newBill, billCreated }))
+        if (!isLoading) {
+            const billStatus = navigation.getParam('billStatus', 'NO-ID')
+            const floatAmount = (parseFloat(myr) * 100).toFixed(0)
+            const amount = Dinero({ amount: parseInt(floatAmount), currency: 'MYR' }).getAmount()
+            const newBill = { ...billDetail, amount: amount }
+            if (billStatus == 'UPDATE') {
+                dispatch(updateBill({ bill: newBill, billCreated }))
+            } else {
+                dispatch(addBill({ bill: newBill, billCreated }))
+            }
         }
+
     }
     useEffect(() => {
         const billDetail = navigation.getParam('bill', 'NO-ID')
@@ -79,7 +83,9 @@ export default function AddAmountScreen({ navigation }) {
             setMyr(billDetail.amount.toString())
             if (billStatus != 'UPDATE') {
                 if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454) {
+
                     dispatch(getBillAmountFromServerWithCallback({ bill: billDetail, callback: updateAmount }))
+                    setIsLoading(true)
                 }
                 setBillStatus('CREATE')
             } else {
@@ -91,6 +97,7 @@ export default function AddAmountScreen({ navigation }) {
     const updateAmount = ({ amount }) => {
         const newAmount = Dinero({ amount: amount }).toFormat("0.00")
         if (amount > 0) setMyr(newAmount.toString())
+        setIsLoading(false)
     }
     const billCreated = () => {
         navigation.navigate('Home', { bill: null })
@@ -133,12 +140,17 @@ export default function AddAmountScreen({ navigation }) {
                     </View>
                 </View>
                 <View style={{ marginTop: 10, flex: 1 }}>
+
                     <View style={{ flex: .1, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
                         <Text style={{ fontSize: 20 }}>{billDetail.companyName}</Text>
                         <Text style={{ fontSize: 16 }}>{billDetail.ref1}{billDetail.ref2 != '' && ` (${billDetail.ref2})`}</Text>
                     </View>
                     <View style={{ flex: .2, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
-                        <Text style={{ fontSize: 60, textAlign: 'right' }}>RM{myr}</Text>
+                        {
+                            isLoading ?
+                                <ActivityIndicator size='large' color={Colors.primaryColor} /> :
+                                <Text style={{ fontSize: 60, textAlign: 'right' }}>RM{myr}</Text>
+                        }
                     </View>
 
                     <View style={{ flex: .7, justifyContent: 'flex-end' }}>

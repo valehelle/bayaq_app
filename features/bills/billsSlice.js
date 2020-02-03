@@ -32,6 +32,18 @@ const billsSlice = createSlice({
         success: false,
     },
     reducers: {
+        setBillStatus: {
+            reducer(state, action) {
+                const { id, loading } = action.payload
+                const bills = state.list
+                state.list = bills.map((bill) => {
+                    const newLoading = bill.id === id ? loading : bill.loading ? bill.loading : false
+                    return { ...bill, loading: newLoading }
+                }
+                )
+
+            }
+        },
         setIsSuccess: {
             reducer(state, action) {
                 state.success = action.payload.isSuccess

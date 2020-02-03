@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 import billsSlice, { billsSelector, totalBillsAmountSelector, selectedBillsSelector } from '../features/bills/billsSlice'
@@ -28,6 +29,10 @@ export default function HomeScreen({ navigation }) {
 
   const isBillSelected = (id) => {
     return selectedBills.filter((bill) => bill.id == id).length > 0 ? true : false
+  }
+
+  const isBillLoading = (id) => {
+    return bills.find((bill) => bill.id == id).loading
   }
   const addBillPressed = () => {
     navigation.navigate('SelectBill')
@@ -81,17 +86,18 @@ export default function HomeScreen({ navigation }) {
         <View>
           {bills.length > 0 && bills.map((bill) => {
             return (
-              <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => billPressed(bill)} >
+              <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
                 <View style={{}}>
-                  <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.primaryColor : "lightgrey"} size={30} />
+                  {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.primaryColor} style={{ paddingTop: 5 }} /> : <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.primaryColor : "lightgrey"} size={31} />}
                 </View>
                 <View style={{ marginLeft: 15, flexGrow: 1, paddingLeft: 5 }}>
                   <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
                   <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != '' && ` (${bill.ref2})`}</Text>
                   <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
-                </View>
 
-              </TouchableOpacity>)
+                </View>
+              </TouchableOpacity>
+            )
           })
           }
           <View style={{ marginTop: 20, marginBottom: 20 }}>
@@ -104,7 +110,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </View>
 
-    </ScrollView>
+    </ScrollView >
   );
 }
 
