@@ -24,6 +24,9 @@ export default function LandingScreen({ navigation }) {
       alert('Please enter valid email address for invoice purpose.')
     }
   }
+  const termsPressed = () => {
+    navigation.navigate("TermsAndCondition")
+  }
   const userInfoCreated = () => {
     navigation.navigate("Main")
   }
@@ -51,6 +54,9 @@ export default function LandingScreen({ navigation }) {
         />
         <TouchableOpacity style={{ marginTop: 10 }} onPress={submitPressed}>
           <Text style={{ color: 'white', fontSize: 20, marginTop: 10, textAlign: 'center' }}>Start</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ marginTop: 10 }} onPress={termsPressed}>
+          <Text style={{ color: 'white', fontSize: 20, marginTop: 10, textAlign: 'center' }}>Terms and condition</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

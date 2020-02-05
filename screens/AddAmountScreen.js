@@ -82,7 +82,7 @@ export default function AddAmountScreen({ navigation }) {
             setBillDetail(billDetail)
             setMyr(billDetail.amount.toString())
             if (billStatus != 'UPDATE') {
-                if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454) {
+                if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454 || billDetail.billerCode == 4200) {
 
                     dispatch(getBillAmountFromServerWithCallback({ bill: billDetail, callback: updateAmount }))
                     setIsLoading(true)
@@ -96,7 +96,7 @@ export default function AddAmountScreen({ navigation }) {
     }, [])
     const updateAmount = ({ amount }) => {
         const newAmount = Dinero({ amount: amount }).toFormat("0.00")
-        if (amount > 0) setMyr(newAmount.toString())
+        setMyr(newAmount.toString())
         setIsLoading(false)
     }
     const billCreated = () => {

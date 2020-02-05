@@ -38,7 +38,7 @@ export const lineNetwork = [
     },
     {
         companyName: 'Air Selangor',
-        billerCode: '2881',
+        billerCode: '4200',
         location: 'Selangor'
     },
 ]

@@ -78,7 +78,7 @@ export function* payBillsSaga() {
 
 export function* getBillAmountSaga() {
     const bills = yield select(billsSelector)
-    const selectedBills = bills.filter((bill) => bill.billerCode == 68502 || bill.billerCode == 5454)
+    const selectedBills = bills.filter((bill) => bill.billerCode == 68502 || bill.billerCode == 5454 || bill.billerCode == 4200)
     for (let i = 0; i < selectedBills.length; i++) {
         const bill = selectedBills[i]
         yield put(getBillAmountFromServer(bill))
@@ -103,6 +103,7 @@ export function* getBillAmountFromServerSaga({ payload }) {
 
     if (response.ok) {
         const { amount } = yield response.json()
+
         const bill = {
             ...payload,
             amount: amount
