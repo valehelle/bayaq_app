@@ -18,7 +18,7 @@ export default function TermsAndConditionScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>eBayaq</Text></TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Landing')}><Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>eBayaq</Text></TouchableOpacity>
       <Text style={{ marginTop: 20, color: 'white', fontSize: 14, fontWeight: 'bold' }}>Terms and Condition</Text>
       <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>As a condition of use, you will allow eBayaq to pay bills on your behalf.</Text>
       <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>eBayaq will not be responsible for incorrect bill amount or account paid made by you.</Text>
@@ -33,7 +33,7 @@ TermsAndConditionScreen.navigationOptions = {
   header: null,
 };
 
-TermsAndConditionScreen.path = '/terms'
+TermsAndConditionScreen.path = '/terms_and_conditions'
 
 const styles = StyleSheet.create({
   container: {

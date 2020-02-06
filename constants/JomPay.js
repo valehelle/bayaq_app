@@ -2,6 +2,11 @@
 
 export const lineNetwork = [
     {
+        companyName: 'Tenaga Nasional Berhad',
+        billerCode: '5454',
+        type: 'UTILITY'
+    },
+    {
         companyName: 'Celcom',
         billerCode: '2881',
         type: 'TELCO'
@@ -17,6 +22,11 @@ export const lineNetwork = [
         type: 'TELCO'
     },
     {
+        companyName: 'Umobile',
+        billerCode: '1016',
+        type: 'TELCO'
+    },
+    {
         companyName: 'Unifi',
         billerCode: '8888',
         type: 'INTERNET'
@@ -25,11 +35,6 @@ export const lineNetwork = [
         companyName: 'Streamyx',
         billerCode: '2345',
         type: 'INTERNET'
-    },
-    {
-        companyName: 'Tenaga Nasional Berhad',
-        billerCode: '5454',
-        type: 'UTILITY'
     },
     {
         companyName: 'Indah Water',
