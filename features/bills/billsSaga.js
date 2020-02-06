@@ -35,7 +35,6 @@ export function* getBillSaga() {
     yield call(wakeUp)
     const isSuccess = yield select(isSuccessBillSelector)
     if (isSuccess) {
-        alert('Thank You for your payment. We will email you once all your bills have been processed')
         yield put(billsAction.setIsSuccess({ isSuccess: false }))
     }
 }

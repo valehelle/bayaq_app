@@ -11,7 +11,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
-import billsSlice, { billsSelector, totalBillsAmountSelector, selectedBillsSelector } from '../features/bills/billsSlice'
+import billsSlice, { billsSelector, totalBillsAmountSelector, selectedBillsSelector, isSuccessBillSelector } from '../features/bills/billsSlice'
 import { getBill, getBillAmount } from '../features/bills/billsSaga'
 import { getUserInfo } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch()
   const bills = useSelector(state => billsSelector(state))
   const amount = useSelector(state => totalBillsAmountSelector(state))
-
+  const isSuccess = useSelector(state => isSuccessBillSelector(state))
   const selectedBills = useSelector(state => selectedBillsSelector(state))
 
 
@@ -64,8 +64,10 @@ export default function HomeScreen({ navigation }) {
     dispatch(getBill())
     dispatch(getUserInfo())
     dispatch(getBillAmount())
-    const script = document.createElement('script');
 
+    isSuccess && navigation.navigate("Success")
+
+    const script = document.createElement('script');
     script.src = "https://js.stripe.com/v3/";
     script.async = true;
 

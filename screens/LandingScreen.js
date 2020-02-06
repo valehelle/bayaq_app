@@ -43,7 +43,7 @@ export default function LandingScreen({ navigation }) {
         }}
           source={require('../assets/images/dashboard.png')} />
       </View>
-      <View style={{ marginTop: 5 }}>
+      <View>
         <Text style={{ color: 'white' }}>Email</Text>
         <TextInput
           maxLength={40}
@@ -52,12 +52,15 @@ export default function LandingScreen({ navigation }) {
           keyboardType='email-address'
           style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <TouchableOpacity style={{ marginTop: 10 }} onPress={submitPressed}>
-          <Text style={{ color: 'white', fontSize: 20, marginTop: 10, textAlign: 'center' }}>Start</Text>
+        <TouchableOpacity style={{ marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
+          <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Start</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginTop: 10 }} onPress={termsPressed}>
-          <Text style={{ color: 'white', fontSize: 20, marginTop: 10, textAlign: 'center' }}>Terms and condition</Text>
-        </TouchableOpacity>
+
+        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
+          By clicking submit you are agreeing to the<Text> </Text>
+          <TouchableOpacity onPress={termsPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text></TouchableOpacity>.
+        </Text>
+
       </View>
     </ScrollView>
   );
