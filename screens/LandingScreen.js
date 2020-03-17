@@ -16,10 +16,11 @@ const userAction = userSlice.actions
 
 export default function LandingScreen({ navigation }) {
   const [email, setEmail] = useState('')
+  const [fullName, setFullName] = useState('')
   const dispatch = useDispatch()
   const submitPressed = () => {
     if (email != '') {
-      dispatch(userAction.addUserInfo({ email, userInfoCreated }))
+      dispatch(userAction.addUserInfo({ fullName, email, userInfoCreated }))
     } else {
       alert('Please enter valid email address for invoice purpose.')
     }
@@ -44,7 +45,14 @@ export default function LandingScreen({ navigation }) {
           source={require('../assets/images/dashboard.png')} />
       </View>
       <View>
-        <Text style={{ color: 'white' }}>Email</Text>
+        <Text style={{ color: 'white' }}>Full Name:</Text>
+        <TextInput
+          maxLength={40}
+          onChangeText={(text) => setFullName(text)}
+          value={fullName}
+          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+        />
+        <Text style={{ color: 'white', marginTop: 10 }}>Email:</Text>
         <TextInput
           maxLength={40}
           onChangeText={(text) => setEmail(text)}

@@ -67,16 +67,6 @@ export default function HomeScreen({ navigation }) {
 
     isSuccess && navigation.navigate("Success")
 
-    const script = document.createElement('script');
-    script.src = "https://js.stripe.com/v3/";
-    script.async = true;
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    }
-
   }, [])
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>

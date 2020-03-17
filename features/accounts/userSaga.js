@@ -8,8 +8,8 @@ export const getUserInfo = createAction(`${userSlice.name}/getUserInfo`)
 
 
 export function* saveUserInfoSaga({ payload }) {
-    const { email, userInfoCreated } = payload
-    yield call(AsyncStorage.setItem, 'bayaqUserInfo', JSON.stringify({ email }))
+    const { fullName, email, userInfoCreated } = payload
+    yield call(AsyncStorage.setItem, 'bayaqUserInfo', JSON.stringify({ email, fullName }))
     userInfoCreated()
 }
 export function* getUserInfoSaga() {

@@ -29,9 +29,12 @@ export default function AuthLoadingScreen({ navigation }) {
   }
 
   useEffect(() => {
-    const isSuccess = navigation.getParam('success', 'NO-ID') === 'NO-ID' ? false : true
+    const isSuccess = navigation.getParam('billplz[paid]', 'NO-ID') === 'NO-ID' ? false : true
     if (isSuccess) {
-      dispatch(billsAction.setIsSuccess({ isSuccess }))
+      const isPaid = navigation.getParam('billplz[paid]', 'NO-ID') === 'true' ? true : false
+      if (isPaid) {
+        dispatch(billsAction.setIsSuccess({ isSuccess }))
+      }
     }
     isLoggedIn(navigation)
   }, [])
