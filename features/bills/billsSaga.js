@@ -4,6 +4,7 @@ import { createAction } from '@reduxjs/toolkit'
 import { userInfoSelector } from '../accounts/userSlice'
 import billsSlice, { billsSelector, selectedBillsSelector, isSuccessBillSelector } from './billsSlice'
 import { payBill, getBillAmountAPI, wakeUp, getBillsAPI, createBillAPI, deleteBillAPI, updateBillAPI } from '../../services/api'
+import { v4 as uuidv4 } from 'uuid';
 
 const billsAction = billsSlice.actions
 
@@ -71,7 +72,11 @@ export function* getBillSaga() {
 export function* payBillsSaga() {
     const bills = yield select(selectedBillsSelector)
     const userInfo = yield select(userInfoSelector)
-    const billsWithEmail = bills.map((bill) => { return { ...bill, email: userInfo.email } })
+    const billsWithEmail = bills.map((bill) => {
+        const { ref1, ref2, amount, companyName, billerCode } = bill
+        return { ref1, ref2, amount, id: uuidv4(), companyName, billerCode }
+    }
+    )
 
     const body = {
         bills: billsWithEmail
