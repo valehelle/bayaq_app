@@ -9,7 +9,8 @@ const userSlice = createSlice({
     name: 'user',
     initialState: {
         email: '',
-        fullName: ''
+        fullName: '',
+        token: ''
     },
     reducers: {
         addUserInfo: {
@@ -17,6 +18,12 @@ const userSlice = createSlice({
                 const { email, fullName } = action.payload
                 state.email = email
                 state.fullName = fullName
+            }
+        },
+        setUserToken: {
+            reducer(state, action) {
+                const { token } = action.payload
+                state.token = token
             }
         }
     }

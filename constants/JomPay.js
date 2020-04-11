@@ -39,12 +39,14 @@ export const lineNetwork = [
     {
         companyName: 'Indah Water',
         billerCode: '68502',
-        location: 'Malaysia'
+        location: 'Malaysia',
+        type: 'UTILITY'
     },
     {
         companyName: 'Air Selangor',
         billerCode: '4200',
-        location: 'Selangor'
+        location: 'Selangor',
+        type: 'UTILITY'
     },
 ]
 

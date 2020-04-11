@@ -1,5 +1,5 @@
-//const BASE_URL = 'http://localhost:3000'
-const BASE_URL = 'https://boiling-island-04628.herokuapp.com'
+const BASE_URL = 'http://localhost:3000'
+//const BASE_URL = 'https://boiling-island-04628.herokuapp.com'
 
 const getUrl = (path) => {
     return BASE_URL + path
@@ -17,12 +17,13 @@ const fetchRequest = (path, config) => {
 }
 
 
-export const payBill = (body) => {
+export const payBill = (body, token) => {
 
     const path = '/pay_bills'
     const config = {
         method: 'POST',
         "headers": {
+            'Authorization': `Bearer ${token}`,
             ...headers,
         },
         body: JSON.stringify({ ...body })
@@ -54,6 +55,100 @@ export const getBillAmountAPI = (body) => {
         "headers": {
             ...headers,
         },
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+export const registerAPI = (body) => {
+
+    const path = `/users/sign_up`
+    const config = {
+        method: 'POST',
+        "headers": {
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+export const loginAPI = (body) => {
+
+    const path = `/users/sign_in`
+    const config = {
+        method: 'POST',
+        "headers": {
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+
+export const createBillAPI = (body, token) => {
+
+    const path = `/bills`
+    const config = {
+        method: 'POST',
+        "headers": {
+            'Authorization': `Bearer ${token}`,
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+export const deleteBillAPI = (body, token) => {
+
+    const path = `/bills`
+    const config = {
+        method: 'DELETE',
+        "headers": {
+            'Authorization': `Bearer ${token}`,
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+export const updateBillAPI = (body, token) => {
+
+    const path = `/bills`
+    const config = {
+        method: 'PUT',
+        "headers": {
+            'Authorization': `Bearer ${token}`,
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+export const getBillsAPI = (token) => {
+
+    const path = `/bills`
+    const config = {
+        method: 'GET',
+        "headers": {
+            'Authorization': `Bearer ${token}`,
+            ...headers,
+        }
     }
 
 

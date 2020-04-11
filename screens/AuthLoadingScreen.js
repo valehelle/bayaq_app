@@ -20,7 +20,7 @@ export default function AuthLoadingScreen({ navigation }) {
   const dispatch = useDispatch()
   async function isLoggedIn(navigation) {
     try {
-      const value = await AsyncStorage.getItem('bayaqUserInfo');
+      const value = await AsyncStorage.getItem('bayaqUserToken');
       navigation.navigate(value ? 'Main' : 'Landing');
     } catch (error) {
       console.log(error)

@@ -12,6 +12,9 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 import billsSlice, { billsSelector, totalBillsAmountSelector, selectedBillsSelector, isSuccessBillSelector } from '../features/bills/billsSlice'
+
+import { userInfoSelector } from '../features/accounts/userSlice'
+
 import { getBill, getBillAmount } from '../features/bills/billsSaga'
 import { getUserInfo } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
@@ -22,6 +25,7 @@ import Colors from '../constants/Colors'
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch()
   const bills = useSelector(state => billsSelector(state))
+  const userInfo = useSelector(state => userInfoSelector(state))
   const amount = useSelector(state => totalBillsAmountSelector(state))
   const isSuccess = useSelector(state => isSuccessBillSelector(state))
   const selectedBills = useSelector(state => selectedBillsSelector(state))
@@ -60,14 +64,24 @@ export default function HomeScreen({ navigation }) {
 
   }
   useEffect(() => {
-
-    dispatch(getBill())
     dispatch(getUserInfo())
-    dispatch(getBillAmount())
-
     isSuccess && navigation.navigate("Success")
 
   }, [])
+
+  useEffect(() => {
+    if (userInfo.token != '') {
+      dispatch(getBill())
+    }
+
+
+  }, [userInfo.token])
+
+  useEffect(() => {
+    dispatch(getBillAmount())
+  }, [bills])
+
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
@@ -90,7 +104,7 @@ export default function HomeScreen({ navigation }) {
                 </View>
                 <View style={{ marginLeft: 15, flexGrow: 1, paddingLeft: 5 }}>
                   <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
-                  <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != '' && ` (${bill.ref2})`}</Text>
+                  <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
                   <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
 
                 </View>

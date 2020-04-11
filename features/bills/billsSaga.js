@@ -3,10 +3,9 @@ import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import { userInfoSelector } from '../accounts/userSlice'
 import billsSlice, { billsSelector, selectedBillsSelector, isSuccessBillSelector } from './billsSlice'
-import { payBill, getBillAmountAPI, wakeUp } from '../../services/api'
+import { payBill, getBillAmountAPI, wakeUp, getBillsAPI, createBillAPI, deleteBillAPI, updateBillAPI } from '../../services/api'
 
 const billsAction = billsSlice.actions
-const uuidv4 = require('uuid/v4');
 
 
 export const addBill = createAction(`${billsSlice.name}/addBillSaga`)
@@ -17,35 +16,57 @@ export const getBillAmountFromServer = createAction(`${billsSlice.name}/getBillA
 export const getBillAmountFromServerWithCallback = createAction(`${billsSlice.name}/getBillAmountFromServerWithCallbackSaga`)
 
 export function* addBillSaga({ payload }) {
-    const { bill, billCreated } = payload
-    const billId = uuidv4()
-    const billWithId = { ...bill, id: billId }
-    yield put(billsAction.addBill(billWithId))
-    const bills = yield select(billsSelector)
-    yield call(AsyncStorage.setItem, 'bayaqBills', JSON.stringify(bills))
-    billCreated()
+    const userInfo = yield select(userInfoSelector)
+    const { billCreated } = payload
+    const { ref1, ref2, companyName, billerCode, type, amount } = payload.bill
+    const param = {
+        ref1,
+        ref2,
+        type,
+        amount,
+        company_name: companyName,
+        biller_code: billerCode,
+    }
+    const response = yield call(createBillAPI, param, userInfo.token)
+    if (response.ok) {
+        yield put(getBill())
+        billCreated()
+    } else {
+        alert('Ops please try again later.')
+    }
+
 }
+
+
+
 
 export function* getBillSaga() {
-    const billsString = yield call(AsyncStorage.getItem, 'bayaqBills')
-    const bills = JSON.parse(billsString)
-    if (bills) {
-        yield put(billsAction.setBill(bills))
+    const userInfo = yield select(userInfoSelector)
+    const response = yield call(getBillsAPI, userInfo.token)
+
+    if (response.ok) {
+        const { bills } = yield response.json()
+        const formattedBills = bills.map(bill => ({
+            ref1: bill.ref1,
+            ref2: bill.ref2,
+            billerCode: bill.biller_code,
+            companyName: bill.company_name,
+            type: bill.type,
+            amount: bill.amount,
+            id: bill.id
+        }))
+        if (bills) {
+            yield put(billsAction.setBill(formattedBills))
+        }
+
+        const isSuccess = yield select(isSuccessBillSelector)
+        if (isSuccess) {
+            yield put(billsAction.setIsSuccess({ isSuccess: false }))
+        }
     }
-    yield call(wakeUp)
-    const isSuccess = yield select(isSuccessBillSelector)
-    if (isSuccess) {
-        yield put(billsAction.setIsSuccess({ isSuccess: false }))
-    }
+
 }
 
-export function* updateBillSaga({ payload }) {
-    const { bill, billCreated } = payload
-    yield put(billsAction.updateBill(bill))
-    const bills = yield select(billsSelector)
-    yield call(AsyncStorage.setItem, 'bayaqBills', JSON.stringify(bills))
-    billCreated()
-}
 
 export function* payBillsSaga() {
     const bills = yield select(selectedBillsSelector)
@@ -53,11 +74,10 @@ export function* payBillsSaga() {
     const billsWithEmail = bills.map((bill) => { return { ...bill, email: userInfo.email } })
 
     const body = {
-        email: userInfo.email,
-        fullName: userInfo.fullName,
         bills: billsWithEmail
     }
-    const response = yield call(payBill, body)
+    const token = userInfo.token
+    const response = yield call(payBill, body, token)
     if (response.ok) {
         const payload = yield response.json()
         window.location.href = payload.url;
@@ -127,9 +147,44 @@ export function* getBillAmountFromServerWithCallbackSaga({ payload }) {
         callback({ amount: 0 })
     }
 }
-export function* removeBillSaga() {
-    const bills = yield select(billsSelector)
-    yield call(AsyncStorage.setItem, 'bayaqBills', JSON.stringify(bills))
+export function* removeBillSaga({ payload }) {
+    const userInfo = yield select(userInfoSelector)
+    const { billId } = payload
+    const param = {
+        id: billId
+    }
+    const response = yield call(deleteBillAPI, param, userInfo.token)
+    if (response.ok) {
+        yield put(getBill())
+    } else {
+        alert('Failed to remove bill')
+    }
+
+}
+
+
+export function* updateBillSaga({ payload }) {
+    const userInfo = yield select(userInfoSelector)
+    const { bill, billCreated } = payload
+    const { ref1, ref2, companyName, billerCode, type, amount, id } = bill
+    const param = {
+        ref1,
+        ref2,
+        type,
+        amount,
+        company_name: companyName,
+        biller_code: billerCode,
+        id
+    }
+    const response = yield call(updateBillAPI, param, userInfo.token)
+
+    if (response.ok) {
+        yield put(getBill())
+        billCreated()
+    } else {
+        alert('Cannot update bill')
+    }
+
 }
 
 
