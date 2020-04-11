@@ -154,3 +154,19 @@ export const getBillsAPI = (token) => {
 
     return fetchRequest(path, config)
 }
+
+
+export const getInvoicesAPI = (token) => {
+
+    const path = `/invoice`
+    const config = {
+        method: 'GET',
+        "headers": {
+            'Authorization': `Bearer ${token}`,
+            ...headers,
+        }
+    }
+
+
+    return fetchRequest(path, config)
+}

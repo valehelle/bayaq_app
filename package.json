@@ -14,6 +14,8 @@
   "dependencies": {
     "@expo/samples": "~36.0.0",
     "@expo/vector-icons": "~10.0.0",
+    "@react-navigation/bottom-tabs": "^5.2.6",
+    "@react-navigation/native": "^5.1.5",
     "@react-navigation/web": "~1.0.0-alpha.9",
     "@reduxjs/toolkit": "^1.2.3",
     "dinero.js": "^1.6.0",
@@ -22,6 +24,7 @@
     "expo-constants": "~8.0.0",
     "expo-font": "~8.0.0",
     "expo-web-browser": "~8.0.0",
+    "moment": "^2.24.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",

@@ -2,11 +2,12 @@ import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import userSlice from './userSlice'
-import { registerAPI, wakeUp } from '../../services/api'
+import { registerAPI, wakeUp, loginAPI } from '../../services/api'
 
 const userAction = userSlice.actions
 
 export const getUserInfo = createAction(`${userSlice.name}/getUserInfo`)
+export const userLogin = createAction(`${userSlice.name}/userLogin`)
 
 
 export function* saveUserInfoSaga({ payload }) {
@@ -28,6 +29,24 @@ export function* saveUserInfoSaga({ payload }) {
     }
 
 }
+export function* userLoginSaga({ payload }) {
+    const { email, password, userInfoCreated } = payload
+
+    const body = {
+        email: email,
+        password: password,
+    }
+    const response = yield call(loginAPI, body)
+    if (response.ok) {
+        const { token } = yield response.json()
+        yield call(AsyncStorage.setItem, 'bayaqUserToken', JSON.stringify({ token }))
+
+        userInfoCreated()
+    } else {
+        alert('Incorrect email format or email has already registered.')
+    }
+
+}
 export function* getUserInfoSaga() {
     yield call(wakeUp)
     const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
@@ -37,4 +56,5 @@ export function* getUserInfoSaga() {
 export const userSaga = [
     takeLatest(userAction.addUserInfo.type, saveUserInfoSaga),
     takeLatest(getUserInfo.type, getUserInfoSaga),
+    takeLatest(userLogin.type, userLoginSaga),
 ]
