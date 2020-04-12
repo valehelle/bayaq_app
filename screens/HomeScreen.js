@@ -16,11 +16,12 @@ import { invoiceSelector } from '../features/invoices/invoiceSlice'
 import { fetchInvoice } from '../features/invoices/invoiceSaga'
 
 
-import { userInfoSelector } from '../features/accounts/userSlice'
+import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
 
 import { getBill, getBillAmount } from '../features/bills/billsSaga'
 import { getUserInfo } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
+const userAction = userSlice.actions
 import Dinero from 'dinero.js'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
@@ -134,6 +135,8 @@ const InvoiceList = ({ navigation }) => {
             <View key={invoice.ref_id} style={{ flexGrow: 1, marginTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: 'lightgrey' }}>
               <Text style={{ fontSize: 14, fontWeight: '600' }}>Reference ID: {invoice.ref_id}</Text>
               <Text style={{ fontSize: 14, fontWeight: '600' }}>Paid At: {moment.utc(invoice.paid_at).local().format('LLLL')}</Text>
+              <Text style={{ fontSize: 14, fontWeight: '600' }}>Amount: RM {Dinero({ amount: invoice.amount }).toFormat("0.00")}</Text>
+
               {invoice.bills.map((bill) => {
                 return (
                   <View key={bill.id} style={{ paddingLeft: 10, marginTop: 5 }}>
@@ -174,6 +177,11 @@ export default function HomeScreen({ navigation }) {
     setSelectedTab('Home')
   }
 
+  const logoutPressed = () => {
+    dispatch(userAction.userLogout())
+    navigation.navigate('Landing')
+  }
+
   const selectedTabStyle = {
     backgroundColor: 'rgba(255,255,255,0.5)'
   }
@@ -187,11 +195,11 @@ export default function HomeScreen({ navigation }) {
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
         <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center' }}>eBayaq</Text>
 
-        <TouchableOpacity style={{ flex: .5, paddingRight: 20, justifyContent: 'center' }} onPress={addBillPressed}>
+        <TouchableOpacity style={{ flex: .5, paddingRight: 20, justifyContent: 'center' }} onPress={logoutPressed}>
           <Text style={{ textAlign: 'right', color: 'white' }}>Logout</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ paddingLeft: 10, flexDirection: 'row', paddingVertical: 10 }}>
+      <View style={{ paddingLeft: 5, flexDirection: 'row', paddingVertical: 10 }}>
         <View style={{ flex: .3, alignSelf: 'center' }}>
           <TouchableOpacity onPress={homePressed}>
             <Text style={[selectedTab === 'Home' ? selectedTabStyle : notSelectedTabStyle, { alignSelf: 'center', borderRadius: 10, paddingHorizontal: 20, paddingBottom: 3 }]}>Bills</Text>

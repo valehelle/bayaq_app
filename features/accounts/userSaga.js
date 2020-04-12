@@ -52,9 +52,13 @@ export function* getUserInfoSaga() {
     const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
     yield put(userAction.setUserToken({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
 }
+export function* userLogoutSaga() {
+    yield call(AsyncStorage.removeItem, 'bayaqUserToken')
+}
 
 export const userSaga = [
     takeLatest(userAction.addUserInfo.type, saveUserInfoSaga),
     takeLatest(getUserInfo.type, getUserInfoSaga),
     takeLatest(userLogin.type, userLoginSaga),
+    takeLatest(userAction.userLogout.type, userLogoutSaga),
 ]

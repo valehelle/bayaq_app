@@ -53,7 +53,7 @@ export default function LoginScreen({ navigation }) {
           maxLength={40}
           onChangeText={(text) => setPassword(text)}
           value={password}
-          keyboardType='password'
+          secureTextEntry={true}
           style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>

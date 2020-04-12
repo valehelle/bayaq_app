@@ -25,6 +25,11 @@ const userSlice = createSlice({
                 const { token } = action.payload
                 state.token = token
             }
+        },
+        userLogout: {
+            reducer(state, action) {
+                state.token = ""
+            }
         }
     }
 })
