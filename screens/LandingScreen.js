@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import userSlice from '../features/accounts/userSlice'
+import { wakeUpAction } from '../features/accounts/userSaga'
 import Colors from '../constants/Colors'
 const userAction = userSlice.actions
 
@@ -35,10 +36,11 @@ export default function LandingScreen({ navigation }) {
   const userInfoCreated = () => {
     navigation.navigate("Main")
   }
+  useEffect(() => dispatch(wakeUpAction()), [])
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView className="scrollView" style={styles.container}>
       <View style={{ marginTop: '10vh', justifyContent: 'flex-end' }}>
-        <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>eBayaq</Text>
+        <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
         <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay all your bills in one click</Text>
       </View>
       <View style={{ padding: 5, alignItems: 'center' }}>

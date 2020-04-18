@@ -34,9 +34,9 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView className="scrollView" style={styles.container}>
       <View style={{ height: '30vh', justifyContent: 'flex-end' }}>
-        <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>eBayaq</Text>
+        <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
         <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay all your bills in one click</Text>
       </View>
       <View>

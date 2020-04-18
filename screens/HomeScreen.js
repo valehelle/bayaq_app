@@ -191,9 +191,9 @@ export default function HomeScreen({ navigation }) {
 
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
+    <ScrollView className="scrollView" style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
-        <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center' }}>eBayaq</Text>
+        <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center' }}>Bayaq</Text>
 
         <TouchableOpacity style={{ flex: .5, paddingRight: 20, justifyContent: 'center' }} onPress={logoutPressed}>
           <Text style={{ textAlign: 'right', color: 'white' }}>Logout</Text>

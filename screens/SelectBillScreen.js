@@ -26,7 +26,7 @@ export default function SelectBillScreen({ navigation }) {
 
 
   return (
-    <View style={styles.container}>
+    <View className="scrollView" style={styles.container}>
       <View><Text style={{ color: 'white', fontSize: 16, padding: 10, fontWeight: 'bold' }}>Select Bill</Text></View>
       <View style={{ backgroundColor: 'white', paddingTop: 20, height: '100%', borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
         <View style={{ paddingLeft: 20 }}>

@@ -22,10 +22,10 @@ export default function SuccessScreen({ navigation }) {
   const user = useSelector(state => state.user)
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>eBayaq</Text></TouchableOpacity>
+    <View className="scrollView" style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Bayaq</Text></TouchableOpacity>
       <Text style={{ marginTop: 20, color: 'white', fontSize: 14, fontWeight: 'bold' }}>Bill Payment Success</Text>
-      <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>Thank You for using eBayaq to make your bill payment. We will send an email to <Text style={{ fontWeight: 'bold' }}>{user.email}</Text> with the invoice.</Text>
+      <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>Thank You for using Bayaq to make your bill payment. We will send an email to <Text style={{ fontWeight: 'bold' }}>{user.email}</Text> with the invoice.</Text>
 
     </View>
   );

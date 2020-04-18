@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "eBayaq",
+    "name": "Bayaq",
     "slug": "bayaq_app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -14,7 +14,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#3F51B5"
     },

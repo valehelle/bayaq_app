@@ -114,7 +114,7 @@ export default function AddAmountScreen({ navigation }) {
         }
     }
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: Colors.primaryColor, paddingTop: 15 }}>
+        <ScrollView className="scrollView" contentContainerStyle={{ flexGrow: 1, justifyContent: 'space-between', backgroundColor: Colors.primaryColor, paddingTop: 15 }}>
 
             <View>
                 <Text style={{ color: 'white', fontSize: 16, padding: 10, fontWeight: 'bold' }}>Set Amount</Text>

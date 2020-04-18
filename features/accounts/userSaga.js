@@ -9,6 +9,7 @@ const userAction = userSlice.actions
 export const getUserInfo = createAction(`${userSlice.name}/getUserInfo`)
 export const userLogin = createAction(`${userSlice.name}/userLogin`)
 
+export const wakeUpAction = createAction(`${userSlice.name}/wakeUp`)
 
 export function* saveUserInfoSaga({ payload }) {
     const { fullName, email, password, userInfoCreated } = payload
@@ -43,7 +44,7 @@ export function* userLoginSaga({ payload }) {
 
         userInfoCreated()
     } else {
-        alert('Incorrect email format or email has already registered.')
+        alert('Incorrect email or password.')
     }
 
 }
@@ -52,11 +53,15 @@ export function* getUserInfoSaga() {
     const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
     yield put(userAction.setUserToken({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
 }
+export function* wakeUpSaga() {
+    yield call(wakeUp)
+}
 export function* userLogoutSaga() {
     yield call(AsyncStorage.removeItem, 'bayaqUserToken')
 }
 
 export const userSaga = [
+    takeLatest(wakeUpAction.type, wakeUpSaga),
     takeLatest(userAction.addUserInfo.type, saveUserInfoSaga),
     takeLatest(getUserInfo.type, getUserInfoSaga),
     takeLatest(userLogin.type, userLoginSaga),
