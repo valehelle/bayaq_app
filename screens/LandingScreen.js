@@ -36,7 +36,9 @@ export default function LandingScreen({ navigation }) {
   const userInfoCreated = () => {
     navigation.navigate("Main")
   }
-  useEffect(() => dispatch(wakeUpAction()), [])
+  useEffect(() => {
+    dispatch(wakeUpAction())
+  }, [])
   return (
     <ScrollView className="scrollView" style={styles.container}>
       <View style={{ marginTop: '10vh', justifyContent: 'flex-end' }}>
