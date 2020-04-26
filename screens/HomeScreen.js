@@ -75,9 +75,6 @@ const BillList = ({ navigation }) => {
 
   }, [userInfo.token])
 
-  useEffect(() => {
-    dispatch(getBillAmount())
-  }, [bills])
   return (
     <View style={{ minHeight: '80vh', backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
       <View style={{ flexDirection: 'row' }}>

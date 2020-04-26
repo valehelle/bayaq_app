@@ -2,7 +2,7 @@ import { takeLatest, select, put, call, takeEvery, delay } from 'redux-saga/effe
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import { userInfoSelector } from '../accounts/userSlice'
-import billsSlice, { billsSelector, selectedBillsSelector, isSuccessBillSelector } from './billsSlice'
+import billsSlice, { isAutoUpdateSelector, billsSelector, selectedBillsSelector, isSuccessBillSelector } from './billsSlice'
 import { payBill, getBillAmountAPI, wakeUp, getBillsAPI, createBillAPI, deleteBillAPI, updateBillAPI } from '../../services/api'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -93,10 +93,15 @@ export function* payBillsSaga() {
 export function* getBillAmountSaga() {
     const bills = yield select(billsSelector)
     const selectedBills = bills.filter((bill) => bill.billerCode == 68502 || bill.billerCode == 5454 || bill.billerCode == 4200)
-    for (let i = 0; i < selectedBills.length; i++) {
-        const bill = selectedBills[i]
-        yield put(getBillAmountFromServer(bill))
+    const autoUpdate = yield select(isAutoUpdateSelector)
+    if (autoUpdate) {
+        for (let i = 0; i < selectedBills.length; i++) {
+            const bill = selectedBills[i]
+            yield put(getBillAmountFromServer(bill))
+        }
+        yield put(billsAction.autoUpdate())
     }
+
 }
 
 export function* getBillAmountFromServerSaga({ payload }) {

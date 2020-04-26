@@ -21,6 +21,12 @@ export const isSuccessBillSelector = createSelector(
 )
 
 
+export const isAutoUpdateSelector = createSelector(
+    state => state.bills,
+    bills => bills.autoUpdate
+)
+
+
 const reducer = (accumulator, bill) => accumulator + bill.amount;
 
 
@@ -30,6 +36,7 @@ const billsSlice = createSlice({
         list: [],
         selectedBills: [],
         success: false,
+        autoUpdate: true,
     },
     reducers: {
         setBillStatus: {
@@ -89,6 +96,11 @@ const billsSlice = createSlice({
                 const { billId } = action.payload
                 state.list = state.list.filter((bill) => bill.id != billId)
                 state.selectedBills = state.list.filter((bill) => bill.amount > 0)
+            }
+        },
+        autoUpdate: {
+            reducer(state, action) {
+                state.autoUpdate = false
             }
         }
     }
