@@ -1,5 +1,5 @@
-//const BASE_URL = 'http://localhost:3000'
-const BASE_URL = 'https://boiling-island-04628.herokuapp.com'
+const BASE_URL = 'http://localhost:3000'
+//const BASE_URL = 'https://boiling-island-04628.herokuapp.com'
 
 const getUrl = (path) => {
     return BASE_URL + path

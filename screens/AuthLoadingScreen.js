@@ -29,6 +29,7 @@ export default function AuthLoadingScreen({ navigation }) {
   }
 
   useEffect(() => {
+
     const isSuccess = navigation.getParam('billplz[paid]', 'NO-ID') === 'NO-ID' ? false : true
     if (isSuccess) {
       const isPaid = navigation.getParam('billplz[paid]', 'NO-ID') === 'true' ? true : false

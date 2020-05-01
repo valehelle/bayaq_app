@@ -85,6 +85,19 @@ export default function InsertBillDetailScreen({ navigation }) {
               />
             </View>
           )}
+          {bill.type == 'PERLIS' && (
+            <View style={{ marginTop: 20 }}>
+              <Text>Bill Number:</Text>
+              <TextInput
+                maxLength={40}
+                value={bill.ref2}
+                keyboardType='phone-pad'
+                placeholder='231422'
+                onChangeText={(text) => setBill({ ...bill, ref2: text })}
+                style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+              />
+            </View>
+          )}
         </View>
       </View>
     </View >

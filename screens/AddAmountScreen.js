@@ -143,7 +143,7 @@ export default function AddAmountScreen({ navigation }) {
 
                     <View style={{ flex: .1, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
                         <Text style={{ fontSize: 20 }}>{billDetail.companyName}</Text>
-                        <Text style={{ fontSize: 16 }}>{billDetail.ref1}{billDetail.ref2 != '' && ` (${billDetail.ref2})`}</Text>
+                        <Text style={{ fontSize: 16 }}>{billDetail.ref1}{billDetail.ref2 != null && ` (${billDetail.ref2})`}</Text>
                     </View>
                     <View style={{ flex: .2, backgroundColor: 'white', justifyContent: 'center', paddingHorizontal: 20 }}>
                         {

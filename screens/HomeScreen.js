@@ -163,7 +163,7 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     dispatch(getUserInfo())
-    isSuccess && navigation.navigate("Success")
+    isSuccess && setSelectedTab('Invoice')
 
   }, [])
 

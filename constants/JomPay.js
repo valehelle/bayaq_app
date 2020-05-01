@@ -51,8 +51,8 @@ export const lineNetwork = [
     {
         companyName: 'Air Perlis',
         billerCode: '9167',
-        location: 'Selangor',
-        type: 'UTILITY'
+        location: 'Perlis',
+        type: 'PERLIS'
     },
 ]
 
