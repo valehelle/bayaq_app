@@ -43,6 +43,12 @@ export const lineNetwork = [
         type: 'UTILITY'
     },
     {
+        companyName: 'Astro',
+        billerCode: '9639',
+        location: 'Selangor',
+        type: 'UTILITY'
+    },
+    {
         companyName: 'Air Selangor',
         billerCode: '4200',
         location: 'Selangor',

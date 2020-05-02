@@ -90,6 +90,10 @@ export default function LandingScreen({ navigation }) {
           <TouchableOpacity onPress={termsPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text></TouchableOpacity>.
         </Text>
 
+        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10, marginTop: 30, textAlign: 'center' }}>
+          Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
+        </Text>
+
       </View>
     </ScrollView>
   );

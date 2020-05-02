@@ -219,7 +219,9 @@ export default function HomeScreen({ navigation }) {
       {selectedTab === 'Home' ? <BillList navigation={navigation} /> : <InvoiceList navigation={navigation} />}
 
 
-
+      <Text style={{ color: 'white', fontSize: 14, marginBottom: 20, marginTop: 30, textAlign: 'center' }}>
+        Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
+      </Text>
     </ScrollView >
   );
 }
