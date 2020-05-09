@@ -81,7 +81,7 @@ const BillList = ({ navigation }) => {
         <Text style={{ flex: .9, fontSize: 14, fontWeight: 'bold', alignSelf: 'center', color: 'grey' }}>Bills</Text>
       </View>
       <View>
-        {bills.length > 0 && bills.map((bill) => {
+        {bills.length > 0 ? bills.map((bill) => {
           return (
             <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
               <View style={{}}>
@@ -96,6 +96,10 @@ const BillList = ({ navigation }) => {
             </TouchableOpacity>
           )
         })
+          : <View style={{ paddingVertical: 10 }}>
+            <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
+            <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
+          </View>
         }
         <View style={{ marginTop: 20, marginBottom: 20 }}>
           <Text style={{ fontSize: 12, color: 'grey' }}>Service Fee RM {Dinero({ amount: selectedBills.length * 50 }).toFormat("0.00")}</Text>
@@ -219,9 +223,11 @@ export default function HomeScreen({ navigation }) {
       {selectedTab === 'Home' ? <BillList navigation={navigation} /> : <InvoiceList navigation={navigation} />}
 
 
-      <Text style={{ color: 'white', fontSize: 14, marginBottom: 20, marginTop: 30, textAlign: 'center' }}>
-        Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
-      </Text>
+      <View style={{ paddingVertical: 30 }}>
+        <Text style={{ color: 'white', fontSize: 14, textAlign: 'center' }}>
+          Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
+        </Text>
+      </View>
     </ScrollView >
   );
 }
