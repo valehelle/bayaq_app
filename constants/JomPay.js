@@ -66,6 +66,13 @@ export const lineNetwork = [
         location: 'Perlis',
         type: 'PERLIS'
     },
+
+    {
+        companyName: 'Air Kuching',
+        billerCode: '37234',
+        location: 'Kuching',
+        type: 'UTILITY'
+    },
 ]
 
 

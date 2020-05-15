@@ -110,6 +110,18 @@ export default function InsertBillDetailScreen({ navigation }) {
               />
             </View>
           )}
+          {bill.billerCode === '37234' && (
+            <View style={{ marginTop: 20 }}>
+              <Text>Bill Code No:</Text>
+              <TextInput
+                maxLength={40}
+                value={bill.ref2}
+                placeholder='Starts with 01xxxx, 6 digit number.'
+                onChangeText={(text) => setBill({ ...bill, ref2: text })}
+                style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+              />
+            </View>
+          )}
         </View>
       </View>
     </View >
