@@ -63,7 +63,7 @@ export default function InsertBillDetailScreen({ navigation }) {
         </View>
 
         <View style={{ marginTop: 10, paddingHorizontal: 20 }}>
-          <Text>Account Number</Text>
+          <Text>{bill.billerCode === '40386' && 'Contract '}Account Number</Text>
           <TextInput
             maxLength={40}
             onChangeText={(text) => setBill({ ...bill, ref1: text })}
@@ -98,12 +98,23 @@ export default function InsertBillDetailScreen({ navigation }) {
               />
             </View>
           )}
+          {bill.billerCode === '40386' && (
+            <View style={{ marginTop: 20 }}>
+              <Text>Contract Account Name:</Text>
+              <TextInput
+                maxLength={40}
+                value={bill.ref2}
+                placeholder='Siti Noor Aminah'
+                onChangeText={(text) => setBill({ ...bill, ref2: text })}
+                style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+              />
+            </View>
+          )}
         </View>
       </View>
     </View >
   );
 }
-
 InsertBillDetailScreen.navigationOptions = {
   header: null,
 };

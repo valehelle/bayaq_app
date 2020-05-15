@@ -49,6 +49,12 @@ export const lineNetwork = [
         type: 'UTILITY'
     },
     {
+        companyName: 'SESCO',
+        billerCode: '40386',
+        location: 'Serawak',
+        type: 'UTILITY'
+    },
+    {
         companyName: 'Air Selangor',
         billerCode: '4200',
         location: 'Selangor',

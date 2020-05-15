@@ -41,8 +41,18 @@ export default function LandingScreen({ navigation }) {
   }, [])
   return (
     <ScrollView className="scrollView" style={styles.container}>
-      <View style={{ marginTop: '10vh', justifyContent: 'flex-end' }}>
-        <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
+      <View style={{ marginTop: '10vh', flexDirection: 'row' }}>
+        <Image
+          resizeMode='contain'
+          style={{
+            width: 50,
+            height: 50
+          }}
+          source={require('../assets/images/icon.png')} />
+        <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
+
+      </View>
+      <View style={{ justifyContent: 'flex-end' }}>
         <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay multiple bills in one click</Text>
       </View>
       <View style={{ padding: 5, alignItems: 'center' }}>

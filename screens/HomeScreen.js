@@ -194,7 +194,16 @@ export default function HomeScreen({ navigation }) {
   return (
     <ScrollView className="scrollView" style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
-        <Text style={{ flexGrow: 1, color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center' }}>Bayaq</Text>
+        <View style={{ flexGrow: 1, flexDirection: 'row' }}>
+          <Image
+            resizeMode='contain'
+            style={{
+              width: 35,
+              height: 35
+            }}
+            source={require('../assets/images/icon.png')} />
+          <Text style={{ color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center', marginLeft: 10 }}>Bayaq</Text>
+        </View>
 
         <TouchableOpacity style={{ flex: .5, paddingRight: 20, justifyContent: 'center' }} onPress={logoutPressed}>
           <Text style={{ textAlign: 'right', color: 'white' }}>Logout</Text>
