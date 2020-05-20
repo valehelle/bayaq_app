@@ -28,7 +28,7 @@ export const lineNetwork = [
     },
     {
         companyName: 'Red One',
-        billerCode: '1016',
+        billerCode: '8607',
         type: 'TELCO'
     },
     {
