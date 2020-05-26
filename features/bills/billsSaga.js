@@ -87,7 +87,7 @@ export function* payBillsSaga({ payload }) {
     const response = yield call(payBill, body, token)
     if (response.ok) {
         const payload = yield response.json()
-        window.location.href = payload.url + "?auto_submit";
+        window.location.href = payload.url + "?auto_submit=true";
     }
 
 }
