@@ -21,7 +21,7 @@ export default function SelectBillScreen({ navigation }) {
   const dispatch = useDispatch()
 
   const selectBankPressed = (bank) => {
-    dispatch(billsAction.payBills({ bankName: bank.name }))
+    dispatch(billsAction.payBills({ bankCode: bank.code }))
   }
 
   const backButtonPressed = () => {
