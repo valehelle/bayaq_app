@@ -49,7 +49,7 @@ const BillList = ({ navigation }) => {
     navigation.navigate('AddAmount', { bill: newBill, billStatus: 'UPDATE' })
   }
   const payBillsPressed = () => {
-    if (selectedBills.length >= 2) {
+    if (selectedBills.length >= 1) {
       if (amount <= 50000) {
         const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
         if (allBillsFinishedLoading == undefined) {
@@ -62,7 +62,7 @@ const BillList = ({ navigation }) => {
         alert('For now we only allow payment up to RM500.')
       }
     } else {
-      alert('You need to pay a minimum of 2 bills.')
+      alert('You need to pay a minimum of 1 bills.')
     }
 
   }
