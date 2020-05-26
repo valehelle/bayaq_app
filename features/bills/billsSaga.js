@@ -69,9 +69,10 @@ export function* getBillSaga() {
 }
 
 
-export function* payBillsSaga() {
+export function* payBillsSaga({ payload }) {
     const bills = yield select(selectedBillsSelector)
     const userInfo = yield select(userInfoSelector)
+    const bankName = payload.bankName
     const billsWithEmail = bills.map((bill) => {
         const { ref1, ref2, amount, companyName, billerCode } = bill
         return { ref1, ref2, amount, id: uuidv4(), companyName, billerCode }
@@ -79,13 +80,14 @@ export function* payBillsSaga() {
     )
 
     const body = {
+        bank_name: bankName,
         bills: billsWithEmail
     }
     const token = userInfo.token
     const response = yield call(payBill, body, token)
     if (response.ok) {
         const payload = yield response.json()
-        window.location.href = payload.url;
+        window.location.href = payload.url + "?auto_submit=true";
     }
 
 }

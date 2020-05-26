@@ -8,6 +8,7 @@ import SelectBillScreen from '../screens/SelectBillScreen';
 import InsertBillDetailScreen from '../screens/InsertBillDetailScreen';
 import AddAmountScreen from '../screens/AddAmountScreen'
 import SuccessScreen from '../screens/SuccessScreen';
+import SelectBankScreen from '../screens/SelectBankScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen', initialRouteName: 'Home' },
@@ -21,6 +22,7 @@ const MainStack = createStackNavigator(
     InsertBillDetail: InsertBillDetailScreen,
     AddAmount: AddAmountScreen,
     Success: SuccessScreen,
+    SelectBank: SelectBankScreen,
   },
   config
 );

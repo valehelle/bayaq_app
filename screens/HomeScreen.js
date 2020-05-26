@@ -53,7 +53,7 @@ const BillList = ({ navigation }) => {
       if (amount <= 50000) {
         const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
         if (allBillsFinishedLoading == undefined) {
-          dispatch(billsAction.payBills())
+          navigation.navigate('SelectBank')
         } else {
           alert('Please wait until all bills finish getting the latest data.')
         }
