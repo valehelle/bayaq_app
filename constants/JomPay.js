@@ -23,7 +23,7 @@ export const lineNetwork = [
     },
     {
         companyName: 'Umobile',
-        billerCode: '1016',
+        billerCode: '88880',
         type: 'TELCO'
     },
     {
