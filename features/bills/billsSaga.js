@@ -10,7 +10,6 @@ const billsAction = billsSlice.actions
 
 
 export const addBill = createAction(`${billsSlice.name}/addBillSaga`)
-export const getBill = createAction(`${billsSlice.name}/getBillSaga`)
 export const updateBill = createAction(`${billsSlice.name}/updateBillSaga`)
 export const getBillAmount = createAction(`${billsSlice.name}/getBillAmountSaga`)
 export const getBillAmountFromServer = createAction(`${billsSlice.name}/getBillAmountFromServerSaga`)
@@ -30,7 +29,7 @@ export function* addBillSaga({ payload }) {
     }
     const response = yield call(createBillAPI, param, userInfo.token)
     if (response.ok) {
-        yield put(getBill())
+        yield put(billsAction.getBill())
         billCreated()
     } else {
         alert('Ops please try again later.')
@@ -64,6 +63,9 @@ export function* getBillSaga() {
         if (isSuccess) {
             yield put(billsAction.setIsSuccess({ isSuccess: false }))
         }
+
+        yield put(billsAction.getBillSuccess())
+
     }
 
 }
@@ -87,7 +89,7 @@ export function* payBillsSaga({ payload }) {
     const response = yield call(payBill, body, token)
     if (response.ok) {
         const payload = yield response.json()
-        window.location.href = payload.url + "?auto_submit=true";
+        window.location.href = payload.url + "?auto_submit=true"
     }
 
 }
@@ -105,6 +107,8 @@ export function* getBillAmountSaga() {
     }
 
 }
+
+
 
 export function* getBillAmountFromServerSaga({ payload }) {
     const { billerCode, ref1, id } = payload
@@ -167,7 +171,7 @@ export function* removeBillSaga({ payload }) {
     }
     const response = yield call(deleteBillAPI, param, userInfo.token)
     if (response.ok) {
-        yield put(getBill())
+        yield put(billsAction.getBill())
     } else {
         alert('Failed to remove bill')
     }
@@ -191,7 +195,7 @@ export function* updateBillSaga({ payload }) {
     const response = yield call(updateBillAPI, param, userInfo.token)
 
     if (response.ok) {
-        yield put(getBill())
+        yield put(billsAction.getBill())
         billCreated()
     } else {
         alert('Cannot update bill')
@@ -202,7 +206,7 @@ export function* updateBillSaga({ payload }) {
 
 export const billSaga = [
     takeLatest(addBill.type, addBillSaga),
-    takeLatest(getBill.type, getBillSaga),
+    takeLatest(billsAction.getBill, getBillSaga),
     takeLatest(updateBill.type, updateBillSaga),
     takeLatest(billsAction.payBills.type, payBillsSaga),
     takeLatest(billsAction.setBill, getBillAmountSaga),

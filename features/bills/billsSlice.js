@@ -26,6 +26,11 @@ export const isAutoUpdateSelector = createSelector(
     bills => bills.autoUpdate
 )
 
+export const isBillLoadingSelector = createSelector(
+    state => state.bills,
+    bills => bills.loading
+)
+
 
 const reducer = (accumulator, bill) => accumulator + bill.amount;
 
@@ -37,6 +42,7 @@ const billsSlice = createSlice({
         selectedBills: [],
         success: false,
         autoUpdate: true,
+        loading: true,
     },
     reducers: {
         setBillStatus: {
@@ -102,7 +108,17 @@ const billsSlice = createSlice({
             reducer(state, action) {
                 state.autoUpdate = false
             }
-        }
+        },
+        getBill: {
+            reducer(state, action) {
+                state.loading = true
+            }
+        },
+        getBillSuccess: {
+            reducer(state, action) {
+                state.loading = false
+            }
+        },
     }
 })
 

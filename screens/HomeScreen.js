@@ -11,7 +11,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
-import billsSlice, { billsSelector, totalBillsAmountSelector, selectedBillsSelector, isSuccessBillSelector } from '../features/bills/billsSlice'
+import billsSlice, { isBillLoadingSelector, billsSelector, totalBillsAmountSelector, selectedBillsSelector, isSuccessBillSelector } from '../features/bills/billsSlice'
 import { invoiceSelector } from '../features/invoices/invoiceSlice'
 import { fetchInvoice } from '../features/invoices/invoiceSaga'
 
@@ -34,7 +34,7 @@ const BillList = ({ navigation }) => {
   const userInfo = useSelector(state => userInfoSelector(state))
   const amount = useSelector(state => totalBillsAmountSelector(state))
   const selectedBills = useSelector(state => selectedBillsSelector(state))
-
+  const loading = useSelector(state => isBillLoadingSelector(state))
 
   const isBillSelected = (id) => {
     return selectedBills.filter((bill) => bill.id == id).length > 0 ? true : false
@@ -69,7 +69,7 @@ const BillList = ({ navigation }) => {
 
   useEffect(() => {
     if (userInfo.token != '') {
-      dispatch(getBill())
+      dispatch(billsAction.getBill())
     }
 
 
@@ -81,25 +81,29 @@ const BillList = ({ navigation }) => {
         <Text style={{ flex: .9, fontSize: 14, fontWeight: 'bold', alignSelf: 'center', color: 'grey' }}>Bills</Text>
       </View>
       <View>
-        {bills.length > 0 ? bills.map((bill) => {
-          return (
-            <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
-              <View style={{}}>
-                {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.primaryColor} style={{ paddingTop: 5 }} /> : <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.primaryColor : "lightgrey"} size={31} />}
-              </View>
-              <View style={{ marginLeft: 15, flexGrow: 1, paddingLeft: 5 }}>
-                <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
-                <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
-                <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+        {loading ?
 
-              </View>
-            </TouchableOpacity>
-          )
-        })
-          : <View style={{ paddingVertical: 10 }}>
-            <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
-            <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
-          </View>
+          <ActivityIndicator size={25} color={Colors.primaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
+          :
+          bills.length > 0 ? bills.map((bill) => {
+            return (
+              <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
+                <View style={{}}>
+                  {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.primaryColor} style={{ paddingTop: 5 }} /> : <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.primaryColor : "lightgrey"} size={31} />}
+                </View>
+                <View style={{ marginLeft: 15, flexGrow: 1, paddingLeft: 5 }}>
+                  <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
+                  <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
+                  <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+
+                </View>
+              </TouchableOpacity>
+            )
+          })
+            : <View style={{ paddingVertical: 10 }}>
+              <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
+              <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
+            </View>
         }
         <View style={{ marginTop: 20, marginBottom: 20 }}>
           <Text style={{ fontSize: 12, color: 'grey' }}>Service Fee RM {Dinero({ amount: selectedBills.length * 50 }).toFormat("0.00")}</Text>
