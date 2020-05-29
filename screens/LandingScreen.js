@@ -41,7 +41,7 @@ export default function LandingScreen({ navigation }) {
   }, [])
   return (
     <ScrollView className="scrollView" style={styles.container}>
-      <View style={{ marginTop: '10vh', flexDirection: 'row' }}>
+      <View style={{ marginTop: 10, flexDirection: 'row' }}>
         <Image
           resizeMode='contain'
           style={{
@@ -58,7 +58,7 @@ export default function LandingScreen({ navigation }) {
       <View style={{ padding: 5, alignItems: 'center' }}>
         <Image resizeMode='contain' style={{
           width: '100%',
-          height: '80vh',
+          height: 80,
         }}
           source={require('../assets/images/dashboard.png')} />
       </View>
@@ -91,8 +91,7 @@ export default function LandingScreen({ navigation }) {
         </TouchableOpacity>
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
-          Already have an account? Click here to
-          <TouchableOpacity onPress={loginPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}> Login</Text></TouchableOpacity>.
+          Already have an account? Click here to <Text onPress={loginPressed} style={{ fontSize: 14, fontWeight: 'bold' }}> Login</Text>.
         </Text>
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>

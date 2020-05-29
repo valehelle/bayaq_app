@@ -76,7 +76,7 @@ const BillList = ({ navigation }) => {
   }, [userInfo.token])
 
   return (
-    <View style={{ minHeight: '80vh', backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
+    <View style={{ minHeight: 80, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
       <View style={{ flexDirection: 'row' }}>
         <Text style={{ flex: .9, fontSize: 14, fontWeight: 'bold', alignSelf: 'center', color: 'grey' }}>Bills</Text>
       </View>
@@ -130,7 +130,7 @@ const InvoiceList = ({ navigation }) => {
 
   }, [userInfo.token])
   return (
-    <View style={{ minHeight: '80vh', backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
+    <View style={{ minHeight: 80, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
       <View style={{ flexDirection: 'row' }}>
         <Text style={{ flex: .9, fontSize: 14, fontWeight: 'bold', alignSelf: 'center', color: 'grey' }}>Invoices</Text>
       </View>

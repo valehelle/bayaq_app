@@ -1,4 +1,3 @@
-import * as WebBrowser from 'expo-web-browser';
 import React, { useEffect } from 'react';
 import {
   Image,
@@ -15,9 +14,10 @@ import billsSlice from '../features/bills/billsSlice'
 
 const billsAction = billsSlice.actions
 
-import { banks } from '../constants/banks'
+import { banks } from '../constants/Banks'
 import Colors from '../constants/Colors';
-export default function SelectBillScreen({ navigation }) {
+
+export default function SelectBankScreen({ navigation }) {
   const dispatch = useDispatch()
 
   const selectBankPressed = (bank) => {
@@ -68,13 +68,13 @@ export default function SelectBillScreen({ navigation }) {
   );
 }
 
-SelectBillScreen.navigationOptions = {
+SelectBankScreen.navigationOptions = {
   header: null,
 };
 
-SelectBillScreen.path = 'select_bank'
+SelectBankScreen.path = 'select_bank'
 
-SelectBillScreen.defaultNavigationOptions = {
+SelectBankScreen.defaultNavigationOptions = {
   animationEnabled: false,
 }
 const styles = StyleSheet.create({

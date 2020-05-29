@@ -37,14 +37,14 @@ export default function LandingScreen({ navigation }) {
   }
   return (
     <ScrollView className="scrollView" style={styles.container}>
-      <View style={{ marginTop: '10vh', justifyContent: 'flex-end' }}>
+      <View style={{ marginTop: 10, justifyContent: 'flex-end' }}>
         <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
         <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay all your bills in one click</Text>
       </View>
       <View style={{ padding: 5, alignItems: 'center' }}>
         <Image resizeMode='contain' style={{
           width: '100%',
-          height: '80vh',
+          height: 80,
         }}
           source={require('../assets/images/dashboard.png')} />
       </View>
