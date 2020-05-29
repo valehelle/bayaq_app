@@ -8,12 +8,14 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ActivityIndicator
+  ActivityIndicator,
+  SafeAreaView
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux'
 import billsSlice, { isBillLoadingSelector, billsSelector, totalBillsAmountSelector, selectedBillsSelector, isSuccessBillSelector } from '../features/bills/billsSlice'
 import { invoiceSelector } from '../features/invoices/invoiceSlice'
 import { fetchInvoice } from '../features/invoices/invoiceSaga'
+import Constants from 'expo-constants';
 
 
 import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
@@ -196,52 +198,41 @@ export default function HomeScreen({ navigation }) {
 
 
   return (
-    <ScrollView className="scrollView" style={styles.container} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
-      <View style={{ justifyContent: 'center', flexDirection: 'row', paddingVertical: 10, paddingLeft: 20, }}>
-        <View style={{ flexGrow: 1, flexDirection: 'row' }}>
-          <Image
-            resizeMode='contain'
-            style={{
-              width: 35,
-              height: 35
-            }}
-            source={require('../assets/images/icon.png')} />
-          <Text style={{ color: '#ffff', fontWeight: 'bold', fontSize: 25, alignSelf: 'center', marginLeft: 10 }}>Bayaq</Text>
-        </View>
+    <View>
+      <View style={{ minHeight: '20%', paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
+        <Text style={{ paddingTop: 20 }}></Text>
+        <Text style={{ marginTop: 50, color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
+        <View>
+          <View style={{ height: 100, backgroundColor: Colors.primaryColor }}>
 
-        <TouchableOpacity style={{ flex: .5, paddingRight: 20, justifyContent: 'center' }} onPress={logoutPressed}>
-          <Text style={{ textAlign: 'right', color: 'white' }}>Logout</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{ paddingLeft: 5, flexDirection: 'row', paddingVertical: 10 }}>
-        <View style={{ flex: .3, alignSelf: 'center' }}>
-          <TouchableOpacity onPress={homePressed}>
-            <Text style={[selectedTab === 'Home' ? selectedTabStyle : notSelectedTabStyle, { alignSelf: 'center', borderRadius: 10, paddingHorizontal: 20, paddingBottom: 3 }]}>Bills</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ flex: .3, alignSelf: 'center' }}>
-          <TouchableOpacity onPress={invoicePresssed}>
-            <Text style={[selectedTab != 'Home' ? selectedTabStyle : notSelectedTabStyle, { alignSelf: 'center', borderRadius: 10, paddingHorizontal: 20, paddingBottom: 3 }]}>Invoice</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+          <View style={{ height: 100, backgroundColor: 'white' }}>
 
-        <View style={{ flex: .3 }}></View>
-        <View style={{ flex: .3 }} >
-          <TouchableOpacity style={{ paddingRight: 20 }} onPress={addBillPressed}>
-            <Ionicons style={{ textAlign: 'right' }} name="ios-add" color={"white"} size={35} />
-          </TouchableOpacity>
+          </View>
+          <View style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            <View style={{ flexDirection: 'row', height: 120 }}>
+              <View style={{ paddingHorizontal: 10, width: '30%' }}>
+                <View style={{ height: '100%', backgroundColor: 'blue', borderRadius: 5, }}>
+                  <View style={{ height: 50 }}></View>
+                  <Text style={{ color: 'white', fontSize: 15, textAlign: 'center' }}>Electricity</Text>
+                  <Text style={{ color: 'white', fontSize: 40, textAlign: 'center', fontWeight: 'bold' }}>+</Text>
+                </View>
+              </View>
+
+            </View>
+          </View>
         </View>
       </View>
+      <View style={{ height: '100%', backgroundColor: 'white' }}>
 
-      {selectedTab === 'Home' ? <BillList navigation={navigation} /> : <InvoiceList navigation={navigation} />}
-
-
-      <View style={{ paddingVertical: 30 }}>
-        <Text style={{ color: 'white', fontSize: 14, textAlign: 'center' }}>
-          Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
-        </Text>
       </View>
-    </ScrollView >
+    </View >
   );
 }
 
@@ -252,6 +243,6 @@ HomeScreen.path = ''
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: Colors.headerColor,
   },
 });
