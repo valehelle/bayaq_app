@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -18,15 +18,30 @@ const config = Platform.select({
 });
 
 
+
+const HomeStack = createStackNavigator();
+
+function HomeStackScreen() {
+  return (
+    <HomeStack.Navigator headerMode="none">
+      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="SelectBill" component={SelectBillScreen} />
+      <HomeStack.Screen name="InsertBillDetail" component={InsertBillDetailScreen} />
+      <HomeStack.Screen name="AddAmount" component={AddAmountScreen} />
+
+    </HomeStack.Navigator>
+  );
+}
+
 const Tab = createBottomTabNavigator();
 
 export default function MainStack() {
   return (
     <NavigationContainer>
       <Tab.Navigator tabBarOptions={{ inactiveTintColor: 'rgba(277,277,277,.4)', activeTintColor: 'white', style: { backgroundColor: Colors.bottomBar } }}>
-        <Tab.Screen name="Home" component={HomeScreen}
+        <Tab.Screen name="Home" component={HomeStackScreen}
           options={{
-            tabBarLabel: 'Profile',
+            tabBarLabel: 'Home',
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="md-home" color={color} size={size} />
             ),

@@ -21,7 +21,7 @@ import { SimpleLineIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
-
+import { useNavigation } from '@react-navigation/native';
 import { getBill, getBillAmount } from '../features/bills/billsSaga'
 import { getUserInfo } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
@@ -32,14 +32,16 @@ import Colors from '../constants/Colors'
 var moment = require('moment');
 const screenWidth = Math.round(Dimensions.get('window').width);
 
-const BillList = ({ navigation }) => {
+import { electricity, water, telco, other } from '../constants/Bills'
+
+const BillList = () => {
   const dispatch = useDispatch()
   const bills = useSelector(state => billsSelector(state))
   const userInfo = useSelector(state => userInfoSelector(state))
   const amount = useSelector(state => totalBillsAmountSelector(state))
   const selectedBills = useSelector(state => selectedBillsSelector(state))
   const loading = useSelector(state => isBillLoadingSelector(state))
-
+  const navigation = useNavigation();
   const isBillSelected = (id) => {
     return selectedBills.filter((bill) => bill.id == id).length > 0 ? true : false
   }
@@ -80,10 +82,10 @@ const BillList = ({ navigation }) => {
   }, [userInfo.token])
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
-      <View style={{ flex: .8 }}>
+    <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 80 }}>
+      <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey' }}>Bills</Text>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {loading ?
 
             <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
@@ -108,10 +110,9 @@ const BillList = ({ navigation }) => {
                 <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
               </View>
           }
+          <View style={{ height: 100 }}></View>
         </ScrollView>
-      </View>
-      <View style={{ flex: .4, marginTop: 20, marginBottom: 10 }}>
-        <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+        <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10 }}>
           <Text style={{ fontSize: 12, color: 'grey' }}>Service Fee RM {Dinero({ amount: selectedBills.length * 50 }).toFormat("0.00")}</Text>
           <Text style={{ fontWeight: '600', fontSize: 20 }}>Total RM {Dinero({ amount: amount + (selectedBills.length * 50) }).toFormat("0.00")}</Text>
           <TouchableOpacity onPress={payBillsPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
@@ -167,12 +168,14 @@ const InvoiceList = ({ navigation }) => {
 }
 
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   const dispatch = useDispatch()
   const [selectedTab, setSelectedTab] = useState('Home')
   const isSuccess = useSelector(state => isSuccessBillSelector(state))
-  const addBillPressed = () => {
-    navigation.navigate('SelectBill')
+  const navigation = useNavigation();
+
+  const addBillPressed = ({ bills, title }) => {
+    navigation.navigate('SelectBill', { bills, title })
   }
 
   useEffect(() => {
@@ -203,41 +206,24 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
-      <View style={{ flex: .5, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <View style={{ flex: .5 }}>
-          <TouchableOpacity style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
-            <AntDesign name="creditcard" size={24} color="white" />
-          </TouchableOpacity>
-          <Text style={{ position: 'absolute', bottom: 0, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
-
-        </View>
-        <View style={{ flex: .7, }}>
-          <View style={{ flex: .5, backgroundColor: Colors.primaryColor }}>
-
-          </View>
-          <View style={{ flex: .5, backgroundColor: 'white' }}>
-
-          </View>
-          <View style={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-            <View style={{ flexDirection: 'row' }}>
-              <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ width: '100%' }}>
-                <BillCard onPress={() => console.log('ddd')} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
-                <BillCard onPress={() => console.log('ddd')} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
-                <BillCard onPress={() => console.log('ddd')} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
-                <BillCard onPress={() => console.log('ddd')} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Internet" />
-              </ScrollView>
-            </View>
-          </View>
+      <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
+        <TouchableOpacity style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
+          <AntDesign name="creditcard" size={24} color="white" />
+        </TouchableOpacity>
+        <View style={{ height: '100%', justifyContent: 'center' }}>
+          <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
         </View>
       </View>
-      <View style={{ flex: .8, backgroundColor: 'white' }}>
+      <View style={{ flex: .6, backgroundColor: 'white' }}>
         <BillList />
+        <View style={{ position: 'absolute', top: -75, height: 150 }}>
+          <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ height: '100%' }} contentContainerStyle={{ alignItems: 'center' }}>
+            <BillCard onPress={() => addBillPressed({ bills: electricity, title: 'Electricity' })} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
+            <BillCard onPress={() => addBillPressed({ bills: water, title: 'Water' })} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
+            <BillCard onPress={() => addBillPressed({ bills: telco, title: 'Telco' })} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
+            <BillCard onPress={() => addBillPressed({ bills: other, title: 'Other' })} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Others" />
+          </ScrollView>
+        </View>
       </View>
     </View >
   );
@@ -245,13 +231,13 @@ export default function HomeScreen({ navigation }) {
 
 const BillCard = ({ icon, title, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 15, width: screenWidth / 2.5 }}>
-      <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: '10%' }}>
+    <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 15, width: screenWidth / 3.2 }}>
+      <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, height: '100%', justifyContent: 'center' }}>
         <View style={{ height: 40 }}>
           {icon}
         </View>
         <Text style={{ color: 'white', fontSize: 15, textAlign: 'center', marginTop: 10 }}>{title}</Text>
-        <MaterialIcons name="add" size={20} color="white" style={{ alignSelf: 'center', }} />
+        <MaterialIcons name="add" size={30} color="white" style={{ alignSelf: 'center', marginTop: 10 }} />
       </View>
     </TouchableOpacity>
   )

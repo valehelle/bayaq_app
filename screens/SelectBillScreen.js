@@ -10,41 +10,50 @@ import {
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
+import Constants from 'expo-constants';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Dimensions } from 'react-native';
 
+const screenWidth = Math.round(Dimensions.get('window').width);
 
 import { lineNetwork, waterWorks } from '../constants/JomPay'
 import Colors from '../constants/Colors';
-export default function SelectBillScreen({ navigation }) {
+export default function SelectBillScreen() {
+  const navigation = useNavigation()
+  const router = useRoute()
+  const { bills, title } = router.params
+  console.log(router.params)
 
   const selectBillPressed = (bill) => {
     navigation.navigate('InsertBillDetail', { bill })
   }
 
-  const backButtonPressed = () => {
-    navigation.goBack()
-  }
-
 
   return (
-    <View className="scrollView" style={styles.container}>
-      <View><Text style={{ color: 'white', fontSize: 16, padding: 10, fontWeight: 'bold' }}>Select Bill</Text></View>
-      <View style={{ backgroundColor: 'white', paddingTop: 20, height: '100%', borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
-        <View style={{ paddingLeft: 20 }}>
-          <TouchableOpacity onPress={backButtonPressed}>
-            <Text style={{ color: Colors.primaryColor, textAlign: 'left' }}>Back</Text>
+    <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
+      <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
+            <MaterialIcons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
-        </View>
-        <View style={{ marginTop: 10 }}>
-          {lineNetwork.map((bill, index) =>
-            <View key={index} style={{ paddingLeft: 20 }} >
-              <TouchableOpacity style={{ borderTopWidth: index != 0 ? 1 : 0, borderBottomWidth: index == lineNetwork.length - 1 ? 1 : 0, paddingVertical: 10, borderColor: "lightgrey" }} onPress={() => selectBillPressed(bill)}>
-                <Text style={{ fontWeight: '600' }}>{bill.companyName}</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+          <View style={{ height: '100%', justifyContent: 'center' }}>
+            <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{title}</Text>
+          </View>
         </View>
       </View>
+      <View style={{ flex: .6, backgroundColor: 'white', flexDirection: 'row', flexWrap: 'wrap' }}>
+        {bills.map((bill, index) =>
+          <View key={index} style={{ width: screenWidth * .25, padding: 5 }} >
+            <TouchableOpacity style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, height: 120, justifyContent: 'center' }} onPress={() => selectBillPressed(bill)}>
+              <Text style={{ fontWeight: '600', textAlign: 'center', color: 'white' }}>{bill.companyName}</Text>
+            </TouchableOpacity>
+          </View>
+
+        )}
+      </View>
     </View >
+
   );
 }
 
