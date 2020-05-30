@@ -204,14 +204,14 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
       <View style={{ flex: .5, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <View style={{}}>
+        <View style={{ flex: .5 }}>
           <TouchableOpacity style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
             <AntDesign name="creditcard" size={24} color="white" />
           </TouchableOpacity>
-          <Text style={{ color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
+          <Text style={{ position: 'absolute', bottom: 0, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
 
         </View>
-        <View style={{ flex: 1, }}>
+        <View style={{ flex: .7, }}>
           <View style={{ flex: .5, backgroundColor: Colors.primaryColor }}>
 
           </View>
@@ -245,13 +245,13 @@ export default function HomeScreen({ navigation }) {
 
 const BillCard = ({ icon, title, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 15, width: screenWidth / 3 }}>
+    <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 15, width: screenWidth / 2.5 }}>
       <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: '10%' }}>
         <View style={{ height: 40 }}>
           {icon}
         </View>
         <Text style={{ color: 'white', fontSize: 15, textAlign: 'center', marginTop: 10 }}>{title}</Text>
-        <MaterialIcons name="add" size={25} color="white" style={{ alignSelf: 'center', }} />
+        <MaterialIcons name="add" size={20} color="white" style={{ alignSelf: 'center', }} />
       </View>
     </TouchableOpacity>
   )
