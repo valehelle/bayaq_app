@@ -16,8 +16,10 @@ import billsSlice, { isBillLoadingSelector, billsSelector, totalBillsAmountSelec
 import { invoiceSelector } from '../features/invoices/invoiceSlice'
 import { fetchInvoice } from '../features/invoices/invoiceSaga'
 import Constants from 'expo-constants';
-
-
+import { Dimensions } from 'react-native';
+import { SimpleLineIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
 
 import { getBill, getBillAmount } from '../features/bills/billsSaga'
@@ -28,7 +30,7 @@ import Dinero from 'dinero.js'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
 var moment = require('moment');
-
+const screenWidth = Math.round(Dimensions.get('window').width);
 
 const BillList = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -78,39 +80,41 @@ const BillList = ({ navigation }) => {
   }, [userInfo.token])
 
   return (
-    <View style={{ minHeight: 80, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={{ flex: .9, fontSize: 14, fontWeight: 'bold', alignSelf: 'center', color: 'grey' }}>Bills</Text>
+    <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
+      <View style={{ flex: .8 }}>
+        <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey' }}>Bills</Text>
+        <ScrollView>
+          {loading ?
+
+            <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
+            :
+            bills.length > 0 ? bills.map((bill) => {
+              return (
+                <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
+                  <View style={{}}>
+                    {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 5 }} /> : <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} />}
+                  </View>
+                  <View style={{ marginLeft: 15, flexGrow: 1, paddingLeft: 5 }}>
+                    <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
+                    <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
+                    <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+
+                  </View>
+                </TouchableOpacity>
+              )
+            })
+              : <View style={{ paddingVertical: 10 }}>
+                <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
+                <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
+              </View>
+          }
+        </ScrollView>
       </View>
-      <View>
-        {loading ?
-
-          <ActivityIndicator size={25} color={Colors.primaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
-          :
-          bills.length > 0 ? bills.map((bill) => {
-            return (
-              <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
-                <View style={{}}>
-                  {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.primaryColor} style={{ paddingTop: 5 }} /> : <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.primaryColor : "lightgrey"} size={31} />}
-                </View>
-                <View style={{ marginLeft: 15, flexGrow: 1, paddingLeft: 5 }}>
-                  <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
-                  <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
-                  <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
-
-                </View>
-              </TouchableOpacity>
-            )
-          })
-            : <View style={{ paddingVertical: 10 }}>
-              <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
-              <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
-            </View>
-        }
-        <View style={{ marginTop: 20, marginBottom: 20 }}>
+      <View style={{ flex: .4, marginTop: 20, marginBottom: 10 }}>
+        <View style={{ position: 'absolute', bottom: 0, width: '100%' }}>
           <Text style={{ fontSize: 12, color: 'grey' }}>Service Fee RM {Dinero({ amount: selectedBills.length * 50 }).toFormat("0.00")}</Text>
           <Text style={{ fontWeight: '600', fontSize: 20 }}>Total RM {Dinero({ amount: amount + (selectedBills.length * 50) }).toFormat("0.00")}</Text>
-          <TouchableOpacity onPress={payBillsPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.primaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
+          <TouchableOpacity onPress={payBillsPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
             <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center' }}>Pay</Text>
           </TouchableOpacity>
         </View>
@@ -198,15 +202,20 @@ export default function HomeScreen({ navigation }) {
 
 
   return (
-    <View>
-      <View style={{ minHeight: '20%', paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <Text style={{ paddingTop: 20 }}></Text>
-        <Text style={{ marginTop: 50, color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
-        <View>
-          <View style={{ height: 100, backgroundColor: Colors.primaryColor }}>
+    <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
+      <View style={{ flex: .5, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
+        <View style={{}}>
+          <TouchableOpacity style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
+            <AntDesign name="creditcard" size={24} color="white" />
+          </TouchableOpacity>
+          <Text style={{ color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
+
+        </View>
+        <View style={{ flex: 1, }}>
+          <View style={{ flex: .5, backgroundColor: Colors.primaryColor }}>
 
           </View>
-          <View style={{ height: 100, backgroundColor: 'white' }}>
+          <View style={{ flex: .5, backgroundColor: 'white' }}>
 
           </View>
           <View style={{
@@ -216,24 +225,36 @@ export default function HomeScreen({ navigation }) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-            <View style={{ flexDirection: 'row', height: 120 }}>
-              <View style={{ paddingHorizontal: 10, width: '30%' }}>
-                <View style={{ height: '100%', backgroundColor: 'blue', borderRadius: 5, }}>
-                  <View style={{ height: 50 }}></View>
-                  <Text style={{ color: 'white', fontSize: 15, textAlign: 'center' }}>Electricity</Text>
-                  <Text style={{ color: 'white', fontSize: 40, textAlign: 'center', fontWeight: 'bold' }}>+</Text>
-                </View>
-              </View>
-
+            <View style={{ flexDirection: 'row' }}>
+              <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ width: '100%' }}>
+                <BillCard onPress={() => console.log('ddd')} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
+                <BillCard onPress={() => console.log('ddd')} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
+                <BillCard onPress={() => console.log('ddd')} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
+                <BillCard onPress={() => console.log('ddd')} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Internet" />
+              </ScrollView>
             </View>
           </View>
         </View>
       </View>
-      <View style={{ height: '100%', backgroundColor: 'white' }}>
-
+      <View style={{ flex: .8, backgroundColor: 'white' }}>
+        <BillList />
       </View>
     </View >
   );
+}
+
+const BillCard = ({ icon, title, onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 15, width: screenWidth / 3 }}>
+      <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: '10%' }}>
+        <View style={{ height: 40 }}>
+          {icon}
+        </View>
+        <Text style={{ color: 'white', fontSize: 15, textAlign: 'center', marginTop: 10 }}>{title}</Text>
+        <MaterialIcons name="add" size={25} color="white" style={{ alignSelf: 'center', }} />
+      </View>
+    </TouchableOpacity>
+  )
 }
 
 HomeScreen.navigationOptions = {
