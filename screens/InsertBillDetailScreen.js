@@ -8,8 +8,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  TextInput
 } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -56,67 +56,97 @@ export default function InsertBillDetailScreen() {
           </View>
         </View>
       </View>
-      <View style={{ flex: .6, backgroundColor: 'white', flexDirection: 'row', flexWrap: 'wrap' }}>
-        <Text>{bill.billerCode === '40386' && 'Contract '}Account Number</Text>
+      <View style={{ flex: .6, backgroundColor: 'white' }}>
         <TextInput
+          theme={{
+            colors: {
+              primary: Colors.secondaryColor,
+              accent: '#f1c40f',
+            }
+          }}
+          mode="flat"
+          label="Account Number"
           maxLength={40}
           onChangeText={(text) => setBill({ ...bill, ref1: text })}
           value={bill.ref1}
           keyboardType='phone-pad'
           placeholder='12948847628383'
-          style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
         {bill.type == 'TELCO' && (
-          <View style={{ marginTop: 20 }}>
-            <Text>Phone Number:</Text>
+          <View>
             <TextInput
+              theme={{
+                colors: {
+                  primary: Colors.secondaryColor,
+                  accent: '#f1c40f',
+                }
+              }}
               maxLength={40}
+              label="Phone Number"
               value={bill.ref2}
               keyboardType='phone-pad'
               placeholder='0173566778'
               onChangeText={(text) => setBill({ ...bill, ref2: text })}
-              style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
             />
           </View>
         )}
         {bill.type == 'PERLIS' && (
-          <View style={{ marginTop: 20 }}>
-            <Text>Bill Number:</Text>
+          <View >
             <TextInput
+              theme={{
+                colors: {
+                  primary: Colors.secondaryColor,
+                  accent: '#f1c40f',
+                }
+              }}
               maxLength={40}
+              label="Bill Number"
               value={bill.ref2}
               keyboardType='phone-pad'
               placeholder='231422'
               onChangeText={(text) => setBill({ ...bill, ref2: text })}
-              style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
             />
           </View>
         )}
         {bill.billerCode === '40386' && (
-          <View style={{ marginTop: 20 }}>
-            <Text>Contract Account Name:</Text>
+          <View >
             <TextInput
+              theme={{
+                colors: {
+                  primary: Colors.secondaryColor,
+                  accent: '#f1c40f',
+                }
+              }}
               maxLength={40}
+              label="Contract Account Number"
               value={bill.ref2}
               placeholder='Siti Noor Aminah'
               onChangeText={(text) => setBill({ ...bill, ref2: text })}
-              style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
             />
           </View>
         )}
         {bill.billerCode === '37234' && (
-          <View style={{ marginTop: 20 }}>
-            <Text>Bill Code No:</Text>
+          <View >
             <TextInput
+              theme={{
+                colors: {
+                  primary: Colors.secondaryColor,
+                  accent: '#f1c40f',
+                }
+              }}
+              label="Bill Code No"
               maxLength={40}
               value={bill.ref2}
               placeholder='Starts with 01xxxx, 6 digit number.'
               onChangeText={(text) => setBill({ ...bill, ref2: text })}
-              style={{ marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
             />
           </View>
         )}
-        <TouchableOpacity onPress={createBillPressed}><Text>Next</Text></TouchableOpacity>
+        <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10, paddingHorizontal: 10 }}>
+          <TouchableOpacity style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10 }} onPress={createBillPressed}>
+            <Text style={{ fontWeight: '600', textAlign: 'center', color: 'white' }}>Next</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View >
 

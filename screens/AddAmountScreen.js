@@ -47,7 +47,7 @@ const buttonPressed = (myr, setMyr, text, setFirstTime, firstTime) => {
 const _button = (text, krw, setKrw, setFirstTime, firstTime) => {
     return (
         <View style={{ flex: 1 / 3, alignItems: 'center', justifyContent: 'center', paddingVertical: 5, paddingHorizontal: 10 }}>
-            <TouchableOpacity style={{ backgroundColor: 'grey', width: '100%', height: '100%', justifyContent: 'center', borderRadius: 5 }} onPress={() => buttonPressed(krw, setKrw, text, setFirstTime, firstTime)}>
+            <TouchableOpacity style={{ backgroundColor: Colors.secondaryColor, width: '100%', height: '100%', justifyContent: 'center', borderRadius: 5 }} onPress={() => buttonPressed(krw, setKrw, text, setFirstTime, firstTime)}>
                 <Text style={{ textAlign: 'center', fontSize: 35, color: 'white' }}>{text}</Text>
             </TouchableOpacity>
         </View >
