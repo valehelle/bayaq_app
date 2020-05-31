@@ -3,7 +3,6 @@
     "name": "Bayaq",
     "slug": "bayaq_app",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "description": "Pay your bills in one click.",
     "platforms": [
       "ios",
