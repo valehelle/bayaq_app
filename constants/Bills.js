@@ -8,7 +8,7 @@ export const telco = [
     {
         companyName: 'Maxis',
         billerCode: '1123',
-        image: 'https://pay.maxis.com.my/IPCAgree/New_maxis_logo.png',
+        image: 'https://lh3.googleusercontent.com/p1yJkRPSRZJOEs9goIl-GrCu6SvG-LQg2HJc3FcbGh4_KNDSsQkK_hLTusG59P7d8g',
         type: 'TELCO'
     },
     {
@@ -35,7 +35,7 @@ export const electricity = [
         companyName: 'Tenaga Nasional Berhad',
         billerCode: '5454',
         type: 'UTILITY',
-        image: 'https://w7.pngwing.com/pngs/882/1016/png-transparent-tnb-janamanjung-sdn-bhd-kapar-tenaga-nasional-logo-company-others-miscellaneous-text-trademark.png'
+        image: 'https://lh3.googleusercontent.com/tDxTuubHCHNY7gHmcZX6lPCHYfK0PE5MYqsSQGXauFmJjon0w7URtuBl5V3OHRuB5bo5'
     },
     {
         companyName: 'SESCO',
@@ -53,7 +53,7 @@ export const water = [
         companyName: 'Indah Water',
         billerCode: '68502',
         location: 'Malaysia',
-        image: 'http://pcms.bernama.com:7788/storage/photos/baa8bf3a37e6758986a515e25870de635dd7865527eb2',
+        image: 'https://lh3.googleusercontent.com/weujunuq6-2khs4y1jmhmx5xrEBCF2gsO1gVStKQapL9__ZTHLGCrjehB9Wr2AhuXg',
         type: 'UTILITY'
     },
     {
@@ -86,13 +86,13 @@ export const other = [
         companyName: 'Unifi',
         billerCode: '8888',
         type: 'INTERNET',
-        image: 'https://www.pngitem.com/pimgs/m/160-1607160_tm-unifi-logo-hd-hd-png-download.png'
+        image: 'https://img.involve.asia/ia_logo/1429_aJEOmZdB.jpg'
     },
     {
         companyName: 'Streamyx',
         billerCode: '2345',
         type: 'INTERNET',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Streamyx2015.jpeg'
+        image: 'https://img.involve.asia/ia_logo/1429_aJEOmZdB.jpg'
     },
     {
         companyName: 'Astro',

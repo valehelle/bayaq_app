@@ -106,7 +106,7 @@ const BillList = () => {
                   <View style={{ flex: .4 }}>
                     <View style={{ flexDirection: 'row' }}>
                       <Text style={{ flex: .4, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center' }}>RM</Text>
-                      <Text style={{ flex: .6, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%' }}>2{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+                      <Text style={{ flex: .6, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%' }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
 
                     </View>
 

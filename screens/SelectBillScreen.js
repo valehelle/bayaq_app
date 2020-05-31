@@ -44,11 +44,26 @@ export default function SelectBillScreen() {
       </View>
       <View style={{ flex: .6, backgroundColor: 'white', flexDirection: 'row', flexWrap: 'wrap' }}>
         {bills.map((bill, index) =>
-          <View key={index} style={{ width: screenWidth * .25, padding: 5 }} >
-            <TouchableOpacity style={{ backgroundColor: 'lightgrey', borderRadius: 5, height: 120, justifyContent: 'center', alignItems: 'center' }} onPress={() => selectBillPressed(bill)}>
-              <Image resizeMode="contain" style={{ height: 80, width: '100%' }} source={{ uri: bill.image }} />
+          <View key={index} style={{
+            width: screenWidth * .25, padding: 5,
+
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+
+            elevation: 5,
+          }} >
+            <TouchableOpacity style={{
+              backgroundColor: 'white', height: screenWidth * .25, justifyContent: 'center', alignItems: 'center',
+              borderRadius: 10,
+            }} onPress={() => selectBillPressed(bill)}>
+              <Image style={{ borderRadius: 10, height: '100%', width: '100%' }} source={{ uri: bill.image }} />
             </TouchableOpacity>
-            <Text style={{ textAlign: 'center', color: 'grey' }}>{bill.companyName}</Text>
+            <Text style={{ textAlign: 'center', color: 'grey', marginTop: 10 }}>{bill.companyName}</Text>
 
           </View>
 
