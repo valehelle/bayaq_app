@@ -30,7 +30,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bayaqapp.www",
+      "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "web": {
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyBT-LI415odXeREx80hM-rcrZOrpoW_TzM",
+          "measurementId": "G-EDQ6C1G0RN"
+        }
+      }
     }
   }
 }
