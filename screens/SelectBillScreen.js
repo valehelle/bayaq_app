@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import * as Analytics from 'expo-firebase-analytics';
+
 import { Ionicons } from '@expo/vector-icons'
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -23,7 +25,11 @@ export default function SelectBillScreen() {
   const navigation = useNavigation()
   const router = useRoute()
   const { bills, title } = router.params
-  console.log(router.params)
+
+  useEffect(() => {
+    Analytics.setCurrentScreen("Select Bill")
+
+  })
 
   const selectBillPressed = (bill) => {
     navigation.navigate('InsertBillDetail', { bill })
