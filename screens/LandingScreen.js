@@ -96,7 +96,7 @@ export default function LandingScreen({ navigation }) {
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
           By clicking submit you are agreeing to the<Text> </Text>
-          <TouchableOpacity onPress={termsPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text></TouchableOpacity>.
+          <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text>.
         </Text>
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10, marginTop: 30, textAlign: 'center' }}>

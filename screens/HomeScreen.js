@@ -207,7 +207,7 @@ export default function HomeScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
       <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <TouchableOpacity style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
+        <TouchableOpacity onPress={logoutPressed} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
           <AntDesign name="creditcard" size={24} color="white" />
         </TouchableOpacity>
         <View style={{ height: '100%', justifyContent: 'center' }}>

@@ -60,7 +60,7 @@ export default function LoginScreen({ navigation }) {
         />
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
           New to bayaq? Click here to
-          <TouchableOpacity onPress={registerPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}> Register</Text></TouchableOpacity>.
+          <Text style={{ fontSize: 14, fontWeight: 'bold' }}> Register</Text>.
         </Text>
 
         <TouchableOpacity style={{ marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
