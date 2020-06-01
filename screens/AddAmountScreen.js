@@ -151,7 +151,7 @@ export default function AddAmountScreen() {
                     </View>
                 </View>
             </View>
-            <View style={{ flex: .6, backgroundColor: 'white', paddingTop: 10 }}>
+            <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10 }}>
                 <View style={{ flex: .2, flexDirection: 'row' }}>
                     {_button('1', myr, setMyr, setFirstTime, firstTime)}
                     {_button('2', myr, setMyr, setFirstTime, firstTime)}

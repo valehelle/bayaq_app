@@ -83,10 +83,10 @@ const BillList = () => {
   }, [userInfo.token])
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 10, paddingTop: 80 }}>
+    <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 90 }}>
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey' }}>Bills</Text>
-        <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#f6f6f6', borderRadius: 5, marginBottom: 100, paddingHorizontal: 10 }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#f6f6f6', borderRadius: 20, marginBottom: 100, paddingHorizontal: 10, marginTop: 10 }}>
           {loading ?
 
             <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
@@ -126,7 +126,7 @@ const BillList = () => {
           <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right' }}>Service Fee RM {Dinero({ amount: selectedBills.length * 50 }).toFormat("0.00")}</Text>
           <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {Dinero({ amount: amount + (selectedBills.length * 50) }).toFormat("0.00")}</Text>
           <TouchableOpacity onPress={payBillsPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
-            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center' }}>Pay Now</Text>
+            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Pay Now</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -184,8 +184,8 @@ export default function HomeScreen() {
   const isSuccess = useSelector(state => isSuccessBillSelector(state))
   const navigation = useNavigation();
 
-  const addBillPressed = ({ bills, title }) => {
-    navigation.navigate('SelectBill', { bills, title })
+  const addBillPressed = ({ bills, title, image }) => {
+    navigation.navigate('SelectBill', { bills, title, image })
   }
 
   useEffect(() => {
@@ -225,14 +225,14 @@ export default function HomeScreen() {
           <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
         </View>
       </View>
-      <View style={{ flex: .6, backgroundColor: 'white' }}>
+      <View style={{ flex: .8, backgroundColor: 'white' }}>
         <BillList />
         <View style={{ position: 'absolute', top: -75, height: 150 }}>
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ height: '100%' }} contentContainerStyle={{ alignItems: 'center' }}>
-            <BillCard onPress={() => addBillPressed({ bills: electricity, title: 'Electricity' })} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
-            <BillCard onPress={() => addBillPressed({ bills: water, title: 'Water' })} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
-            <BillCard onPress={() => addBillPressed({ bills: telco, title: 'Telco' })} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
-            <BillCard onPress={() => addBillPressed({ bills: other, title: 'Other' })} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Others" />
+          <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ height: '100%' }} contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 10 }}>
+            <BillCard first onPress={() => addBillPressed({ bills: electricity, title: 'Electricity', image: require('../assets/images/electricity.jpg') })} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
+            <BillCard onPress={() => addBillPressed({ bills: water, title: 'Water', image: require('../assets/images/water.jpg') })} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
+            <BillCard onPress={() => addBillPressed({ bills: telco, title: 'Telco', image: require('../assets/images/telco.jpg') })} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
+            <BillCard last onPress={() => addBillPressed({ bills: other, title: 'Other' })} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Others" />
           </ScrollView>
         </View>
       </View>
@@ -240,10 +240,10 @@ export default function HomeScreen() {
   );
 }
 
-const BillCard = ({ icon, title, onPress }) => {
+const BillCard = ({ first, last, icon, title, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 10, width: screenWidth / 3.2 }}>
-      <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, height: '100%', justifyContent: 'center' }}>
+      <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 10, height: '100%', justifyContent: 'center' }}>
         <View style={{ height: 40 }}>
           {icon}
         </View>

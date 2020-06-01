@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ImageBackground
 } from 'react-native';
 import * as Analytics from 'expo-firebase-analytics';
 
@@ -24,7 +25,7 @@ import Colors from '../constants/Colors';
 export default function SelectBillScreen() {
   const navigation = useNavigation()
   const router = useRoute()
-  const { bills, title } = router.params
+  const { bills, title, image } = router.params
 
   useEffect(() => {
     Analytics.setCurrentScreen("Select Bill")
@@ -32,26 +33,26 @@ export default function SelectBillScreen() {
   })
 
   const selectBillPressed = (bill) => {
-    navigation.navigate('InsertBillDetail', { bill })
+    navigation.navigate('InsertBillDetail', { bill, title, image })
   }
 
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
-      <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
+      <ImageBackground resizeMode="cover" source={image} style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
         <View style={{ flex: 1 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
             <MaterialIcons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>
           <View style={{ height: '100%', justifyContent: 'center' }}>
             <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{title}</Text>
           </View>
         </View>
-      </View>
-      <View style={{ flex: .6, backgroundColor: 'white', flexDirection: 'row', flexWrap: 'wrap' }}>
+      </ImageBackground>
+      <View style={{ flex: .8, backgroundColor: 'white', flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 15, paddingTop: 10 }}>
         {bills.map((bill, index) =>
           <View key={index} style={{
-            width: screenWidth * .25, padding: 5,
+            width: screenWidth * .23, padding: 5,
 
             shadowColor: "#000",
             shadowOffset: {
@@ -64,7 +65,7 @@ export default function SelectBillScreen() {
             elevation: 5,
           }} >
             <TouchableOpacity style={{
-              backgroundColor: 'white', height: screenWidth * .25, justifyContent: 'center', alignItems: 'center',
+              backgroundColor: 'white', height: screenWidth * .21, justifyContent: 'center', alignItems: 'center',
               borderRadius: 10,
             }} onPress={() => selectBillPressed(bill)}>
               <Image style={{ borderRadius: 10, height: '100%', width: '100%' }} source={{ uri: bill.image }} />
