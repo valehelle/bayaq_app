@@ -66,8 +66,10 @@ const billsSlice = createSlice({
             reducer(state, action) {
                 const bill = action.payload
                 const list = state.list
+                const selectedBills = state.selectedBills
                 list.push(bill)
-                state.selectedBills = list.filter((bill) => bill.amount > 0)
+                selectedBills.push(bill)
+
 
             }
         },
@@ -84,7 +86,6 @@ const billsSlice = createSlice({
                 const billIndex = state.list.findIndex((bill) => bill.id == newBill.id)
                 const list = state.list
                 list[billIndex] = newBill
-                state.selectedBills = list.filter((bill) => bill.amount > 0)
             }
         },
         payBills: {
@@ -94,14 +95,24 @@ const billsSlice = createSlice({
         },
         setSelectedBills: {
             reducer(state, action) {
-                state.selectedBills = state.list.filter((bill) => bill.amount > 0)
+                if (action.payload.bill.amount > 0)
+                    state.selectedBills.push(action.payload.bill)
+            }
+        },
+        removeSelectedBills: {
+            reducer(state, action) {
+                const { bill } = action.payload
+                const billId = bill.id
+                const selectedBills = state.selectedBills.filter((bill) => bill.id != billId)
+                state.selectedBills = selectedBills
             }
         },
         removeBill: {
             reducer(state, action) {
                 const { billId } = action.payload
                 state.list = state.list.filter((bill) => bill.id != billId)
-                state.selectedBills = state.list.filter((bill) => bill.amount > 0)
+                const selectedBills = state.selectedBills.filter((bill) => bill.id != billId)
+                state.selectedBills = selectedBills
             }
         },
         autoUpdate: {

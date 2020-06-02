@@ -95,19 +95,21 @@ const BillList = () => {
               return (
                 <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
                   <View style={{ flex: .2 }}>
-                    {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 5 }} /> : <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} />}
+                    <TouchableOpacity onPress={() => isBillSelected(bill.id) ? dispatch(billsAction.removeSelectedBills({ bill })) : dispatch(billsAction.setSelectedBills({ bill }))}>
+                      {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 5 }} /> : isBillSelected(bill.id) ? <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} /> : <Ionicons style={{}} name="ios-checkmark-circle-outline" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} />}
+                    </TouchableOpacity>
                   </View>
                   <View style={{ flex: .4, flexGrow: 1, paddingLeft: 5 }}>
 
-                    <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.companyName}</Text>
-                    <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
+                    <Text style={{ fontSize: 14, fontWeight: '600', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.companyName}</Text>
+                    <Text style={{ fontSize: 14, color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
 
                   </View>
 
                   <View style={{ flex: .4 }}>
                     <View style={{ flexDirection: 'row' }}>
-                      <Text style={{ flex: .4, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center' }}>RM</Text>
-                      <Text style={{ flex: .6, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%' }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+                      <Text style={{ flex: .4, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>RM</Text>
+                      <Text style={{ flex: .6, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
 
                     </View>
 
@@ -130,7 +132,7 @@ const BillList = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </View >
   )
 }
 
@@ -218,7 +220,7 @@ export default function HomeScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
       <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <TouchableOpacity onPress={logoutPressed} style={{ alignSelf: 'flex-end', paddingHorizontal: 10, paddingVertical: 10 }}>
+        <TouchableOpacity onPress={logoutPressed} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
           <AntDesign name="creditcard" size={24} color="white" />
         </TouchableOpacity>
         <View style={{ height: '100%', justifyContent: 'center' }}>

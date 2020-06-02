@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
 import { addBill } from '../features/bills/billsSaga'
@@ -112,12 +112,24 @@ export default function AddAmountScreen() {
         navigation.goBack()
     }
     const deleteButtonPressed = () => {
-        const result = window.confirm("Are you sure you want to delete this bill?");
-        if (result) {
-            dispatch(billsAction.removeBill({ billId: billDetail.id }))
-            navigation.goBack()
-
-        }
+        Alert.alert(
+            'Are you sure you want to delete this bill?',
+            '',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK', onPress: () => {
+                        dispatch(billsAction.removeBill({ billId: billDetail.id }))
+                        navigation.goBack()
+                    }
+                },
+            ],
+            { cancelable: false }
+        );
     }
     return (
         <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
