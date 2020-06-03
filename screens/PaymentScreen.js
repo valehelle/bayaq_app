@@ -33,7 +33,17 @@ export default function PaymentScreen() {
   return (
     <View style={{ height: '100%' }}>
       {paymentUrl ?
-        <WebView source={{ uri: paymentUrl }} />
+        <WebView
+          source={{ uri: paymentUrl }}
+          onShouldStartLoadWithRequest={request => {
+            if (request.url.startsWith('https://www.bayaqapp.com/success_payment')) {
+              navigation.navigate("Home")
+              return false
+            } else if (request.url.startsWith('https://www.bayaqapp.com/fail_payment')) {
+              return false
+            }
+            return true
+          }} />
         :
         <View style={{ height: '100%', justifyContent: 'center', alignContent: 'center' }}>
           <ActivityIndicator size='large' color={Colors.secondaryColor} />

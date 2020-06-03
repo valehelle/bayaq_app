@@ -62,7 +62,7 @@ const BillList = () => {
         const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
         if (allBillsFinishedLoading == undefined) {
 
-          if (userInfo.profile.bankCode == "") {
+          if (userInfo.profile.bankCode == "" || userInfo.profile.bankCode == "0") {
             navigation.navigate('SelectBank', { proceedPayment: true })
           } else {
             navigation.navigate('Payment', { bankCode: userInfo.profile.bankCode })
