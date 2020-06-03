@@ -28,7 +28,7 @@ export default function SelectBankScreen() {
   const selectBankPressed = (bank) => {
     dispatch(userAction.setUserBank({ bankCode: bank.code }))
     if (proceedPayment) {
-      dispatch(billsAction.payBills({ bankCode: bank.code }))
+      navigation.navigate('Payment', { bankCode: bank.code })
     } else {
       navigation.goBack()
     }

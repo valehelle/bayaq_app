@@ -71,7 +71,7 @@ export function* getBillSaga() {
 }
 
 
-export function* payBillsSaga({ payload }) {
+export function* getPaymentUrlSaga({ payload }) {
     const bills = yield select(selectedBillsSelector)
     const userInfo = yield select(userInfoSelector)
     const bankCode = payload.bankCode
@@ -89,7 +89,10 @@ export function* payBillsSaga({ payload }) {
     const response = yield call(payBill, body, token)
     if (response.ok) {
         const payload = yield response.json()
-        window.location.href = payload.url + "?auto_submit=true"
+        yield put(billsAction.getPaymentUrlSuccess({ paymentUrl: payload.url + "?auto_submit=true" }))
+    } else {
+        yield put(billsAction.getPaymentUrlFail({ paymentUrl: payload.url + "?auto_submit=true" }))
+
     }
 
 }
@@ -208,7 +211,7 @@ export const billSaga = [
     takeLatest(addBill.type, addBillSaga),
     takeLatest(billsAction.getBill, getBillSaga),
     takeLatest(updateBill.type, updateBillSaga),
-    takeLatest(billsAction.payBills.type, payBillsSaga),
+    takeLatest(billsAction.getPaymentUrl.type, getPaymentUrlSaga),
     takeLatest(billsAction.setBill, getBillAmountSaga),
     takeEvery(getBillAmountFromServer.type, getBillAmountFromServerSaga),
     takeLatest(getBillAmountFromServerWithCallback.type, getBillAmountFromServerWithCallbackSaga),

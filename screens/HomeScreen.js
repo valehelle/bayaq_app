@@ -30,6 +30,7 @@ const userAction = userSlice.actions
 import Dinero from 'dinero.js'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import Colors from '../constants/Colors'
+import { banks } from '../constants/Banks'
 var moment = require('moment');
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -60,10 +61,11 @@ const BillList = () => {
       if (amount <= 50000) {
         const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
         if (allBillsFinishedLoading == undefined) {
+
           if (userInfo.profile.bankCode == "") {
             navigation.navigate('SelectBank', { proceedPayment: true })
           } else {
-            navigation.navigate('Payment', { uri: true })
+            navigation.navigate('Payment', { bankCode: userInfo.profile.bankCode })
 
           }
         } else {
@@ -241,12 +243,13 @@ export default function HomeScreen() {
   const notSelectedTabStyle = {
     color: 'white'
   }
-
+  const bank = banks.find((bank) => bank.code == userInfo.profile.bankCode)
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
       <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <TouchableOpacity onPress={() => navigation.navigate("SelectBank", { proceedPayment: false })} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("SelectBank", { proceedPayment: false })} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row' }}>
+          {bank && <View style={{ justifyContent: 'center', alignContent: 'center', borderRightWidth: 1, borderRightColor: 'white', paddingRight: 10, marginRight: 10, height: 18, marginTop: 3 }}><Text style={{ color: 'white', fontSize: 15, fontWeight: 'bold' }}>{bank.name}</Text></View>}
           <AntDesign name="creditcard" size={24} color="white" />
         </TouchableOpacity>
         <View style={{ height: '100%', justifyContent: 'center' }}>

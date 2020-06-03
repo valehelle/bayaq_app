@@ -31,6 +31,12 @@ export const isBillLoadingSelector = createSelector(
     bills => bills.loading
 )
 
+export const paymentUrlSelector = createSelector(
+    state => state.bills,
+    bills => bills.paymentUrl
+)
+
+
 
 const reducer = (accumulator, bill) => accumulator + bill.amount;
 
@@ -38,6 +44,8 @@ const reducer = (accumulator, bill) => accumulator + bill.amount;
 const billsSlice = createSlice({
     name: 'bills',
     initialState: {
+        paymentUrl: '',
+        gettingPaymentUrl: false,
         list: [],
         selectedBills: [],
         success: false,
@@ -128,6 +136,29 @@ const billsSlice = createSlice({
         getBillSuccess: {
             reducer(state, action) {
                 state.loading = false
+            }
+        },
+        getPaymentUrl: {
+            reducer(state, action) {
+                state.gettingPaymentUrl = true
+            }
+        },
+        getPaymentUrlSuccess: {
+            reducer(state, action) {
+                state.paymentUrl = action.payload.paymentUrl
+                state.gettingPaymentUrl = false
+            }
+        },
+        getPaymentUrlFail: {
+            reducer(state, action) {
+                state.paymentUrl = ""
+                state.gettingPaymentUrl = false
+            }
+        },
+        resetPaymentUrl: {
+            reducer(state, action) {
+                state.paymentUrl = ""
+                state.gettingPaymentUrl = false
             }
         },
     }

@@ -9,17 +9,38 @@ import {
   TextInput,
   ScrollView
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import userSlice from '../features/accounts/userSlice'
 import Colors from '../constants/Colors'
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { WebView } from 'react-native-webview';
+import billsSlice, { paymentUrlSelector } from '../features/bills/billsSlice'
+import { ActivityIndicator } from 'react-native-paper';
+
+const billsAction = billsSlice.actions
+
 const userAction = userSlice.actions
 
 export default function PaymentScreen() {
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+  const router = useRoute()
+  const { bankCode } = router.params
+  const paymentUrl = useSelector(state => paymentUrlSelector(state))
+  useEffect(() => {
+    dispatch(billsAction.getPaymentUrl({ bankCode: bankCode }))
+  }, [])
   return (
-    <View >
-      <Text>Payment Screen</Text>
+    <View style={{ height: '100%' }}>
+      {paymentUrl ?
+        <WebView source={{ uri: paymentUrl }} />
+        :
+        <View style={{ height: '100%', justifyContent: 'center', alignContent: 'center' }}>
+          <ActivityIndicator size='large' color={Colors.secondaryColor} />
+        </View>
+      }
     </View>
-  );
+  )
 }
 
 
