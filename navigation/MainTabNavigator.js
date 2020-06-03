@@ -10,10 +10,12 @@ import InvoiceScreen from '../screens/InvoiceScreen'
 import InsertBillDetailScreen from '../screens/InsertBillDetailScreen';
 import AddAmountScreen from '../screens/AddAmountScreen'
 import SettingScreen from '../screens/SettingScreen'
+
 import SuccessScreen from '../screens/SuccessScreen';
 import SelectBankScreen from '../screens/SelectBankScreen';
 import Colors from '../constants/Colors'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
+import PaymentScreen from '../screens/PaymentScreen';
 const config = Platform.select({
   web: { headerMode: 'screen', initialRouteName: 'Home' },
   default: {},
@@ -38,35 +40,47 @@ function HomeStackScreen() {
 
 const Tab = createBottomTabNavigator();
 
+function TabNavigator() {
+  return (
+    <Tab.Navigator tabBarOptions={{ inactiveTintColor: 'rgba(277,277,277,.4)', activeTintColor: 'white', style: { backgroundColor: Colors.bottomBar } }}>
+      <Tab.Screen name="Home" component={HomeStackScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="md-home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen name="Invoice" component={InvoiceScreen}
+        options={{
+          tabBarLabel: 'Invoice',
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome5 name="file-invoice-dollar" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen name="Settings" component={SettingScreen}
+        options={{
+          tabBarLabel: 'Settings',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="md-settings" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+
+const Main = createStackNavigator();
+
 export default function MainStack() {
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBarOptions={{ inactiveTintColor: 'rgba(277,277,277,.4)', activeTintColor: 'white', style: { backgroundColor: Colors.bottomBar } }}>
-        <Tab.Screen name="Home" component={HomeStackScreen}
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="md-home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen name="Invoice" component={InvoiceScreen}
-          options={{
-            tabBarLabel: 'Invoice',
-            tabBarIcon: ({ color, size }) => (
-              <FontAwesome5 name="file-invoice-dollar" size={size} color={color} />
-            ),
-          }}
-        />
-        <Tab.Screen name="Settings" component={SettingScreen}
-          options={{
-            tabBarLabel: 'Settings',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="md-settings" color={color} size={size} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      <Main.Navigator headerMode="none">
+        <Main.Screen name="BottomTab" component={TabNavigator} />
+        <Main.Screen name="Payment" component={PaymentScreen} />
+      </Main.Navigator>
     </NavigationContainer>
   );
 }

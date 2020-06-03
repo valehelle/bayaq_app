@@ -60,7 +60,12 @@ const BillList = () => {
       if (amount <= 50000) {
         const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
         if (allBillsFinishedLoading == undefined) {
-          navigation.navigate('SelectBank')
+          if (userInfo.profile.bankCode == "") {
+            navigation.navigate('SelectBank', { proceedPayment: true })
+          } else {
+            navigation.navigate('Payment', { uri: true })
+
+          }
         } else {
           alert('Please wait until all bills finish getting the latest data.')
         }
@@ -235,11 +240,11 @@ export default function HomeScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
       <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <TouchableOpacity onPress={() => navigation.navigate("SelectBank")} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("SelectBank", { proceedPayment: false })} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
           <AntDesign name="creditcard" size={24} color="white" />
         </TouchableOpacity>
         <View style={{ height: '100%', justifyContent: 'center' }}>
-          <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center', visibility: 'hidden' }}>{shortName(userInfo.profile.name)}</Text>
+          <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{shortName(userInfo.profile.name)}</Text>
         </View>
       </View>
       <View style={{ flex: .8, backgroundColor: 'white' }}>

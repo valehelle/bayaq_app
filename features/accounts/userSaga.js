@@ -2,7 +2,8 @@ import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import userSlice from './userSlice'
-import { registerAPI, wakeUp, loginAPI, getUserProfile } from '../../services/api'
+import { registerAPI, wakeUp, loginAPI, getUserProfile, setBankCode } from '../../services/api'
+import { userInfoSelector } from '../accounts/userSlice'
 
 const userAction = userSlice.actions
 
@@ -60,6 +61,16 @@ export function* getUserInfoSaga() {
 
     }
 }
+export function* setUserBank({ payload }) {
+    const userInfo = yield select(userInfoSelector)
+
+    const bankCode = payload
+    const body = {
+        bank_code: bankCode.bankCode
+    }
+    const response = yield call(setBankCode, body, userInfo.token)
+
+}
 export function* wakeUpSaga() {
     yield call(wakeUp)
 }
@@ -73,4 +84,5 @@ export const userSaga = [
     takeLatest(getUserInfo.type, getUserInfoSaga),
     takeLatest(userLogin.type, userLoginSaga),
     takeLatest(userAction.userLogout.type, userLogoutSaga),
+    takeLatest(userAction.setUserBank.type, setUserBank),
 ]

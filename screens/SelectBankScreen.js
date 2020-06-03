@@ -11,17 +11,27 @@ import {
 import { Ionicons } from '@expo/vector-icons'
 import { useDispatch } from 'react-redux'
 import billsSlice from '../features/bills/billsSlice'
+import userSlice from '../features/accounts/userSlice'
+const userAction = userSlice.actions
 
 const billsAction = billsSlice.actions
 
 import { banks } from '../constants/Banks'
 import Colors from '../constants/Colors';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-export default function SelectBankScreen({ navigation }) {
+export default function SelectBankScreen() {
   const dispatch = useDispatch()
-
+  const navigation = useNavigation()
+  const router = useRoute()
+  const { proceedPayment } = router.params
   const selectBankPressed = (bank) => {
-    dispatch(billsAction.payBills({ bankCode: bank.code }))
+    dispatch(userAction.setUserBank({ bankCode: bank.code }))
+    if (proceedPayment) {
+      dispatch(billsAction.payBills({ bankCode: bank.code }))
+    } else {
+      navigation.goBack()
+    }
   }
 
   const backButtonPressed = () => {

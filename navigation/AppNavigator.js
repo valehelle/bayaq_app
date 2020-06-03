@@ -7,6 +7,7 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import LandingScreen from '../screens/LandingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
+import PaymentScreen from '../screens/PaymentScreen';
 
 
 const LandingNavigator = createStackNavigator(

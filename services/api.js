@@ -185,7 +185,7 @@ export const getUserProfile = ({ token }) => {
     return fetchRequest(path, config)
 }
 
-export const set_bank_code = (body, token) => {
+export const setBankCode = (body, token) => {
 
     const path = `/user/bank`
     const config = {
