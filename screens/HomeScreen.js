@@ -91,44 +91,50 @@ const BillList = () => {
     <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 90 }}>
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey' }}>Bills</Text>
-        <ScrollView showsVerticalScrollIndicator={false} style={{ backgroundColor: '#f6f6f6', borderRadius: 20, marginBottom: 100, paddingHorizontal: 10, marginTop: 10 }}>
+        <View style={{ backgroundColor: '#f6f6f6', borderRadius: 20, marginBottom: 100, marginTop: 10 }}>
           {loading ?
-
-            <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
+            <View style={{ height: '90%', justifyContent: 'center' }}>
+              <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
+            </View>
             :
-            bills.length > 0 ? bills.map((bill) => {
-              return (
-                <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
-                  <View style={{ flex: .2 }}>
-                    <TouchableOpacity onPress={() => isBillSelected(bill.id) ? dispatch(billsAction.removeSelectedBills({ bill })) : dispatch(billsAction.setSelectedBills({ bill }))}>
-                      {isBillLoading(bill.id) ? <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 5 }} /> : isBillSelected(bill.id) ? <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} /> : <Ionicons style={{}} name="ios-checkmark-circle-outline" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} />}
+            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 10 }}>
+              {
+                bills.length > 0 ? bills.map((bill) => {
+                  return (
+                    <TouchableOpacity style={{ paddingTop: 15, flexDirection: 'row' }} key={bill.id} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
+                      <View style={{ flex: .2 }}>
+                        <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => isBillSelected(bill.id) ? dispatch(billsAction.removeSelectedBills({ bill })) : dispatch(billsAction.setSelectedBills({ bill }))}>
+                          {isBillLoading(bill.id) ? <ActivityIndicator size={31} color={Colors.secondaryColor} /> : isBillSelected(bill.id) ? <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} /> : <Ionicons style={{}} name="ios-checkmark-circle-outline" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} />}
+                        </TouchableOpacity>
+                      </View>
+                      <View style={{ flex: .4, flexGrow: 1, paddingLeft: 5 }}>
+
+                        <Text style={{ fontSize: 14, fontWeight: '600', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.companyName}</Text>
+                        <Text style={{ fontSize: 14, color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
+
+                      </View>
+
+                      <View style={{ flex: .4 }}>
+                        <View style={{ flexDirection: 'row' }}>
+                          <Text style={{ flex: .4, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>RM</Text>
+                          <Text style={{ flex: .6, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+
+                        </View>
+
+                      </View>
                     </TouchableOpacity>
+                  )
+                })
+                  : <View style={{ paddingVertical: 10 }}>
+                    <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
+                    <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
                   </View>
-                  <View style={{ flex: .4, flexGrow: 1, paddingLeft: 5 }}>
-
-                    <Text style={{ fontSize: 14, fontWeight: '600', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.companyName}</Text>
-                    <Text style={{ fontSize: 14, color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
-
-                  </View>
-
-                  <View style={{ flex: .4 }}>
-                    <View style={{ flexDirection: 'row' }}>
-                      <Text style={{ flex: .4, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>RM</Text>
-                      <Text style={{ flex: .6, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
-
-                    </View>
-
-                  </View>
-                </TouchableOpacity>
-              )
-            })
-              : <View style={{ paddingVertical: 10 }}>
-                <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
-                <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
-              </View>
+              }
+              <View style={{ height: 30 }} />
+            </ScrollView>
           }
-          <View style={{ height: 20 }} />
-        </ScrollView>
+        </View>
+
         <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10 }}>
           <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right' }}>Service Fee RM {Dinero({ amount: selectedBills.length * 50 }).toFormat("0.00")}</Text>
           <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {Dinero({ amount: amount + (selectedBills.length * 50) }).toFormat("0.00")}</Text>
