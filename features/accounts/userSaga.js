@@ -9,6 +9,7 @@ const userAction = userSlice.actions
 
 export const getUserInfo = createAction(`${userSlice.name}/getUserInfo`)
 export const userLogin = createAction(`${userSlice.name}/userLogin`)
+export const getUserToken = createAction(`${userSlice.name}/userToken`)
 
 export const wakeUpAction = createAction(`${userSlice.name}/wakeUp`)
 
@@ -43,12 +44,24 @@ export function* userLoginSaga({ payload }) {
         const { token } = yield response.json()
         yield call(AsyncStorage.setItem, 'bayaqUserToken', JSON.stringify({ token }))
 
-        userInfoCreated()
+        yield put(userAction.setUserToken({ token, userInfoCreated: () => { } }))
     } else {
         alert('Incorrect email or password.')
     }
 
 }
+
+export function* getUserTokenSaga() {
+    yield call(wakeUp)
+    const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
+    if (userInfo) {
+        yield put(userAction.setUserToken({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
+    }
+    else {
+        yield put(userAction.setUserToken({ token: "", userInfoCreated: () => { } }))
+    }
+}
+
 export function* getUserInfoSaga() {
     yield call(wakeUp)
     const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
@@ -85,4 +98,5 @@ export const userSaga = [
     takeLatest(userLogin.type, userLoginSaga),
     takeLatest(userAction.userLogout.type, userLogoutSaga),
     takeLatest(userAction.setUserBank.type, setUserBank),
+    takeLatest(getUserToken.type, getUserTokenSaga)
 ]

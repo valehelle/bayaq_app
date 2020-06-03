@@ -11,7 +11,7 @@ const userSlice = createSlice({
     initialState: {
         email: '',
         fullName: '',
-        token: '',
+        token: null,
         profile: {
             bankCode: 0,
             email: '',
@@ -42,7 +42,7 @@ const userSlice = createSlice({
         },
         userLogout: {
             reducer(state, action) {
-                state.token = ""
+                state.token = ''
             }
         },
         setUserBank: {

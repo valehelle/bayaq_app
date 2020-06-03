@@ -76,12 +76,10 @@ const Main = createStackNavigator();
 
 export default function MainStack() {
   return (
-    <NavigationContainer>
-      <Main.Navigator headerMode="none">
-        <Main.Screen name="BottomTab" component={TabNavigator} />
-        <Main.Screen name="Payment" component={PaymentScreen} />
-      </Main.Navigator>
-    </NavigationContainer>
+    <Main.Navigator headerMode="none">
+      <Main.Screen name="BottomTab" component={TabNavigator} />
+      <Main.Screen name="Payment" component={PaymentScreen} />
+    </Main.Navigator>
   );
 }
 

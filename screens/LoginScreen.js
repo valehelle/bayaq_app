@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }) {
     }
   }
   const userInfoCreated = () => {
-    navigation.navigate("Main")
+    // navigation.navigate("Main")
   }
   const registerPressed = () => {
     navigation.navigate("Landing")

@@ -14,10 +14,16 @@ import userSlice from '../features/accounts/userSlice'
 import Colors from '../constants/Colors'
 const userAction = userSlice.actions
 
-export default function SettingScreen() {
+export default function SettingScreen({ navigation }) {
+  const dispatch = useDispatch()
+  const logoutPressed = () => {
+    dispatch(userAction.userLogout())
+
+  }
   return (
-    <View >
+    <View style={{ paddingTop: 30 }}>
       <Text>Setting Screen</Text>
+      <TouchableOpacity onPress={logoutPressed}><Text>Logout</Text></TouchableOpacity>
     </View>
   );
 }

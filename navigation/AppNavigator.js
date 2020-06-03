@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { useSelector, useDispatch } from 'react-redux'
 
 import MainTabNavigator from './MainTabNavigator';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
@@ -8,31 +8,53 @@ import LandingScreen from '../screens/LandingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
 import PaymentScreen from '../screens/PaymentScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { getUserToken } from '../features/accounts/userSaga'
+import { userInfoSelector } from '../features/accounts/userSlice'
 
+import {
+  AsyncStorage
+} from 'react-native';
 
-const LandingNavigator = createStackNavigator(
-  {
-    Landing: LandingScreen,
-    TermsAndCondition: TermsAndConditionScreen
+const Main = createStackNavigator();
+
+export default AppNavigator = () => {
+  const dispatch = useDispatch()
+  const userInfo = useSelector(state => userInfoSelector(state))
+
+  useEffect(() => {
+    dispatch(getUserToken())
+  }, [])
+  if (userInfo.token == null) {
+    // We haven't finished checking for the token yet
+    return <AuthLoadingScreen />;
   }
-);
 
 
+  return (
+    <NavigationContainer>
+      <Main.Navigator headerMode="none">
+        {userInfo.token != '' ? <Main.Screen name="Main" component={MainTabNavigator} /> :
+          <>
+            <Main.Screen name="Landing" component={LandingScreen}
+
+              options={{
+                title: 'Sign in',
+                // When logging out, a pop animation feels intuitive
+                // You can remove this if you want the default 'push' animation
+                animationTypeForReplace: 'pop',
+              }}
+            />
+            <Main.Screen name="Login" component={LoginScreen} />
+            <Main.Screen name="Payment" component={LandingScreen} />
+          </>
+        }
 
 
-export default createAppContainer(
-  createSwitchNavigator({
-    // You could add another route here for authentication.
-    // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-    Login: LoginScreen,
-    TermsAndCondition: TermsAndConditionScreen,
-    AuthLoading: AuthLoadingScreen,
-    Main: MainTabNavigator,
-    Landing: LandingNavigator,
-  },
-    {
-      initialRouteName: 'AuthLoading',
-    })
-);
+      </Main.Navigator>
+    </NavigationContainer>
+  )
+}
 
 

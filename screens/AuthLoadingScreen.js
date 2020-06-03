@@ -17,29 +17,8 @@ import { useDispatch } from 'react-redux'
 
 
 export default function AuthLoadingScreen({ navigation }) {
-  const dispatch = useDispatch()
-  async function isLoggedIn(navigation) {
-    try {
-      const value = await AsyncStorage.getItem('bayaqUserToken');
-      navigation.navigate(value ? 'Main' : 'Landing');
-    } catch (error) {
-      console.log(error)
-      // Error retrieving data
-    }
-  }
-
   useEffect(() => {
-
-    const isSuccess = navigation.getParam('billplz[paid]', 'NO-ID') === 'NO-ID' ? false : true
-    if (isSuccess) {
-      const isPaid = navigation.getParam('billplz[paid]', 'NO-ID') === 'true' ? true : false
-      if (isPaid) {
-        dispatch(billsAction.setIsSuccess({ isSuccess }))
-      }
-    }
-    isLoggedIn(navigation)
   }, [])
-
   return (
     <View style={styles.container}>
       <Text style={{ textAlign: 'center', color: 'white', fontSize: 40, fontWeight: 'bold' }}>BAYAQ</Text>
