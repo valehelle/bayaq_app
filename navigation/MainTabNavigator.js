@@ -6,12 +6,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import SelectBillScreen from '../screens/SelectBillScreen';
+import InvoiceScreen from '../screens/InvoiceScreen'
 import InsertBillDetailScreen from '../screens/InsertBillDetailScreen';
 import AddAmountScreen from '../screens/AddAmountScreen'
+import SettingScreen from '../screens/SettingScreen'
 import SuccessScreen from '../screens/SuccessScreen';
 import SelectBankScreen from '../screens/SelectBankScreen';
 import Colors from '../constants/Colors'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 const config = Platform.select({
   web: { headerMode: 'screen', initialRouteName: 'Home' },
   default: {},
@@ -28,6 +30,7 @@ function HomeStackScreen() {
       <HomeStack.Screen name="SelectBill" component={SelectBillScreen} />
       <HomeStack.Screen name="InsertBillDetail" component={InsertBillDetailScreen} />
       <HomeStack.Screen name="AddAmount" component={AddAmountScreen} />
+      <HomeStack.Screen name="SelectBank" component={SelectBankScreen} />
 
     </HomeStack.Navigator>
   );
@@ -47,11 +50,19 @@ export default function MainStack() {
             ),
           }}
         />
-        <Tab.Screen name="Settings" component={SelectBillScreen}
+        <Tab.Screen name="Invoice" component={InvoiceScreen}
+          options={{
+            tabBarLabel: 'Invoice',
+            tabBarIcon: ({ color, size }) => (
+              <FontAwesome5 name="file-invoice-dollar" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tab.Screen name="Settings" component={SettingScreen}
           options={{
             tabBarLabel: 'Settings',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="md-home" color={color} size={size} />
+              <Ionicons name="md-settings" color={color} size={size} />
             ),
           }}
         />

@@ -2,7 +2,7 @@ import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import userSlice from './userSlice'
-import { registerAPI, wakeUp, loginAPI } from '../../services/api'
+import { registerAPI, wakeUp, loginAPI, getUserProfile } from '../../services/api'
 
 const userAction = userSlice.actions
 
@@ -52,6 +52,13 @@ export function* getUserInfoSaga() {
     yield call(wakeUp)
     const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
     yield put(userAction.setUserToken({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
+    const response = yield call(getUserProfile, JSON.parse(userInfo))
+    if (response.ok) {
+        const userProfile = yield response.json()
+        yield put(userAction.setUserProfile({ ...userProfile }))
+
+
+    }
 }
 export function* wakeUpSaga() {
     yield call(wakeUp)

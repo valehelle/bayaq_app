@@ -180,9 +180,24 @@ const InvoiceList = ({ navigation }) => {
 }
 
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const shortName = (name) => {
+  const firstName = name.split(" ")[0]
+  if (firstName != "") {
+    return `Hello ${capitalizeFirstLetter(firstName)}`
+  } else {
+    return ""
+  }
+
+}
 export default function HomeScreen() {
   const dispatch = useDispatch()
   const [selectedTab, setSelectedTab] = useState('Home')
+  const userInfo = useSelector(state => userInfoSelector(state))
+
   const isSuccess = useSelector(state => isSuccessBillSelector(state))
   const navigation = useNavigation();
 
@@ -220,11 +235,11 @@ export default function HomeScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
       <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <TouchableOpacity onPress={logoutPressed} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("SelectBank")} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10 }}>
           <AntDesign name="creditcard" size={24} color="white" />
         </TouchableOpacity>
         <View style={{ height: '100%', justifyContent: 'center' }}>
-          <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}> Hello Zimi</Text>
+          <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center', visibility: 'hidden' }}>{shortName(userInfo.profile.name)}</Text>
         </View>
       </View>
       <View style={{ flex: .8, backgroundColor: 'white' }}>

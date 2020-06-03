@@ -5,12 +5,18 @@ export const userInfoSelector = createSelector(
     user => user
 )
 
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {
         email: '',
         fullName: '',
-        token: ''
+        token: '',
+        profile: {
+            bank_code: 0,
+            email: '',
+            name: ''
+        }
     },
     reducers: {
         addUserInfo: {
@@ -18,6 +24,11 @@ const userSlice = createSlice({
                 const { email, fullName } = action.payload
                 state.email = email
                 state.fullName = fullName
+            }
+        },
+        setUserProfile: {
+            reducer(state, action) {
+                state.profile = action.payload
             }
         },
         setUserToken: {

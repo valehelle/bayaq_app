@@ -1,5 +1,5 @@
-//const BASE_URL = 'http://localhost:3000'
-const BASE_URL = 'https://boiling-island-04628.herokuapp.com'
+const BASE_URL = 'http://localhost:3000'
+//const BASE_URL = 'https://boiling-island-04628.herokuapp.com'
 
 const getUrl = (path) => {
     return BASE_URL + path
@@ -165,6 +165,37 @@ export const getInvoicesAPI = (token) => {
             'Authorization': `Bearer ${token}`,
             ...headers,
         }
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+export const getUserProfile = ({ token }) => {
+    const path = `/user`
+    const config = {
+        method: 'GET',
+        "headers": {
+            'Authorization': `Bearer ${token}`,
+            ...headers,
+        }
+    }
+
+
+    return fetchRequest(path, config)
+}
+
+export const set_bank_code = (body, token) => {
+
+    const path = `/user/bank`
+    const config = {
+        method: 'PUT',
+        "headers": {
+            'Authorization': `Bearer ${token}`,
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+
     }
 
 

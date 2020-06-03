@@ -14,10 +14,10 @@ import userSlice from '../features/accounts/userSlice'
 import Colors from '../constants/Colors'
 const userAction = userSlice.actions
 
-export default function InvoiceScreen() {
+export default function SettingScreen() {
   return (
     <View >
-      <Text>Invoice Screen</Text>
+      <Text>Setting Screen</Text>
     </View>
   );
 }
