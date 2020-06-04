@@ -109,17 +109,17 @@ const BillList = () => {
                           {isBillLoading(bill.id) ? <ActivityIndicator size={31} color={Colors.secondaryColor} /> : isBillSelected(bill.id) ? <Ionicons style={{}} name="ios-checkmark-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} /> : <Ionicons style={{}} name="ios-checkmark-circle-outline" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} />}
                         </TouchableOpacity>
                       </View>
-                      <View style={{ flex: .4, flexGrow: 1, paddingLeft: 5 }}>
+                      <View style={{ flex: .3, flexGrow: 1, paddingLeft: 5 }}>
 
                         <Text style={{ fontSize: 14, fontWeight: '600', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.companyName}</Text>
                         <Text style={{ fontSize: 14, color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
 
                       </View>
 
-                      <View style={{ flex: .4 }}>
+                      <View style={{ flex: .5 }}>
                         <View style={{ flexDirection: 'row' }}>
-                          <Text style={{ flex: .4, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>RM</Text>
-                          <Text style={{ flex: .6, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+                          <Text style={{ flex: .3, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>RM</Text>
+                          <Text style={{ marginRight: 8, flex: .7, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
 
                         </View>
 
