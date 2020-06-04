@@ -36,6 +36,10 @@ export const paymentUrlSelector = createSelector(
     bills => bills.paymentUrl
 )
 
+export const isAddingBillSelector = createSelector(
+    state => state.bills,
+    bills => bills.isAddingBill
+)
 
 
 const reducer = (accumulator, bill) => accumulator + bill.amount;
@@ -51,8 +55,14 @@ const billsSlice = createSlice({
         success: false,
         autoUpdate: true,
         loading: true,
+        isAddingBill: false,
     },
     reducers: {
+        addBillSuccess: {
+            reducer(state, action) {
+                state.isAddingBill = false
+            }
+        },
         setBillStatus: {
             reducer(state, action) {
                 const { id, loading } = action.payload
@@ -72,13 +82,7 @@ const billsSlice = createSlice({
         },
         addBill: {
             reducer(state, action) {
-                const bill = action.payload
-                const list = state.list
-                const selectedBills = state.selectedBills
-                list.push(bill)
-                selectedBills.push(bill)
-
-
+                state.isAddingBill = true
             }
         },
         setBill: {

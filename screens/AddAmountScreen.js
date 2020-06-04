@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
 import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
-import { addBill } from '../features/bills/billsSaga'
 import Dinero from 'dinero.js'
 import { getBillAmountFromServerWithCallback } from '../features/bills/billsSaga'
-import billsSlice from '../features/bills/billsSlice'
+import billsSlice, { isAddingBillSelector } from '../features/bills/billsSlice'
 import Colors from '../constants/Colors'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Constants from 'expo-constants';
@@ -73,10 +72,14 @@ export default function AddAmountScreen() {
     const [billStatus, setBillStatus] = useState('UPDATE')
     const [firstTime, setFirstTime] = useState(true)
     const [isLoading, setIsLoading] = useState(false)
+
+    const isAddingBill = useSelector(state => isAddingBillSelector(state))
+
     const dispatch = useDispatch()
 
+
     const changeBill = () => {
-        if (!isLoading) {
+        if (!isLoading && !isAddingBill) {
             const billStatus = router.params.billStatus
             const floatAmount = (parseFloat(myr) * 100).toFixed(0)
             const amount = Dinero({ amount: parseInt(floatAmount), currency: 'MYR' }).getAmount()
@@ -84,7 +87,7 @@ export default function AddAmountScreen() {
             if (billStatus == 'UPDATE') {
                 dispatch(updateBill({ bill: newBill, billCreated }))
             } else {
-                dispatch(addBill({ bill: newBill, billCreated }))
+                dispatch(billsAction.addBill({ bill: newBill, billCreated }))
             }
         }
 
@@ -150,21 +153,21 @@ export default function AddAmountScreen() {
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: '20%' }}>
-                            <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
+                            <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
                                 <MaterialIcons name="arrow-back" size={24} color="white" />
                             </TouchableOpacity>
                         </View>
                         {billStatus === 'UPDATE' &&
                             <View style={{ width: '80%', alignItems: 'flex-end' }}>
-                                <TouchableOpacity onPress={deleteButtonPressed} style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
+                                <TouchableOpacity onPress={deleteButtonPressed} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
                                     <MaterialIcons name="delete" size={24} color="white" />
                                 </TouchableOpacity>
                             </View>}
                     </View>
                     <View style={{ height: '100%', flex: 1, justifyContent: 'center', }}>
-                        <View style={{ flex: .5, justifyContent: 'center', paddingHorizontal: 10 }}>
-                            <Text style={{ color: 'white', fontSize: 40 }}>{billDetail.companyName}</Text>
-                            <Text style={{ color: 'white', fontSize: 18 }}>{billDetail.ref1}</Text>
+                        <View style={{ flex: .5, justifyContent: 'center', paddingHorizontal: 20 }}>
+                            <Text style={{ color: 'white', fontSize: 30 }}>{billDetail.companyName}</Text>
+                            <Text style={{ color: 'white', fontSize: 18, marginTop: 5 }}>{billDetail.ref1}</Text>
                             <Text style={{ color: 'white', fontSize: 18 }}>{billDetail.ref2}</Text>
 
                         </View>
@@ -174,20 +177,16 @@ export default function AddAmountScreen() {
             </View>
             <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10 }}>
                 <View style={{ flex: .2, justifyContent: 'center', paddingHorizontal: 20 }}>
-                    <View style={{ borderRadius: 5, borderWidth: 1, borderColor: 'lightgrey', paddingRight: 20 }}>
-                        {
-                            isLoading ?
-                                <ActivityIndicator size='large' color={Colors.secondaryColor} /> :
-                                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                                    <View style={{ flex: .3, justifyContent: 'center', }}>
-                                        <Text style={{ color: 'grey', textAlign: 'center', fontSize: 11 }}>Insert your bill amount</Text>
-                                    </View>
-                                    <View style={{ flex: .7 }}>
-                                        <Text style={{ color: Colors.secondaryColor, fontSize: 35, textAlign: 'right' }}>RM{myr}</Text>
-
-                                    </View>
-                                </View>
-                        }
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', borderRadius: 5, borderWidth: 1, borderColor: 'lightgrey', paddingRight: 20 }}>
+                        <View style={{ flex: .3, justifyContent: 'center', }}>
+                            <Text style={{ color: 'grey', textAlign: 'center', fontSize: 11 }}>Insert your bill amount</Text>
+                        </View>
+                        <View style={{ flex: .7 }}>
+                            {isLoading ?
+                                <ActivityIndicator size='small' color={Colors.secondaryColor} style={{ height: 35, alignSelf: 'flex-end', marginRight: 60 }} /> :
+                                <Text style={{ color: Colors.secondaryColor, fontSize: 35, textAlign: 'right' }}>RM{myr}</Text>
+                            }
+                        </View>
                     </View>
                 </View>
                 <View style={{ flex: .7, paddingHorizontal: 20, justifyContent: 'center' }}>
@@ -213,7 +212,7 @@ export default function AddAmountScreen() {
                     </View>
                 </View>
                 <View style={{ flex: .1 }}>
-                    <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10, paddingHorizontal: 10 }}>
+                    <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10, paddingHorizontal: 20 }}>
                         <TouchableOpacity style={{ borderWidth: 1, borderColor: 'lightgrey', borderRadius: 5, paddingVertical: 10 }} onPress={changeBill}>
                             <Text style={{ fontWeight: '600', textAlign: 'center', color: Colors.secondaryColor }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
                         </TouchableOpacity>
