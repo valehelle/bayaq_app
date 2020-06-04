@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux'
 import billsSlice from '../features/bills/billsSlice'
 import userSlice from '../features/accounts/userSlice'
 const userAction = userSlice.actions
+import Constants from 'expo-constants';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const billsAction = billsSlice.actions
 
@@ -40,18 +42,23 @@ export default function SelectBankScreen() {
 
 
   return (
-    <ScrollView style={{ paddingBottom: 20 }}>
-      <View className="scrollView" style={styles.container}>
-        <View><Text style={{ color: 'white', fontSize: 16, padding: 10, fontWeight: 'bold' }}>Select Bank</Text></View>
-        <View style={{ backgroundColor: 'white', paddingTop: 20, height: '100%', borderTopStartRadius: 10, borderTopEndRadius: 10 }}>
-          <View style={{ paddingLeft: 20 }}>
-            <TouchableOpacity onPress={backButtonPressed}>
-              <Text style={{ color: Colors.primaryColor, textAlign: 'left' }}>Cancel</Text>
-            </TouchableOpacity>
-          </View>
 
+    <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
+      <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+            <MaterialIcons name="arrow-back" size={24} color="white" />
+          </TouchableOpacity>
+          <View style={{ height: '100%', justifyContent: 'center' }}>
+            <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Select Bank</Text>
+
+          </View>
+        </View>
+      </View>
+      <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10 }}>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }}>
           {banks.map((bank, index) =>
-            <View key={index} style={{ paddingHorizontal: 20 }} >
+            <View key={index}  >
               <TouchableOpacity style={{ marginTop: 20 }} onPress={() => selectBankPressed(bank)}>
                 <View style={{
                   shadowColor: "#000",
@@ -71,10 +78,10 @@ export default function SelectBankScreen() {
               </TouchableOpacity>
             </View>
           )}
-
-        </View>
-      </View >
-    </ScrollView>
+          <View style={{ height: 30 }}></View>
+        </ScrollView>
+      </View>
+    </View >
   );
 }
 

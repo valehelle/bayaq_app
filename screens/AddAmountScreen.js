@@ -45,10 +45,22 @@ const buttonPressed = (myr, setMyr, text, setFirstTime, firstTime) => {
 
 }
 const _button = (text, krw, setKrw, setFirstTime, firstTime) => {
+    let showLeftBorder
+    let showBottomBorder
+    if (text != '1' && text != '7' && text != '4' && text != 'clear') {
+        showLeftBorder = true
+    } else {
+        showLeftBorder = false
+    }
+    if (text != 'clear' && text != '0' && text != '.') {
+        showBottomBorder = true
+    } else {
+        showBottomBorder = false
+    }
     return (
-        <View style={{ flex: 1 / 3, alignItems: 'center', justifyContent: 'center', paddingVertical: 5, paddingHorizontal: 10 }}>
-            <TouchableOpacity style={{ backgroundColor: Colors.secondaryColor, width: '100%', height: '100%', justifyContent: 'center', borderRadius: 5 }} onPress={() => buttonPressed(krw, setKrw, text, setFirstTime, firstTime)}>
-                <Text style={{ textAlign: 'center', fontSize: 35, color: 'white' }}>{text}</Text>
+        <View style={{ flex: 1 / 3, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10, borderColor: 'lightgrey', borderLeftWidth: showLeftBorder ? 1 : 0, borderBottomWidth: showBottomBorder ? 1 : 0 }}>
+            <TouchableOpacity style={{ width: '100%', height: '100%', justifyContent: 'center', borderRadius: 5 }} onPress={() => buttonPressed(krw, setKrw, text, setFirstTime, firstTime)}>
+                <Text style={{ textAlign: 'center', fontSize: 35, color: Colors.secondaryColor }}>{text}</Text>
             </TouchableOpacity>
         </View >
     )
@@ -131,6 +143,7 @@ export default function AddAmountScreen() {
             { cancelable: false }
         );
     }
+
     return (
         <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
             <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
@@ -150,45 +163,61 @@ export default function AddAmountScreen() {
                     </View>
                     <View style={{ height: '100%', flex: 1, justifyContent: 'center', }}>
                         <View style={{ flex: .5, justifyContent: 'center', paddingHorizontal: 10 }}>
-                            <Text style={{ color: 'white', fontSize: 20 }}>{billDetail.companyName}</Text>
-                            <Text style={{ color: 'white', fontSize: 16 }}>{billDetail.ref1}{billDetail.ref2 && ` (${billDetail.ref2})`}</Text>
+                            <Text style={{ color: 'white', fontSize: 40 }}>{billDetail.companyName}</Text>
+                            <Text style={{ color: 'white', fontSize: 18 }}>{billDetail.ref1}</Text>
+                            <Text style={{ color: 'white', fontSize: 18 }}>{billDetail.ref2}</Text>
+
                         </View>
-                        <View style={{ flex: .5, justifyContent: 'center', paddingHorizontal: 10 }}>
-                            {
-                                isLoading ?
-                                    <ActivityIndicator size='large' color='white' /> :
-                                    <Text style={{ color: 'white', fontSize: 60, textAlign: 'right' }}>RM{myr}</Text>
-                            }
-                        </View>
+
                     </View>
                 </View>
             </View>
             <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10 }}>
-                <View style={{ flex: .2, flexDirection: 'row' }}>
-                    {_button('1', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('2', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('3', myr, setMyr, setFirstTime, firstTime)}
-                </View>
-                <View style={{ flex: .2, flexDirection: 'row' }}>
-                    {_button('4', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('5', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('6', myr, setMyr, setFirstTime, firstTime)}
-                </View>
-                <View style={{ flex: .2, flexDirection: 'row' }}>
-                    {_button('7', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('8', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('9', myr, setMyr, setFirstTime, firstTime)}
-                </View>
-                <View style={{ flex: .2, flexDirection: 'row' }}>
-                    {_button('clear', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('0', myr, setMyr, setFirstTime, firstTime)}
-                    {_button('.', myr, setMyr, setFirstTime, firstTime)}
-                </View>
+                <View style={{ flex: .2, justifyContent: 'center', paddingHorizontal: 20 }}>
+                    <View style={{ borderRadius: 5, borderWidth: 1, borderColor: 'lightgrey', paddingRight: 20 }}>
+                        {
+                            isLoading ?
+                                <ActivityIndicator size='large' color={Colors.secondaryColor} /> :
+                                <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                                    <View style={{ flex: .3, justifyContent: 'center', }}>
+                                        <Text style={{ color: 'grey', textAlign: 'center', fontSize: 11 }}>Insert your bill amount</Text>
+                                    </View>
+                                    <View style={{ flex: .7 }}>
+                                        <Text style={{ color: Colors.secondaryColor, fontSize: 35, textAlign: 'right' }}>RM{myr}</Text>
 
-                <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10, paddingHorizontal: 10 }}>
-                    <TouchableOpacity style={{ backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10 }} onPress={changeBill}>
-                        <Text style={{ fontWeight: '600', textAlign: 'center', color: 'white' }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
-                    </TouchableOpacity>
+                                    </View>
+                                </View>
+                        }
+                    </View>
+                </View>
+                <View style={{ flex: .7, paddingHorizontal: 20, justifyContent: 'center' }}>
+                    <View style={{ flex: .2, flexDirection: 'row' }}>
+                        {_button('1', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('2', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('3', myr, setMyr, setFirstTime, firstTime)}
+                    </View>
+                    <View style={{ flex: .2, flexDirection: 'row' }}>
+                        {_button('4', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('5', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('6', myr, setMyr, setFirstTime, firstTime)}
+                    </View>
+                    <View style={{ flex: .2, flexDirection: 'row' }}>
+                        {_button('7', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('8', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('9', myr, setMyr, setFirstTime, firstTime)}
+                    </View>
+                    <View style={{ flex: .2, flexDirection: 'row' }}>
+                        {_button('clear', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('0', myr, setMyr, setFirstTime, firstTime)}
+                        {_button('.', myr, setMyr, setFirstTime, firstTime)}
+                    </View>
+                </View>
+                <View style={{ flex: .1 }}>
+                    <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10, paddingHorizontal: 10 }}>
+                        <TouchableOpacity style={{ borderWidth: 1, borderColor: 'lightgrey', borderRadius: 5, paddingVertical: 10 }} onPress={changeBill}>
+                            <Text style={{ fontWeight: '600', textAlign: 'center', color: Colors.secondaryColor }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         </View >
