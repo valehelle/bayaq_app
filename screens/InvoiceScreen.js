@@ -34,6 +34,17 @@ const InvoiceList = ({ navigation }) => {
 
 
   }, [userInfo.token])
+  const toFormatSafe = (d) => {
+    const [units, subunits] = d
+      .toRoundedUnit(2)
+      .toString()
+      .split(".");
+    const stringified = subunits
+      ? [units, subunits.padEnd(2, "0")].join(".")
+      : [units, "00"].join(".");
+
+    return `${stringified}`;
+  }
   return (
     <View style={{ backgroundColor: 'white' }}>
       <View style={{ paddingBottom: 10 }}>
@@ -49,15 +60,15 @@ const InvoiceList = ({ navigation }) => {
                     <View key={bill.id} style={{ paddingLeft: 10, marginTop: 5 }}>
                       <View style={{ flexDirection: 'row' }}>
                         <Text style={{ fontSize: 14, fontWeight: '600', flex: .6 }}>{bill.company_name}</Text>
-                        <Text style={{ fontSize: 12, textAlign: 'right', flex: .4 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+                        <Text style={{ fontSize: 12, textAlign: 'right', flex: .4 }}>RM{toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
 
                       </View>
                       <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
                     </View>
                   )
                 })}
-                <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right', marginTop: 10 }}>Service Fee: RM {Dinero({ amount: invoice.bills.length * 50 }).toFormat("0.00")}</Text>
-                <Text style={{ fontSize: 14, fontWeight: '600', textAlign: 'right', marginTop: 5 }}>Total: RM {Dinero({ amount: invoice.amount }).toFormat("0.00")}</Text>
+                <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right', marginTop: 10 }}>Service Fee: RM {toFormatSafe(Dinero({ amount: invoice.bills.length * 50 }))}</Text>
+                <Text style={{ fontSize: 14, fontWeight: '600', textAlign: 'right', marginTop: 5 }}>Total: RM {toFormatSafe(Dinero({ amount: invoice.amount }))}</Text>
 
               </View>
             )

@@ -89,6 +89,18 @@ const BillList = () => {
 
   }, [userInfo.token])
 
+  const toFormatSafe = (d) => {
+    const [units, subunits] = d
+      .toRoundedUnit(2)
+      .toString()
+      .split(".");
+    const stringified = subunits
+      ? [units, subunits.padEnd(2, "0")].join(".")
+      : [units, "00"].join(".");
+
+    return `${stringified}`;
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 90 }}>
       <View style={{ flex: 1 }}>
@@ -117,9 +129,9 @@ const BillList = () => {
                       </View>
 
                       <View style={{ flex: .5 }}>
-                        <View style={{ flexDirection: 'row' }}>
-                          <Text style={{ flex: .3, fontSize: 14, fontWeight: 'bold', width: '100%', textAlign: 'center', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>RM</Text>
-                          <Text style={{ marginRight: 8, flex: .7, fontSize: 14, fontWeight: 'bold', textAlign: 'right', width: '100%', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                          <Text style={{ flex: .3, fontSize: 14, fontWeight: 'bold', textAlign: 'center', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>RM</Text>
+                          <Text style={{ flex: .7, marginRight: 8, fontSize: 14, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? 'black' : "lightgrey" }}>{toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
 
                         </View>
 
@@ -138,8 +150,8 @@ const BillList = () => {
         </View>
 
         <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10 }}>
-          <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right' }}>Service Fee RM {Dinero({ amount: selectedBills.length * 50 }).toFormat("0.00")}</Text>
-          <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {Dinero({ amount: amount + (selectedBills.length * 50) }).toFormat("0.00")}</Text>
+          <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right' }}>Service Fee RM {toFormatSafe(Dinero({ amount: selectedBills.length * 50 }))}</Text>
+          <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {toFormatSafe(Dinero({ amount: amount + (selectedBills.length * 50) }))}</Text>
           <TouchableOpacity onPress={payBillsPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
             <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Pay Now</Text>
           </TouchableOpacity>
