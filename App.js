@@ -1,4 +1,4 @@
-import { AppLoading } from 'expo';
+import { AppLoading, Linking } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import React, { useState } from 'react';
@@ -10,6 +10,8 @@ import { Provider } from 'react-redux'
 import rootReducer from './reducers'
 import createSagaMiddleware from 'redux-saga'
 import mySaga from './sagas'
+import Constants from 'expo-constants';
+import * as WebBrowser from 'expo-web-browser';
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -25,6 +27,17 @@ sagaMiddleware.run(mySaga)
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  const _handleRedirect = event => {
+    if (Constants.platform.ios) {
+      WebBrowser.dismissBrowser();
+    } else {
+      this._removeLinkingListener();
+    }
+
+    let data = Linking.parse(event.url);
+    console.log(data)
+  };
+  Linking.addEventListener('url', _handleRedirect);
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <AppLoading
@@ -44,6 +57,8 @@ export default function App(props) {
     );
   }
 }
+
+
 
 async function loadResourcesAsync() {
   await Promise.all([
