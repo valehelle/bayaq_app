@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Alert } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Alert, Image } from 'react-native';
 import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
 import Dinero from 'dinero.js'
@@ -9,7 +9,13 @@ import Colors from '../constants/Colors'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
+import { electricity, water, telco, other } from '../constants/Bills'
+import { Dimensions } from 'react-native';
 
+const screenWidth = Math.round(Dimensions.get('window').width);
+
+
+const allBills = [...electricity, ...water, ...telco, ...other]
 const billsAction = billsSlice.actions
 
 
@@ -64,6 +70,7 @@ const _button = (text, krw, setKrw, setFirstTime, firstTime) => {
         </View >
     )
 }
+
 export default function AddAmountScreen() {
     const navigation = useNavigation()
     const router = useRoute()
@@ -146,6 +153,7 @@ export default function AddAmountScreen() {
             { cancelable: false }
         );
     }
+    const billInfo = allBills.find(bill => bill.companyName === billDetail.companyName)
 
     return (
         <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
@@ -166,9 +174,31 @@ export default function AddAmountScreen() {
                     </View>
                     <View style={{ height: '100%', flex: 1, justifyContent: 'center', }}>
                         <View style={{ flex: .5, justifyContent: 'center', paddingHorizontal: 20 }}>
-                            <Text style={{ color: 'white', fontSize: 40 }}>{billDetail.companyName}</Text>
-                            <Text style={{ color: 'white', fontSize: 18, marginTop: 5 }}>{billDetail.ref1}</Text>
-                            <Text style={{ color: 'white', fontSize: 18 }}>{billDetail.ref2}</Text>
+                            <View
+                                style={{
+                                    height: screenWidth * .2,
+                                    width: screenWidth * .2,
+                                    borderRadius: 10,
+                                    alignSelf: 'center'
+                                }}
+                            >
+                                {billInfo && <Image style={{ borderRadius: 10, height: '100%', width: '100%' }} source={{ uri: billInfo.image }} />}
+                            </View>
+                            <Text style={{ color: 'white', fontSize: 13, alignSelf: 'center', marginTop: 10 }}>{billDetail.companyName}</Text>
+                            <Text style={{ color: 'white', fontSize: 13, marginTop: 5, fontWeight: 'bold' }}>Account Number: {billDetail.ref1}</Text>
+
+                            {billInfo && billInfo.type == 'TELCO' && (
+                                <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Phone Number: {billDetail.ref2}</Text>
+
+                            )}
+                            {billInfo && billInfo.type == 'PERLIS' && (
+                                <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Bill Number: {billDetail.ref2}</Text>
+
+                            )}
+                            {billInfo && billInfo.billerCode === '40386' && (
+                                <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Contract Account Number: {billDetail.ref2}</Text>
+
+                            )}
 
                         </View>
 

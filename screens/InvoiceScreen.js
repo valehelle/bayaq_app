@@ -53,7 +53,7 @@ const InvoiceList = ({ navigation }) => {
             return (
               <View key={invoice.ref_id} style={{ marginTop: 10, paddingBottom: 10, paddingHorizontal: 20 }}>
 
-                <Text style={{ fontSize: 14, fontWeight: '600' }}>Date <Text style={{ color: 'grey' }}>{moment.utc(invoice.paid_at).local().format('LLLL')}</Text></Text>
+                <Text style={{ fontSize: 14, fontWeight: '600' }}>Date  <Text style={{ color: 'grey' }}>{moment.utc(invoice.paid_at).local().format('LLLL')}</Text></Text>
                 <View style={{ flexDirection: 'row', backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, paddingLeft: 10, paddingRight: 10, marginTop: 5 }}>
                   <View style={{ flex: .3, borderRightWidth: 1, borderRightColor: 'white' }}>
                     <Text style={{ fontSize: 14, fontWeight: '600', color: 'white', paddingLeft: 5 }}>Transaction Number: {invoice.ref_id}</Text>
