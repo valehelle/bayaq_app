@@ -47,29 +47,37 @@ const InvoiceList = ({ navigation }) => {
   }
   return (
     <View style={{ backgroundColor: 'white' }}>
-      <View style={{ paddingBottom: 10 }}>
+      <View>
         <ScrollView>
           {invoices.length > 0 && invoices.map((invoice) => {
             return (
-              <View key={invoice.ref_id} style={{ flexGrow: 1, marginTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: 'lightgrey', paddingHorizontal: 20 }}>
-                <Text style={{ fontSize: 14, fontWeight: '600' }}>Reference ID: {invoice.ref_id}</Text>
-                <Text style={{ fontSize: 14, fontWeight: '600' }}>Paid At: {moment.utc(invoice.paid_at).local().format('LLLL')}</Text>
+              <View key={invoice.ref_id} style={{ marginTop: 10, paddingBottom: 10, paddingHorizontal: 20 }}>
 
-                {invoice.bills.map((bill) => {
-                  return (
-                    <View key={bill.id} style={{ paddingLeft: 10, marginTop: 5 }}>
-                      <View style={{ flexDirection: 'row' }}>
-                        <Text style={{ fontSize: 14, fontWeight: '600', flex: .6 }}>{bill.company_name}</Text>
-                        <Text style={{ fontSize: 12, textAlign: 'right', flex: .4 }}>RM{toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
+                <Text style={{ fontSize: 14, fontWeight: '600' }}>Date <Text style={{ color: 'grey' }}>{moment.utc(invoice.paid_at).local().format('LLLL')}</Text></Text>
+                <View style={{ flexDirection: 'row', backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, paddingLeft: 10, paddingRight: 10, marginTop: 5 }}>
+                  <View style={{ flex: .3, borderRightWidth: 1, borderRightColor: 'white' }}>
+                    <Text style={{ fontSize: 14, fontWeight: '600', color: 'white', paddingLeft: 5 }}>Transaction Number: {invoice.ref_id}</Text>
 
-                      </View>
-                      <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
-                    </View>
-                  )
-                })}
-                <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right', marginTop: 10 }}>Service Fee: RM {toFormatSafe(Dinero({ amount: invoice.bills.length * 50 }))}</Text>
-                <Text style={{ fontSize: 14, fontWeight: '600', textAlign: 'right', marginTop: 5 }}>Total: RM {toFormatSafe(Dinero({ amount: invoice.amount }))}</Text>
+                  </View>
+                  <View style={{ flex: .7 }}>
+                    {invoice.bills.map((bill) => {
+                      return (
+                        <View key={bill.id} style={{ paddingLeft: 10, marginBottom: 1 }}>
+                          <View style={{ flexDirection: 'row' }}>
+                            <Text style={{ color: 'white', fontSize: 14, fontWeight: '600', flex: .6, }}>{bill.company_name}</Text>
+                            <Text style={{ color: 'white', fontSize: 14, textAlign: 'right', flex: .4, justifyContent: 'flex-end', alignSelf: 'flex-end' }}>RM{toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
 
+                          </View>
+                          <Text style={{ color: 'white', fontSize: 14 }}>{bill.ref1}</Text>
+                          <Text style={{ color: 'white', fontSize: 14 }}>{bill.ref2}</Text>
+
+                        </View>
+                      )
+                    })}
+                    <Text style={{ color: 'white', fontSize: 12, textAlign: 'right', marginTop: 10 }}>Service Fee: RM {toFormatSafe(Dinero({ amount: invoice.bills.length * 50 }))}</Text>
+                    <Text style={{ color: 'white', fontSize: 14, fontWeight: '600', textAlign: 'right', marginTop: 5 }}>Total: RM {toFormatSafe(Dinero({ amount: invoice.amount }))}</Text>
+                  </View>
+                </View>
               </View>
             )
           })

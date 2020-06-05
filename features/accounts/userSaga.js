@@ -53,8 +53,8 @@ export function* userLoginSaga({ payload }) {
 
 export function* getUserTokenSaga() {
     yield call(wakeUp)
-    const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
-    if (userInfo) {
+    const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken', '')
+    if (userInfo !== null) {
         yield put(userAction.setUserToken({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
     }
     else {
