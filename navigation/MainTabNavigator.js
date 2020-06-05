@@ -16,6 +16,7 @@ import SelectBankScreen from '../screens/SelectBankScreen';
 import Colors from '../constants/Colors'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import PaymentScreen from '../screens/PaymentScreen';
+import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
 const config = Platform.select({
   web: { headerMode: 'screen', initialRouteName: 'Home' },
   default: {},
@@ -38,6 +39,21 @@ function HomeStackScreen() {
   );
 }
 
+const SettingsStack = createStackNavigator();
+
+function SettingsStackScreen() {
+  return (
+    <HomeStack.Navigator headerMode="none">
+      <HomeStack.Screen name="Setting" component={SettingScreen} />
+      <HomeStack.Screen name="Terms" component={TermsAndConditionScreen} />
+
+    </HomeStack.Navigator>
+  );
+}
+
+
+
+
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
@@ -51,15 +67,15 @@ function TabNavigator() {
           ),
         }}
       />
-      <Tab.Screen name="Invoice" component={InvoiceScreen}
+      <Tab.Screen name="Receipt" component={InvoiceScreen}
         options={{
-          tabBarLabel: 'Invoice',
+          tabBarLabel: 'Receipt',
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="file-invoice-dollar" size={size} color={color} />
           ),
         }}
       />
-      <Tab.Screen name="Settings" component={SettingScreen}
+      <Tab.Screen name="Settings" component={SettingsStackScreen}
         options={{
           tabBarLabel: 'Settings',
           tabBarIcon: ({ color, size }) => (

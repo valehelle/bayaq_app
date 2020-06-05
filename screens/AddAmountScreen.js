@@ -166,7 +166,7 @@ export default function AddAmountScreen() {
                     </View>
                     <View style={{ height: '100%', flex: 1, justifyContent: 'center', }}>
                         <View style={{ flex: .5, justifyContent: 'center', paddingHorizontal: 20 }}>
-                            <Text style={{ color: 'white', fontSize: 30 }}>{billDetail.companyName}</Text>
+                            <Text style={{ color: 'white', fontSize: 40 }}>{billDetail.companyName}</Text>
                             <Text style={{ color: 'white', fontSize: 18, marginTop: 5 }}>{billDetail.ref1}</Text>
                             <Text style={{ color: 'white', fontSize: 18 }}>{billDetail.ref2}</Text>
 
@@ -177,11 +177,11 @@ export default function AddAmountScreen() {
             </View>
             <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10 }}>
                 <View style={{ flex: .2, justifyContent: 'center', paddingHorizontal: 20 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', borderRadius: 5, borderWidth: 1, borderColor: 'lightgrey', paddingRight: 20 }}>
-                        <View style={{ flex: .3, justifyContent: 'center', }}>
-                            <Text style={{ color: 'grey', textAlign: 'center', fontSize: 11 }}>Insert your bill amount</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', borderRadius: 5, borderWidth: 1, borderColor: 'lightgrey', paddingHorizontal: 20 }}>
+                        <View style={{ flex: .4, justifyContent: 'center', }}>
+                            <Text style={{ color: 'grey', textAlign: 'center', fontSize: 11 }}>Insert bill amount</Text>
                         </View>
-                        <View style={{ flex: .7 }}>
+                        <View style={{ flex: .6, }}>
                             {isLoading ?
                                 <ActivityIndicator size='small' color={Colors.secondaryColor} style={{ height: 35, alignSelf: 'flex-end', marginRight: 60 }} /> :
                                 <Text style={{ color: Colors.secondaryColor, fontSize: 35, textAlign: 'right' }}>RM{myr}</Text>

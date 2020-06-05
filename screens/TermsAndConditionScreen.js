@@ -10,6 +10,8 @@ import {
   View,
   AsyncStorage
 } from 'react-native';
+import Constants from 'expo-constants';
+import { MaterialIcons } from '@expo/vector-icons';
 import Colors from '../constants/Colors'
 
 
@@ -17,23 +19,29 @@ import Colors from '../constants/Colors'
 export default function TermsAndConditionScreen({ navigation }) {
 
   return (
-    <View className="scrollView" style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Landing')}><Text style={{ color: 'white', fontSize: 25, fontWeight: 'bold' }}>Bayaq</Text></TouchableOpacity>
-      <Text style={{ marginTop: 20, color: 'white', fontSize: 14, fontWeight: 'bold' }}>Terms and Condition</Text>
-      <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>As a condition of use, you will allow Bayaq to pay bills on your behalf.</Text>
-      <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>Bayaq will not be responsible for incorrect bill amount or account paid made by you.</Text>
-      <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>Any information given by you to Bayaq will not be used by Bayaq for anything other than paying your bills.</Text>
-      <Text style={{ marginTop: 20, color: 'white', fontSize: 14 }}>Bayaq will not sell your information to 3rd party.</Text>
 
-    </View>
+    <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
+      <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+            <MaterialIcons name="arrow-back" size={24} color="white" />
+          </TouchableOpacity>
+          <View style={{ height: '100%', justifyContent: 'center' }}>
+            <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Terms of Use</Text>
+
+          </View>
+        </View>
+      </View>
+      <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10, paddingHorizontal: 20 }}>
+        <Text style={{ marginTop: 20, fontSize: 14 }}>As a condition of use, you will allow Bayaq to pay bills on your behalf.</Text>
+        <Text style={{ marginTop: 20, fontSize: 14 }}>Bayaq will not be responsible for incorrect bill amount or account paid made by you.</Text>
+        <Text style={{ marginTop: 20, fontSize: 14 }}>Any information given by you to Bayaq will not be used by Bayaq for anything other than paying your bills.</Text>
+        <Text style={{ marginTop: 20, fontSize: 14 }}>Bayaq will not sell your information to 3rd party.</Text>
+
+      </View>
+    </View >
   );
 }
-
-TermsAndConditionScreen.navigationOptions = {
-  header: null,
-};
-
-TermsAndConditionScreen.path = '/terms_and_conditions'
 
 const styles = StyleSheet.create({
   container: {
