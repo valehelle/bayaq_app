@@ -6,8 +6,7 @@ import MainTabNavigator from './MainTabNavigator';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import LandingScreen from '../screens/LandingScreen';
 import LoginScreen from '../screens/LoginScreen';
-import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
-import PaymentScreen from '../screens/PaymentScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { getUserToken } from '../features/accounts/userSaga'
@@ -48,6 +47,9 @@ export default AppNavigator = () => {
             />
             <Main.Screen name="Login" component={LoginScreen} />
             <Main.Screen name="Payment" component={LandingScreen} />
+            <Main.Screen name="ResetPassword" component={ResetPasswordScreen} />
+
+
           </>
         }
 

@@ -67,12 +67,8 @@ export default function LoginScreen({ navigation }) {
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Login</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={() => { navigation.navigate('ResetPassword') }}>
-          <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Reset</Text>
-        </TouchableOpacity>
-
       </View>
-    </ScrollView >
+    </ScrollView>
   );
 }
 

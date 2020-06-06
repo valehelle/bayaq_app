@@ -50,6 +50,11 @@ const userSlice = createSlice({
                 state.profile.bankCode = action.payload.bankCode
             }
         },
+        resetPassword: {
+            reducer(state, action) {
+                state
+            }
+        },
     }
 })
 
