@@ -10,7 +10,8 @@ const userSlice = createSlice({
     initialState: {
         email: '',
         fullName: '',
-        token: ''
+        token: '',
+        resetToken: ''
     },
     reducers: {
         addUserInfo: {
@@ -29,6 +30,17 @@ const userSlice = createSlice({
         userLogout: {
             reducer(state, action) {
                 state.token = ""
+            }
+        },
+        setResetToken: {
+            reducer(state, action) {
+                const { token } = action.payload
+                state.resetToken = token
+            }
+        },
+        changePassword: {
+            reducer(state, action) {
+                state
             }
         }
     }

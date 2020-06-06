@@ -13,6 +13,8 @@ import {
 import Colors from '../constants/Colors'
 import billsSlice from '../features/bills/billsSlice'
 const billsAction = billsSlice.actions
+import userSlice from '../features/accounts/userSlice'
+const userAction = userSlice.actions
 import { useDispatch } from 'react-redux'
 
 
@@ -27,17 +29,33 @@ export default function AuthLoadingScreen({ navigation }) {
       // Error retrieving data
     }
   }
+  async function resetPassword(navigation) {
+    try {
+      navigation.navigate('ChangePassword');
+    } catch (error) {
+      console.log(error)
+      // Error retrieving data
+    }
+  }
 
   useEffect(() => {
+    const token = navigation.getParam('token', 'NO-TOKEN')
 
-    const isSuccess = navigation.getParam('billplz[paid]', 'NO-ID') === 'NO-ID' ? false : true
-    if (isSuccess) {
-      const isPaid = navigation.getParam('billplz[paid]', 'NO-ID') === 'true' ? true : false
-      if (isPaid) {
-        dispatch(billsAction.setIsSuccess({ isSuccess }))
+    if (token === 'NO-TOKEN') {
+      const isSuccess = navigation.getParam('billplz[paid]', 'NO-ID') === 'NO-ID' ? false : true
+      if (isSuccess) {
+        const isPaid = navigation.getParam('billplz[paid]', 'NO-ID') === 'true' ? true : false
+        if (isPaid) {
+          dispatch(billsAction.setIsSuccess({ isSuccess }))
+        }
       }
+      isLoggedIn(navigation)
+    } else {
+      dispatch(userAction.setResetToken({ token }))
+
+      resetPassword(navigation, { token })
     }
-    isLoggedIn(navigation)
+
   }, [])
 
   return (

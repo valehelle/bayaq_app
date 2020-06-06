@@ -7,6 +7,9 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import LandingScreen from '../screens/LandingScreen';
 import LoginScreen from '../screens/LoginScreen';
 
+import ChangePasswordScreen from '../screens/ChangePasswordScreen';
+
+
 import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
 
 
@@ -24,6 +27,8 @@ const switchNavigator = createSwitchNavigator({
   // You could add another route here for authentication.
   // Read more at https://reactnavigation.org/docs/en/auth-flow.html
   Login: LoginScreen,
+
+  ChangePassword: ChangePasswordScreen,
   TermsAndCondition: TermsAndConditionScreen,
   AuthLoading: AuthLoadingScreen,
   Main: MainTabNavigator,

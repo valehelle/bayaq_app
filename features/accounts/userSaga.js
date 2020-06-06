@@ -2,7 +2,7 @@ import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import userSlice from './userSlice'
-import { registerAPI, wakeUp, loginAPI } from '../../services/api'
+import { registerAPI, wakeUp, loginAPI, changePassword } from '../../services/api'
 
 const userAction = userSlice.actions
 
@@ -59,10 +59,19 @@ export function* wakeUpSaga() {
 export function* userLogoutSaga() {
     yield call(AsyncStorage.removeItem, 'bayaqUserToken')
 }
+export function* changePasswordSaga({ payload }) {
+
+    const response = yield call(changePassword, payload)
+    if (response.ok) {
+        alert('Password successfully changed!. Please login with your new password')
+    }
+
+}
 
 export const userSaga = [
     takeLatest(wakeUpAction.type, wakeUpSaga),
     takeLatest(userAction.addUserInfo.type, saveUserInfoSaga),
+    takeLatest(userAction.changePassword.type, changePasswordSaga),
     takeLatest(getUserInfo.type, getUserInfoSaga),
     takeLatest(userLogin.type, userLoginSaga),
     takeLatest(userAction.userLogout.type, userLogoutSaga),

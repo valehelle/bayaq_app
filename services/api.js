@@ -170,3 +170,18 @@ export const getInvoicesAPI = (token) => {
 
     return fetchRequest(path, config)
 }
+
+export const changePassword = (body) => {
+
+    const path = `/users/reset`
+    const config = {
+        method: 'PUT',
+        "headers": {
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+    }
+
+
+    return fetchRequest(path, config)
+}
