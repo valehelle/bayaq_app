@@ -16,7 +16,6 @@ const fetchRequest = (path, config) => {
     });
 }
 
-
 export const payBill = (body, token) => {
 
     const path = '/pay_bills'

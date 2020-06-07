@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux';
 import userSlice from '../features/accounts/userSlice'
 import { wakeUpAction } from '../features/accounts/userSaga'
 import Colors from '../constants/Colors'
+import Constants from 'expo-constants';
+
 const userAction = userSlice.actions
 
 export default function LandingScreen({ navigation }) {
@@ -40,53 +42,51 @@ export default function LandingScreen({ navigation }) {
     dispatch(wakeUpAction())
   }, [])
   return (
-    <ScrollView className="scrollView" style={styles.container}>
-      <View style={{ marginTop: 10, flexDirection: 'row' }}>
+    <View style={{
+      paddingHorizontal: 20,
+      backgroundColor: Colors.primaryColor,
+      flex: 1,
+      paddingTop: Constants.statusBarHeight
+    }}>
+      <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center' }}>
         <Image
           resizeMode='contain'
           style={{
-            width: 50,
-            height: 50
+            width: 100,
+            height: 100
           }}
           source={require('../assets/images/icon.png')} />
-        <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
+        <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 30, marginTop: 10 }}>Bayaq</Text>
 
       </View>
-      <View style={{ justifyContent: 'flex-end' }}>
-        <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay multiple bills in one click</Text>
-      </View>
-      <View style={{ padding: 5, alignItems: 'center' }}>
-        <Image resizeMode='contain' style={{
-          width: '100%',
-          height: 80,
-        }}
-          source={require('../assets/images/dashboard.png')} />
-      </View>
-      <View>
-        <Text style={{ color: 'white' }}>Full Name:</Text>
+      <View style={{ flex: .5 }}>
         <TextInput
           maxLength={40}
+          placeholder='Full Name'
+          placeholderTextColor="lightgrey"
           onChangeText={(text) => setFullName(text)}
           value={fullName}
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <Text style={{ color: 'white', marginTop: 10 }}>Email:</Text>
         <TextInput
           maxLength={40}
           onChangeText={(text) => setEmail(text)}
           value={email}
+          placeholder='Email'
+          placeholderTextColor="lightgrey"
           keyboardType='email-address'
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <Text style={{ color: 'white', marginTop: 10 }}>Password:</Text>
         <TextInput
           maxLength={40}
           onChangeText={(text) => setPassword(text)}
           value={password}
+          placeholder='Password'
+          placeholderTextColor="lightgrey"
           secureTextEntry={true}
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <TouchableOpacity style={{ marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
+        <TouchableOpacity style={{ borderRadius: 10, marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Register</Text>
         </TouchableOpacity>
 
@@ -99,12 +99,8 @@ export default function LandingScreen({ navigation }) {
           <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text>.
         </Text>
 
-        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10, marginTop: 30, textAlign: 'center' }}>
-          Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
-        </Text>
-
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
@@ -118,6 +114,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 50,
     backgroundColor: Colors.primaryColor,
+    flex: 1,
   },
 });
 

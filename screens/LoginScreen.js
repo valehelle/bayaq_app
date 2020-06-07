@@ -14,6 +14,7 @@ import userSlice from '../features/accounts/userSlice'
 import Colors from '../constants/Colors'
 const userAction = userSlice.actions
 import { userLogin } from '../features/accounts/userSaga'
+import Constants from 'expo-constants';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('')
@@ -34,45 +35,52 @@ export default function LoginScreen({ navigation }) {
   }
 
   return (
-    <ScrollView className="scrollView" style={styles.container}>
-      <View style={{ height: 30, justifyContent: 'flex-end' }}>
-        <Text style={{ fontWeight: '600', color: 'white', fontSize: 40 }}>Bayaq</Text>
-        <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay all your bills in one click</Text>
+    <View style={{
+      paddingHorizontal: 20,
+      backgroundColor: Colors.primaryColor,
+      flex: 1,
+      paddingTop: Constants.statusBarHeight
+    }}>
+      <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center' }}>
+        <Image
+          resizeMode='contain'
+          style={{
+            width: 100,
+            height: 100
+          }}
+          source={require('../assets/images/icon.png')} />
+        <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 30, marginTop: 10 }}>Bayaq</Text>
+
       </View>
-      <View>
-        <Text style={{ color: 'white', marginTop: 10 }}>Email:</Text>
+      <View style={{ flex: .5 }}>
         <TextInput
           maxLength={40}
           onChangeText={(text) => setEmail(text)}
           value={email}
+          placeholder='Email'
+          placeholderTextColor="lightgrey"
           autoCapitalize='none'
           keyboardType='email-address'
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <Text style={{ color: 'white', marginTop: 10 }}>Password:</Text>
         <TextInput
           maxLength={40}
           onChangeText={(text) => setPassword(text)}
           value={password}
+          placeholder='Password'
+          placeholderTextColor="lightgrey"
           autoCapitalize='none'
           secureTextEntry={true}
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
-          New to bayaq? Click here to
-          <Text style={{ fontSize: 14, fontWeight: 'bold' }}> Register</Text>.
-        </Text>
+        <Text style={{ color: 'white', marginTop: 10, fontSize: 14 }} onPress={() => navigation.navigate('ResetPassword')} >Forgot Password?</Text>
 
-        <TouchableOpacity style={{ marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
+        <TouchableOpacity style={{ borderRadius: 5, marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
           <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Login</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={() => { navigation.navigate('ResetPassword') }}>
-          <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Reset</Text>
-        </TouchableOpacity>
-
       </View>
-    </ScrollView >
+    </View>
   );
 }
 

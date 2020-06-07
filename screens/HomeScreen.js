@@ -161,49 +161,6 @@ const BillList = () => {
   )
 }
 
-const InvoiceList = ({ navigation }) => {
-  const dispatch = useDispatch()
-  const userInfo = useSelector(state => userInfoSelector(state))
-  const invoices = useSelector(state => invoiceSelector(state))
-
-  useEffect(() => {
-    if (userInfo.token != '') {
-      dispatch(fetchInvoice())
-    }
-
-
-  }, [userInfo.token])
-  return (
-    <View style={{ minHeight: 80, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
-      <View style={{ flexDirection: 'row' }}>
-        <Text style={{ flex: .9, fontSize: 14, fontWeight: 'bold', alignSelf: 'center', color: 'grey' }}>Invoices</Text>
-      </View>
-      <View style={{ paddingBottom: 10 }}>
-        {invoices.length > 0 && invoices.map((invoice) => {
-          return (
-            <View key={invoice.ref_id} style={{ flexGrow: 1, marginTop: 10, paddingBottom: 10, borderBottomWidth: 1, borderBottomColor: 'lightgrey' }}>
-              <Text style={{ fontSize: 14, fontWeight: '600' }}>Reference ID: {invoice.ref_id}</Text>
-              <Text style={{ fontSize: 14, fontWeight: '600' }}>Paid At: {moment.utc(invoice.paid_at).local().format('LLLL')}</Text>
-              <Text style={{ fontSize: 14, fontWeight: '600' }}>Amount: RM {Dinero({ amount: invoice.amount }).toFormat("0.00")}</Text>
-
-              {invoice.bills.map((bill) => {
-                return (
-                  <View key={bill.id} style={{ paddingLeft: 10, marginTop: 5 }}>
-                    <Text style={{ fontSize: 14, fontWeight: '600' }}>{bill.company_name}</Text>
-                    <Text style={{ fontSize: 14 }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
-                    <Text style={{ fontSize: 12 }}>RM{Dinero({ amount: bill.amount }).toFormat("0.00")}</Text>
-                  </View>
-                )
-              })}
-            </View>
-          )
-        })
-        }
-      </View>
-    </View>
-  )
-}
-
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -237,24 +194,6 @@ export default function HomeScreen() {
 
   }, [])
 
-  const invoicePresssed = () => {
-    setSelectedTab('Invoice')
-  }
-  const homePressed = () => {
-    setSelectedTab('Home')
-  }
-
-  const logoutPressed = () => {
-    dispatch(userAction.userLogout())
-    navigation.navigate('Landing')
-  }
-
-  const selectedTabStyle = {
-    backgroundColor: 'rgba(255,255,255,0.5)'
-  }
-  const notSelectedTabStyle = {
-    color: 'white'
-  }
   const bank = banks.find((bank) => bank.code == userInfo.profile.bankCode)
 
   return (

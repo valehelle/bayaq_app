@@ -68,8 +68,8 @@ const InvoiceList = ({ navigation }) => {
                             <Text style={{ color: 'white', fontSize: 14, textAlign: 'right', flex: .4, justifyContent: 'flex-end', alignSelf: 'flex-end' }}>RM{toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
 
                           </View>
-                          <Text style={{ color: 'white', fontSize: 14 }}>{bill.ref1}</Text>
-                          <Text style={{ color: 'white', fontSize: 14 }}>{bill.ref2}</Text>
+                          <Text style={{ color: 'white', fontSize: 12 }}>{bill.ref1}</Text>
+                          <Text style={{ color: 'white', fontSize: 12 }}>{bill.ref2}</Text>
 
                         </View>
                       )
