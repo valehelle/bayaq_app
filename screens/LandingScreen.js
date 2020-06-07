@@ -96,7 +96,7 @@ export default function LandingScreen({ navigation }) {
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
           By clicking submit you are agreeing to the<Text> </Text>
-          <Text style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text>.
+          <Text onPress={() => navigation.navigate('Terms')} style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text>.
         </Text>
 
       </View>

@@ -11,6 +11,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { getUserToken } from '../features/accounts/userSaga'
 import { userInfoSelector } from '../features/accounts/userSlice'
+import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
+
 
 import {
   AsyncStorage
@@ -48,6 +50,7 @@ export default AppNavigator = () => {
             <Main.Screen name="Login" component={LoginScreen} />
             <Main.Screen name="Payment" component={LandingScreen} />
             <Main.Screen name="ResetPassword" component={ResetPasswordScreen} />
+            <Main.Screen name="Terms" component={TermsAndConditionScreen} />
 
 
           </>
