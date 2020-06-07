@@ -20,10 +20,10 @@ export default function AuthLoadingScreen({ navigation }) {
   useEffect(() => {
   }, [])
   return (
-    <View style={styles.container}>
-      <Text style={{ textAlign: 'center', color: 'white', fontSize: 40, fontWeight: 'bold' }}>BAYAQ</Text>
+    <View style={{ backgroundColor: Colors.primaryColor, flex: 1 }}>
+      <Image style={{ "resizeMode": "contain", width: '100%', height: '100%' }} source={require('../assets/images/splash.png')} />
     </View>
-  );
+  )
 }
 
 AuthLoadingScreen.navigationOptions = {
