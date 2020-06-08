@@ -21,7 +21,7 @@ export default function AuthLoadingScreen({ navigation }) {
   }, [])
   return (
     <View style={{ backgroundColor: Colors.primaryColor, flex: 1 }}>
-      <Image style={{ "resizeMode": "contain", width: '100%', height: '100%' }} source={require('../assets/images/splash.png')} />
+      <Image style={{ "resizeMode": "contain", width: '100%', height: '100%' }} source={require('../assets/images/splash2.png')} />
     </View>
   )
 }

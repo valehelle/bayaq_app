@@ -5,9 +5,12 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
   TextInput,
-  ScrollView
+  ScrollView,
+  Keyboard,
+  KeyboardAvoidingView
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import userSlice from '../features/accounts/userSlice'
@@ -42,65 +45,75 @@ export default function LandingScreen({ navigation }) {
     dispatch(wakeUpAction())
   }, [])
   return (
-    <View style={{
-      paddingHorizontal: 20,
-      backgroundColor: Colors.primaryColor,
-      flex: 1,
-      paddingTop: Constants.statusBarHeight
-    }}>
-      <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center' }}>
-        <Image
-          resizeMode='contain'
-          style={{
-            width: 100,
-            height: 100
-          }}
-          source={require('../assets/images/icon.png')} />
-        <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 30, marginTop: 10 }}>Bayaq</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={{
+          paddingHorizontal: 20,
+          backgroundColor: Colors.primaryColor,
+          flex: 1,
+          paddingTop: Constants.statusBarHeight + 10
+        }}>
+        <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center' }}>
+          <Image
+            resizeMode='contain'
+            style={{
+              width: 70,
+              height: 70
+            }}
+            source={require('../assets/images/icon.png')} />
+          <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
+          <Image
+            resizeMode='contain'
+            style={{
+              width: 300,
+              height: 150,
+            }}
+            source={require('../assets/images/register.png')} />
+        </View>
+        <View style={{ flex: .5 }}>
+          <TextInput
+            maxLength={40}
+            placeholder='Full Name'
+            placeholderTextColor="lightgrey"
+            onChangeText={(text) => setFullName(text)}
+            value={fullName}
+            style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          />
+          <TextInput
+            maxLength={40}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            placeholder='Email'
+            placeholderTextColor="lightgrey"
+            keyboardType='email-address'
+            style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          />
+          <TextInput
+            maxLength={40}
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            placeholder='Password'
+            placeholderTextColor="lightgrey"
+            secureTextEntry={true}
+            style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+          />
+          <TouchableOpacity style={{ borderRadius: 10, marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
+            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Register</Text>
+          </TouchableOpacity>
 
-      </View>
-      <View style={{ flex: .5 }}>
-        <TextInput
-          maxLength={40}
-          placeholder='Full Name'
-          placeholderTextColor="lightgrey"
-          onChangeText={(text) => setFullName(text)}
-          value={fullName}
-          style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
-        />
-        <TextInput
-          maxLength={40}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          placeholder='Email'
-          placeholderTextColor="lightgrey"
-          keyboardType='email-address'
-          style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
-        />
-        <TextInput
-          maxLength={40}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          placeholder='Password'
-          placeholderTextColor="lightgrey"
-          secureTextEntry={true}
-          style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
-        />
-        <TouchableOpacity style={{ borderRadius: 10, marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
-          <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Register</Text>
-        </TouchableOpacity>
-
-        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
-          Already have an account? Click here to <Text onPress={loginPressed} style={{ fontSize: 14, fontWeight: 'bold' }}> Login</Text>.
+          <Text style={{ color: 'white', fontSize: 11, marginBottom: 10 }}>
+            Already have an account? Click here to <Text onPress={loginPressed} style={{ fontSize: 12, fontWeight: 'bold' }}> Login</Text>.
         </Text>
 
-        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
-          By clicking submit you are agreeing to the<Text> </Text>
-          <Text onPress={() => navigation.navigate('Terms')} style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text>.
+          <Text style={{ color: 'white', fontSize: 11, marginBottom: 10 }}>
+            By clicking submit you are agreeing to the<Text> </Text>
+            <Text onPress={() => navigation.navigate('Terms')} style={{ fontSize: 12, fontWeight: 'bold' }}>Terms and Conditions</Text>.
         </Text>
 
-      </View>
-    </View>
+        </View>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 
