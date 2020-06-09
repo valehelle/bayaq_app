@@ -211,10 +211,10 @@ export default function HomeScreen() {
         <BillList />
         <View style={{ position: 'absolute', top: -75, height: 150 }}>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ height: '100%' }} contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 10 }}>
-            <BillCard first onPress={() => addBillPressed({ bills: electricity, title: 'Electricity', image: require('../assets/images/electricity.jpg') })} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
-            <BillCard onPress={() => addBillPressed({ bills: water, title: 'Water', image: require('../assets/images/water.jpg') })} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
-            <BillCard onPress={() => addBillPressed({ bills: telco, title: 'Telco', image: require('../assets/images/telco.jpg') })} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
-            <BillCard last onPress={() => addBillPressed({ bills: other, title: 'Other' })} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Others" />
+            <BillCard first onPress={() => addBillPressed({ bills: electricity, title: 'Electricity', image: require('../assets/images/electricity.png') })} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
+            <BillCard onPress={() => addBillPressed({ bills: water, title: 'Water', image: require('../assets/images/water.png') })} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
+            <BillCard onPress={() => addBillPressed({ bills: telco, title: 'Telco', image: require('../assets/images/telco.png') })} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
+            <BillCard last onPress={() => addBillPressed({ bills: other, title: 'Other', image: require('../assets/images/others.png') })} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Others" />
           </ScrollView>
         </View>
       </View>
