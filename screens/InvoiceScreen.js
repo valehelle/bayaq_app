@@ -7,17 +7,17 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import Colors from '../constants/Colors'
-import { invoiceSelector } from '../features/invoices/invoiceSlice'
-import { fetchInvoice } from '../features/invoices/invoiceSaga'
 import { useSelector, useDispatch } from 'react-redux'
 import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
+import invoiceSlice, { invoiceSelector, isFetchingInvoiceSelector } from '../features/invoices/invoiceSlice'
+const invoiceActions = invoiceSlice.actions
 import Dinero from 'dinero.js'
 var moment = require('moment');
 
-const userAction = userSlice.actions
 import Constants from 'expo-constants';
 
 
@@ -25,10 +25,12 @@ const InvoiceList = ({ navigation }) => {
   const dispatch = useDispatch()
   const userInfo = useSelector(state => userInfoSelector(state))
   const invoices = useSelector(state => invoiceSelector(state))
+  const isFetchingInvoice = useSelector(state => isFetchingInvoiceSelector(state))
+
 
   useEffect(() => {
     if (userInfo.token != '') {
-      dispatch(fetchInvoice())
+      dispatch(invoiceActions.fetchInvoice())
     }
 
 
@@ -47,44 +49,55 @@ const InvoiceList = ({ navigation }) => {
   return (
     <View style={{ backgroundColor: 'white' }}>
       <View>
-        <ScrollView>
-          {invoices.length > 0 && invoices.map((invoice) => {
-            return (
-              <View key={invoice.ref_id} style={{ marginTop: 10, paddingBottom: 10, paddingHorizontal: 20 }}>
+        {isFetchingInvoice ?
 
-                <Text style={{ fontSize: 14, fontWeight: '600' }}>Date  <Text style={{ color: 'grey' }}>{moment.utc(invoice.paid_at).local().format('LLLL')}</Text></Text>
-                <View style={{ flexDirection: 'row', backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, paddingLeft: 10, paddingRight: 10, marginTop: 5 }}>
-                  <View style={{ flex: .3, borderRightWidth: 1, borderRightColor: 'white' }}>
-                    <Text style={{ fontSize: 14, fontWeight: '600', color: 'white', paddingLeft: 5 }}>Transaction Number: {invoice.ref_id}</Text>
+          <View style={{ height: '100%', justifyContent: 'center', alignContent: 'center' }}>
+            <ActivityIndicator size='large' color={Colors.secondaryColor} />
+          </View>
 
-                  </View>
+          :
 
 
-                  <View style={{ flex: .7 }}>
+          <ScrollView>
+            {invoices.length > 0 && invoices.map((invoice) => {
+              return (
+                <View key={invoice.ref_id} style={{ marginTop: 10, paddingBottom: 10, paddingHorizontal: 20 }}>
 
-                    {invoice.bills.map((bill) => {
-                      return (
-                        <View key={bill.id} style={{ paddingLeft: 10, marginBottom: 1 }}>
-                          <View style={{ flexDirection: 'row' }}>
-                            <Text style={{ color: 'white', fontSize: 14, fontWeight: '600', flex: .6, }}>{bill.company_name}</Text>
-                            <Text style={{ color: 'white', fontSize: 14, textAlign: 'right', flex: .4, justifyContent: 'flex-end', alignSelf: 'flex-end' }}>RM{toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '600' }}>Date  <Text style={{ color: 'grey' }}>{moment.utc(invoice.paid_at).local().format('LLLL')}</Text></Text>
+                  <View style={{ flexDirection: 'row', backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, paddingLeft: 10, paddingRight: 10, marginTop: 5 }}>
+                    <View style={{ flex: .3, borderRightWidth: 1, borderRightColor: 'white' }}>
+                      <Text style={{ fontSize: 14, fontWeight: '600', color: 'white', paddingLeft: 5 }}>Transaction Number: {invoice.ref_id}</Text>
+
+                    </View>
+
+
+                    <View style={{ flex: .7 }}>
+
+                      {invoice.bills.map((bill) => {
+                        return (
+                          <View key={bill.id} style={{ paddingLeft: 10, marginBottom: 1 }}>
+                            <View style={{ flexDirection: 'row' }}>
+                              <Text style={{ color: 'white', fontSize: 14, fontWeight: '600', flex: .6, }}>{bill.company_name}</Text>
+                              <Text style={{ color: 'white', fontSize: 14, textAlign: 'right', flex: .4, justifyContent: 'flex-end', alignSelf: 'flex-end' }}>RM{toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
+
+                            </View>
+                            <Text style={{ color: 'white', fontSize: 12 }}>{bill.ref1}</Text>
+                            <Text style={{ color: 'white', fontSize: 12 }}>{bill.ref2}</Text>
 
                           </View>
-                          <Text style={{ color: 'white', fontSize: 12 }}>{bill.ref1}</Text>
-                          <Text style={{ color: 'white', fontSize: 12 }}>{bill.ref2}</Text>
-
-                        </View>
-                      )
-                    })}
-                    <Text style={{ color: 'white', fontSize: 12, textAlign: 'right', marginTop: 10 }}>Service Fee: RM {toFormatSafe(Dinero({ amount: invoice.bills.length * 50 }))}</Text>
-                    <Text style={{ color: 'white', fontSize: 14, fontWeight: '600', textAlign: 'right', marginTop: 5 }}>Total: RM {toFormatSafe(Dinero({ amount: invoice.amount }))}</Text>
+                        )
+                      })}
+                      <Text style={{ color: 'white', fontSize: 12, textAlign: 'right', marginTop: 10 }}>Service Fee: RM {toFormatSafe(Dinero({ amount: invoice.bills.length * 50 }))}</Text>
+                      <Text style={{ color: 'white', fontSize: 14, fontWeight: '600', textAlign: 'right', marginTop: 5 }}>Total: RM {toFormatSafe(Dinero({ amount: invoice.amount }))}</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
-            )
-          })
-          }
-        </ScrollView>
+              )
+            })
+            }
+          </ScrollView>
+        }
+
       </View>
     </View >
   )

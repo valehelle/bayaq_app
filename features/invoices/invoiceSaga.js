@@ -6,7 +6,6 @@ import { createAction } from '@reduxjs/toolkit'
 
 
 const invoiceAction = invoiceSlice.actions
-export const fetchInvoice = createAction(`${invoiceSlice.name}/fetchInvoice`)
 
 
 export function* getBillSaga() {
@@ -23,6 +22,6 @@ export function* getBillSaga() {
 
 
 export const invoiceSaga = [
-    takeLatest(fetchInvoice.type, getBillSaga),
+    takeLatest(invoiceAction.fetchInvoice, getBillSaga),
 
 ]
