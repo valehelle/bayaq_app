@@ -52,14 +52,18 @@ export default function SelectBankScreen() {
           <View style={{ height: '100%', justifyContent: 'center' }}>
             <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Select Bank</Text>
 
+
           </View>
         </View>
       </View>
-      <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10 }}>
+      <View style={{ flex: .8, backgroundColor: 'white' }}>
+
         <ScrollView contentContainerStyle={{ paddingHorizontal: 20 }}>
+          <Image style={{ width: 100, height: 50, marginVertical: 10 }} source={require('../assets/images/fpx.png')} />
+
           {banks.map((bank, index) =>
             <View key={index}  >
-              <TouchableOpacity style={{ marginTop: 20 }} onPress={() => selectBankPressed(bank)}>
+              <TouchableOpacity style={{ marginBottom: 15 }} onPress={() => selectBankPressed(bank)}>
                 <View style={{
                   shadowColor: "#000",
                   shadowOffset: {
