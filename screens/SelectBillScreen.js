@@ -10,7 +10,6 @@ import {
   View,
   ImageBackground
 } from 'react-native';
-import * as Analytics from 'expo-firebase-analytics';
 
 import { Ionicons } from '@expo/vector-icons'
 import Constants from 'expo-constants';

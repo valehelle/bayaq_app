@@ -12,6 +12,8 @@ import {
   Keyboard,
   KeyboardAvoidingView
 } from 'react-native';
+import * as Analytics from 'expo-firebase-analytics';
+
 import { useDispatch } from 'react-redux';
 import userSlice from '../features/accounts/userSlice'
 import { wakeUpAction } from '../features/accounts/userSaga'
@@ -42,6 +44,7 @@ export default function LandingScreen({ navigation }) {
     navigation.navigate("Main")
   }
   useEffect(() => {
+    Analytics.setCurrentScreen('Landing')
     dispatch(wakeUpAction())
   }, [])
   return (

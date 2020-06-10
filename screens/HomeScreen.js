@@ -12,7 +12,6 @@ import {
   SafeAreaView,
   ImageBackground
 } from 'react-native';
-import * as Analytics from 'expo-firebase-analytics';
 import { useSelector, useDispatch } from 'react-redux'
 import billsSlice, { isBillLoadingSelector, billsSelector, totalBillsAmountSelector, selectedBillsSelector, isSuccessBillSelector } from '../features/bills/billsSlice'
 import { invoiceSelector } from '../features/invoices/invoiceSlice'
@@ -189,7 +188,6 @@ export default function HomeScreen() {
   }
 
   useEffect(() => {
-    Analytics.setCurrentScreen("Home")
     dispatch(getUserInfo())
     isSuccess && setSelectedTab('Invoice')
 
