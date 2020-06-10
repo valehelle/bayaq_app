@@ -175,7 +175,7 @@ export default function AddAmountScreen() {
                             </View>}
                     </View>
                     <View style={{ height: '100%', flex: 1, justifyContent: 'center', }}>
-                        <View style={{ flex: .5, justifyContent: 'center', paddingHorizontal: 20 }}>
+                        <View style={{ justifyContent: 'center', paddingHorizontal: 20 }}>
                             <View
                                 style={{
                                     height: screenWidth * .2,
@@ -187,20 +187,22 @@ export default function AddAmountScreen() {
                                 {billInfo && <Image style={{ borderRadius: 10, height: '100%', width: '100%' }} source={{ uri: billInfo.image }} />}
                             </View>
                             <Text style={{ color: 'white', fontSize: 13, alignSelf: 'center', marginTop: 10 }}>{billDetail.companyName}</Text>
-                            <Text style={{ color: 'white', fontSize: 13, marginTop: 5, fontWeight: 'bold' }}>Account Number: {billDetail.ref1}</Text>
+                            <ScrollView>
+                                <Text style={{ color: 'white', fontSize: 13, marginTop: 5, fontWeight: 'bold' }}>Account Number: {billDetail.ref1}</Text>
 
-                            {billInfo && billInfo.type == 'TELCO' && (
-                                <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Phone Number: {billDetail.ref2}</Text>
+                                {billInfo && billInfo.type == 'TELCO' && (
+                                    <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Phone Number: {billDetail.ref2}</Text>
 
-                            )}
-                            {billInfo && billInfo.type == 'PERLIS' && (
-                                <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Bill Number: {billDetail.ref2}</Text>
+                                )}
+                                {billInfo && billInfo.type == 'PERLIS' && (
+                                    <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Bill Number: {billDetail.ref2}</Text>
 
-                            )}
-                            {billInfo && billInfo.billerCode === '40386' && (
-                                <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Contract Account Number: {billDetail.ref2}</Text>
+                                )}
+                                {billInfo && billInfo.billerCode === '40386' && (
+                                    <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Contract Account Number: {billDetail.ref2}</Text>
 
-                            )}
+                                )}
+                            </ScrollView>
 
                         </View>
 

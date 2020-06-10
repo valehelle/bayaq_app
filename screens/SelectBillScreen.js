@@ -40,7 +40,7 @@ export default function SelectBillScreen() {
             <Ionicons name="ios-arrow-back" size={24} color="white" />
           </TouchableOpacity>
           <View style={{ height: '100%', justifyContent: 'center' }}>
-            <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{title}</Text>
+            <Text style={{ marginBottom: 70, width: '100%', height: 100, color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{title}</Text>
           </View>
         </View>
       </ImageBackground>
@@ -49,22 +49,28 @@ export default function SelectBillScreen() {
           <View key={index} style={{
             width: screenWidth * .23, padding: 5,
 
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
           }} >
-            <TouchableOpacity style={{
-              backgroundColor: 'white', height: screenWidth * .21, justifyContent: 'center', alignItems: 'center',
-              borderRadius: 10,
-            }} onPress={() => selectBillPressed(bill)}>
-              <Image style={{ borderRadius: 10, height: '100%', width: '100%' }} source={{ uri: bill.image }} />
-            </TouchableOpacity>
+            <View
+              style={{
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                backgroundColor: 'white',
+                borderRadius: 10,
+                elevation: 5,
+              }}
+            >
+              <TouchableOpacity style={{
+                backgroundColor: 'white', height: screenWidth * .21, justifyContent: 'center', alignItems: 'center',
+                borderRadius: 10,
+              }} onPress={() => selectBillPressed(bill)}>
+                <Image style={{ borderRadius: 10, height: '100%', width: '100%' }} source={{ uri: bill.image }} />
+              </TouchableOpacity>
+            </View>
             <Text style={{ textAlign: 'center', color: 'grey', marginTop: 10 }}>{bill.companyName}</Text>
 
           </View>

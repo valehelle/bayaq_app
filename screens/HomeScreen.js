@@ -106,7 +106,7 @@ const BillList = () => {
     <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 90 }}>
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey' }}>Bills</Text>
-        <View style={{ backgroundColor: '#f6f6f6', borderRadius: 20, marginBottom: 100, marginTop: 10 }}>
+        <View style={{ backgroundColor: '#f6f6f6', borderRadius: 20, marginBottom: 100, marginTop: 10, minHeight: 100 }}>
           {loading ?
             <View style={{ height: '90%', justifyContent: 'center' }}>
               <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
@@ -140,7 +140,7 @@ const BillList = () => {
                     </TouchableOpacity>
                   )
                 })
-                  : <View style={{ paddingVertical: 10 }}>
+                  : <View style={{ paddingVertical: 10, minHeight: 150, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={{ fontSize: 14 }}>You don't have any bills yet.</Text>
                     <Text style={{ fontSize: 14, marginTop: 10 }}>Click <Text style={{ fontWeight: 'bold' }}>+</Text> button to add your bill.</Text>
                   </View>
@@ -205,7 +205,7 @@ export default function HomeScreen() {
             <AntDesign name="creditcard" size={24} color="white" />
           </TouchableOpacity>
           <View style={{ height: '100%', justifyContent: 'center' }}>
-            <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{shortName(userInfo.profile.name)}</Text>
+            <Text style={{ marginBottom: 70, height: 100, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{shortName(userInfo.profile.name)}</Text>
           </View>
         </View>
       </ImageBackground>
