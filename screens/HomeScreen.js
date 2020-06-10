@@ -21,6 +21,7 @@ import { Dimensions } from 'react-native';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
+
 import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
 import { useNavigation } from '@react-navigation/native';
 import { getBill, getBillAmount } from '../features/bills/billsSaga'

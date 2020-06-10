@@ -18,6 +18,7 @@ import { WebView } from 'react-native-webview';
 import billsSlice, { paymentUrlSelector } from '../features/bills/billsSlice'
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 
 const billsAction = billsSlice.actions
@@ -39,7 +40,7 @@ export default function PaymentScreen() {
       <View style={{ flex: .1, paddingTop: Constants.statusBarHeight, }}>
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
-            <MaterialIcons name="arrow-back" size={24} color="white" />
+            <Ionicons name="ios-arrow-back" size={24} color="white" />
           </TouchableOpacity>
         </View>
       </View>

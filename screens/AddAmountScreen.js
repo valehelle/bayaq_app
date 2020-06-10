@@ -9,6 +9,8 @@ import Colors from '../constants/Colors'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 import { electricity, water, telco, other } from '../constants/Bills'
 import { Dimensions } from 'react-native';
 
@@ -162,7 +164,7 @@ export default function AddAmountScreen() {
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: '20%' }}>
                             <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
-                                <MaterialIcons name="arrow-back" size={24} color="white" />
+                                <Ionicons name="ios-arrow-back" size={24} color="white" />
                             </TouchableOpacity>
                         </View>
                         {billStatus === 'UPDATE' &&

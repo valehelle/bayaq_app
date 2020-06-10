@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
 import Colors from '../constants/Colors'
 
 
@@ -24,7 +26,7 @@ export default function TermsAndConditionScreen({ navigation }) {
       <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
         <View style={{ flex: 1 }}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
-            <MaterialIcons name="arrow-back" size={24} color="white" />
+            <Ionicons name="ios-arrow-back" size={24} color="white" />
           </TouchableOpacity>
           <View style={{ height: '100%', justifyContent: 'center' }}>
             <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>Terms of Use</Text>

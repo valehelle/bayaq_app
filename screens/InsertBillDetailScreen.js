@@ -17,6 +17,7 @@ import {
 
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import { useDispatch } from 'react-redux'
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -59,8 +60,8 @@ export default function InsertBillDetailScreen() {
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: Colors.headerColor }}>
         <ImageBackground source={image} style={{ flex: .4 }}>
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.3)', paddingTop: Constants.statusBarHeight, }}>
-            <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
-              <MaterialIcons name="arrow-back" size={24} color="white" />
+            <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+              <Ionicons name="ios-arrow-back" size={24} color="white" />
             </TouchableOpacity>
             <View style={{ height: '100%', justifyContent: 'center' }}>
               <Text style={{ marginBottom: 70, width: '100%', height: 100, color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center', paddingHorizontal: 20 }}>{title}</Text>
