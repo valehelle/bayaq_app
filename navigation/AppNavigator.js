@@ -67,7 +67,8 @@ export default AppNavigator = () => {
           // The line below uses the expo-firebase-analytics tracker
           // https://docs.expo.io/versions/latest/sdk/firebase-analytics/
           // Change this line to use another Mobile analytics SDK
-          Analytics.setCurrentScreen(currentRouteName);
+          !__DEV__ && Analytics.setCurrentScreen(currentRouteName);
+
         }
 
         // Save the current route name for later comparision

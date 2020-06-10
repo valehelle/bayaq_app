@@ -44,7 +44,8 @@ export default function LandingScreen({ navigation }) {
     navigation.navigate("Main")
   }
   useEffect(() => {
-    Analytics.setCurrentScreen('Landing')
+
+    !__DEV__ && Analytics.setCurrentScreen('Landing')
     dispatch(wakeUpAction())
   }, [])
   return (
