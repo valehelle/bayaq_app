@@ -26,10 +26,6 @@ export default function SelectBillScreen() {
   const router = useRoute()
   const { bills, title, image } = router.params
 
-  useEffect(() => {
-    Analytics.setCurrentScreen("Select Bill")
-
-  })
 
   const selectBillPressed = (bill) => {
     navigation.navigate('InsertBillDetail', { bill, title, image })
