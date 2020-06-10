@@ -39,8 +39,8 @@ export default function SelectBillScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
-      <ImageBackground resizeMode="cover" source={image} style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
-        <View style={{ flex: 1 }}>
+      <ImageBackground resizeMode="cover" source={image} style={{ flex: .4 }}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.3)', paddingTop: Constants.statusBarHeight, }}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
             <MaterialIcons name="arrow-back" size={24} color="white" />
           </TouchableOpacity>

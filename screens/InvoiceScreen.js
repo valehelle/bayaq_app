@@ -15,7 +15,6 @@ import { fetchInvoice } from '../features/invoices/invoiceSaga'
 import { useSelector, useDispatch } from 'react-redux'
 import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
 import Dinero from 'dinero.js'
-
 var moment = require('moment');
 
 const userAction = userSlice.actions
@@ -59,7 +58,10 @@ const InvoiceList = ({ navigation }) => {
                     <Text style={{ fontSize: 14, fontWeight: '600', color: 'white', paddingLeft: 5 }}>Transaction Number: {invoice.ref_id}</Text>
 
                   </View>
+
+
                   <View style={{ flex: .7 }}>
+
                     {invoice.bills.map((bill) => {
                       return (
                         <View key={bill.id} style={{ paddingLeft: 10, marginBottom: 1 }}>

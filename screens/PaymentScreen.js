@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   View,
   TextInput,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import userSlice from '../features/accounts/userSlice'
@@ -15,7 +16,6 @@ import Colors from '../constants/Colors'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 import billsSlice, { paymentUrlSelector } from '../features/bills/billsSlice'
-import { ActivityIndicator } from 'react-native-paper';
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
 

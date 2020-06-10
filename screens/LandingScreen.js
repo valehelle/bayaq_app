@@ -49,10 +49,9 @@ export default function LandingScreen({ navigation }) {
       <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={{
-          paddingHorizontal: 20,
           backgroundColor: Colors.primaryColor,
           flex: 1,
-          paddingTop: Constants.statusBarHeight + 10
+          paddingTop: Constants.statusBarHeight + 10,
         }}>
         <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center' }}>
           <Image
@@ -64,14 +63,14 @@ export default function LandingScreen({ navigation }) {
             source={require('../assets/images/icon.png')} />
           <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
           <Image
-            resizeMode='contain'
+            resizeMode='cover'
             style={{
-              width: 300,
+              width: '100%',
               height: 150,
             }}
-            source={require('../assets/images/register.png')} />
+            source={require('../assets/images/landing.png')} />
         </View>
-        <View style={{ flex: .5 }}>
+        <View style={{ flex: .5, paddingHorizontal: 20, }}>
           <TextInput
             maxLength={40}
             placeholder='Full Name'
@@ -116,6 +115,8 @@ export default function LandingScreen({ navigation }) {
     </TouchableWithoutFeedback>
   );
 }
+
+
 
 LandingScreen.navigationOptions = {
   header: null,

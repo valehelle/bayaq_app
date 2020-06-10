@@ -57,8 +57,8 @@ export default function InsertBillDetailScreen() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: Colors.headerColor }}>
-        <ImageBackground source={image} style={{ flex: .4, paddingTop: Constants.statusBarHeight, }}>
-          <View style={{ flex: 1 }}>
+        <ImageBackground source={image} style={{ flex: .4 }}>
+          <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.3)', paddingTop: Constants.statusBarHeight, }}>
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 10, paddingVertical: 10 }}>
               <MaterialIcons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>

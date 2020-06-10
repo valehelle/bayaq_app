@@ -42,7 +42,7 @@ export default function LoginScreen({ navigation }) {
       <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={{
-          paddingHorizontal: 20,
+
           backgroundColor: Colors.primaryColor,
           flex: 1,
           paddingTop: Constants.statusBarHeight + 10,
@@ -57,14 +57,14 @@ export default function LoginScreen({ navigation }) {
             source={require('../assets/images/icon.png')} />
           <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
           <Image
-            resizeMode='contain'
+            resizeMode='cover'
             style={{
-              width: 300,
+              width: '100%',
               height: 150,
             }}
-            source={require('../assets/images/register.png')} />
+            source={require('../assets/images/login.png')} />
         </View>
-        <View style={{ flex: .5, marginTop: 45 }}>
+        <View style={{ flex: .5, paddingHorizontal: 20, }}>
           <TextInput
             maxLength={40}
             onChangeText={(text) => setEmail(text)}
@@ -73,7 +73,7 @@ export default function LoginScreen({ navigation }) {
             placeholderTextColor="lightgrey"
             autoCapitalize='none'
             keyboardType='email-address'
-            style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+            style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 33, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           <TextInput
             maxLength={40}

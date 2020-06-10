@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
-  SafeAreaView
+  SafeAreaView,
+  ImageBackground
 } from 'react-native';
 import * as Analytics from 'expo-firebase-analytics';
 import { useSelector, useDispatch } from 'react-redux'
@@ -198,15 +199,17 @@ export default function HomeScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
-      <View style={{ flex: .4, paddingTop: Constants.statusBarHeight, backgroundColor: Colors.headerColor }}>
-        <TouchableOpacity onPress={() => navigation.navigate("SelectBank", { proceedPayment: false })} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row' }}>
-          {bank && <View style={{ justifyContent: 'center', alignContent: 'center', borderRightWidth: 1, borderRightColor: 'white', paddingRight: 10, marginRight: 10, height: 18, marginTop: 3 }}><Text style={{ color: 'white', fontSize: 15, fontWeight: 'bold' }}>{bank.name}</Text></View>}
-          <AntDesign name="creditcard" size={24} color="white" />
-        </TouchableOpacity>
-        <View style={{ height: '100%', justifyContent: 'center' }}>
-          <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{shortName(userInfo.profile.name)}</Text>
+      <ImageBackground resizeMode="cover" source={require('../assets/images/main.png')} style={{ flex: .4 }}>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.3)', paddingTop: Constants.statusBarHeight }}>
+          <TouchableOpacity onPress={() => navigation.navigate("SelectBank", { proceedPayment: false })} style={{ alignSelf: 'flex-end', paddingHorizontal: 20, paddingVertical: 10, flexDirection: 'row' }}>
+            {bank && <View style={{ justifyContent: 'center', alignContent: 'center', borderRightWidth: 1, borderRightColor: 'white', paddingRight: 10, marginRight: 10, height: 18, marginTop: 3 }}><Text style={{ color: 'white', fontSize: 15, fontWeight: 'bold' }}>{bank.name}</Text></View>}
+            <AntDesign name="creditcard" size={24} color="white" />
+          </TouchableOpacity>
+          <View style={{ height: '100%', justifyContent: 'center' }}>
+            <Text style={{ marginBottom: 120, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{shortName(userInfo.profile.name)}</Text>
+          </View>
         </View>
-      </View>
+      </ImageBackground>
       <View style={{ flex: .8, backgroundColor: 'white' }}>
         <BillList />
         <View style={{ position: 'absolute', top: -75, height: 150 }}>
@@ -224,7 +227,7 @@ export default function HomeScreen() {
 
 const BillCard = ({ first, last, icon, title, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={{ paddingHorizontal: 10, width: screenWidth / 3.2 }}>
+    <TouchableOpacity activeOpacity={.5} onPress={onPress} style={{ paddingHorizontal: 10, width: screenWidth / 3.2 }}>
       <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 10, height: '100%', justifyContent: 'center' }}>
         <View style={{ height: 40 }}>
           {icon}
