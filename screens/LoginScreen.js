@@ -18,6 +18,7 @@ import Colors from '../constants/Colors'
 const userAction = userSlice.actions
 import { userLogin } from '../features/accounts/userSaga'
 import Constants from 'expo-constants';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('')
@@ -47,22 +48,27 @@ export default function LoginScreen({ navigation }) {
           flex: 1,
           paddingTop: Constants.statusBarHeight + 10,
         }}>
-        <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center' }}>
-          <Image
-            resizeMode='contain'
-            style={{
-              width: 70,
-              height: 70
-            }}
-            source={require('../assets/images/icon.png')} />
-          <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
-          <Image
-            resizeMode='cover'
-            style={{
-              width: '100%',
-              height: 150,
-            }}
-            source={require('../assets/images/login.png')} />
+        <View style={{ flex: .5 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+            <Ionicons name="ios-arrow-back" size={24} color="white" />
+          </TouchableOpacity>
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Image
+              resizeMode='contain'
+              style={{
+                width: 70,
+                height: 70
+              }}
+              source={require('../assets/images/icon.png')} />
+            <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
+            <Image
+              resizeMode='cover'
+              style={{
+                width: '100%',
+                height: 150,
+              }}
+              source={require('../assets/images/login.png')} />
+          </View>
         </View>
         <View style={{ flex: .5, paddingHorizontal: 20, }}>
           <TextInput
@@ -93,7 +99,7 @@ export default function LoginScreen({ navigation }) {
 
         </View>
       </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback >
   );
 }
 
