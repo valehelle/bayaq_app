@@ -20,7 +20,7 @@ const LandingNavigator = createStackNavigator(
   }
 );
 
-LandingNavigator.path = ''
+LandingNavigator.path = 'landing'
 
 
 const switchNavigator = createSwitchNavigator({

@@ -37,9 +37,22 @@ export default function AuthLoadingScreen({ navigation }) {
       // Error retrieving data
     }
   }
+  async function privacyPage(navigation) {
+    try {
+      navigation.navigate('TermsAndCondition');
+    } catch (error) {
+      console.log(error)
+      alert('error')
+      // Error retrieving data
+    }
+  }
+
 
   useEffect(() => {
     const token = navigation.getParam('token', 'NO-TOKEN')
+    const page = navigation.getParam('page', 'NO-TOKEN')
+
+
 
     if (token === 'NO-TOKEN') {
       const isSuccess = navigation.getParam('billplz[paid]', 'NO-ID') === 'NO-ID' ? false : true
@@ -56,6 +69,10 @@ export default function AuthLoadingScreen({ navigation }) {
       resetPassword(navigation, { token })
     }
 
+    if (page == 'privacy') {
+      privacyPage(navigation)
+
+    }
   }, [])
 
   return (
