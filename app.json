@@ -3,11 +3,10 @@
     "name": "Bayaq",
     "slug": "bayaq_app",
     "privacy": "public",
-    "description": "Pay your bills in one click.",
+    "description": "Pay multipe bills in one click.",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,6 +27,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.bayaqapp.www",
+      "versionCode": 1
+    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.bayaqapp.www",
