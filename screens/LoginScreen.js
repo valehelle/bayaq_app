@@ -59,7 +59,7 @@ export default function LoginScreen({ navigation }) {
                 width: 70,
                 height: 70
               }}
-              source={require('../assets/images/icon.png')} />
+              source={require('../assets/images/icon2.png')} />
             <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
             <Image
               resizeMode='cover'
