@@ -57,20 +57,20 @@ export default function LandingScreen({ navigation }) {
           flex: 1,
           paddingTop: Constants.statusBarHeight + 10,
         }}>
-        <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
           <Image
             resizeMode='contain'
             style={{
               width: 70,
               height: 70
             }}
-            source={require('../assets/images/icon.png')} />
-          <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
+            source={require('../assets/images/icon2.png')} />
+          <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10 }}>Bayaq</Text>
           <Image
             resizeMode='cover'
             style={{
               width: '100%',
-              height: 150,
+              height: 160,
             }}
             source={require('../assets/images/landing.png')} />
         </View>
