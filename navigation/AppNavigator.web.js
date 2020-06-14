@@ -8,6 +8,7 @@ import LandingScreen from '../screens/LandingScreen';
 import LoginScreen from '../screens/LoginScreen';
 
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
+import SupportScreen from '../screens/Support';
 
 
 import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
@@ -16,7 +17,8 @@ import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
 const LandingNavigator = createStackNavigator(
   {
     Landing: LandingScreen,
-    TermsAndCondition: TermsAndConditionScreen
+    TermsAndCondition: TermsAndConditionScreen,
+    SupportScreen: SupportScreen,
   }
 );
 
