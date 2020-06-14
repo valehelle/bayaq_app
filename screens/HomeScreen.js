@@ -106,13 +106,13 @@ const BillList = () => {
     <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 90 }}>
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey' }}>Bills</Text>
-        <View style={{ backgroundColor: '#f6f6f6', borderRadius: 20, marginBottom: 100, marginTop: 10, minHeight: 100 }}>
+        <View style={{ backgroundColor: '#f6f6f6', borderRadius: 20, marginBottom: 100, marginTop: 10, flex: 1, }}>
           {loading ?
             <View style={{ height: '90%', justifyContent: 'center' }}>
               <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
             </View>
             :
-            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 10 }}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 10, }}>
               {
                 bills.length > 0 ? bills.map((bill) => {
                   return (
