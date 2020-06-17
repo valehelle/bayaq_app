@@ -26,7 +26,8 @@ export function* saveUserInfoSaga({ payload }) {
         const { token } = yield response.json()
         yield call(AsyncStorage.setItem, 'bayaqUserToken', JSON.stringify({ token }))
 
-        userInfoCreated()
+        yield put(userAction.setUserToken({ token, userInfoCreated: () => { } }))
+
     } else {
         alert('Incorrect email format or email has already registered.')
     }
