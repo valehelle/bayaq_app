@@ -14,8 +14,8 @@ import {
 } from 'react-native';
 import * as Analytics from 'expo-firebase-analytics';
 
-import { useDispatch } from 'react-redux';
-import userSlice from '../features/accounts/userSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
 import { wakeUpAction } from '../features/accounts/userSaga'
 import Colors from '../constants/Colors'
 import Constants from 'expo-constants';
@@ -26,10 +26,14 @@ export default function LandingScreen({ navigation }) {
   const [email, setEmail] = useState('')
   const [fullName, setFullName] = useState('')
   const [password, setPassword] = useState('')
+  const userInfo = useSelector(state => userInfoSelector(state))
   const dispatch = useDispatch()
   const submitPressed = () => {
     if (email != '') {
-      dispatch(userAction.addUserInfo({ password, fullName, email, userInfoCreated }))
+      if (!userInfo.isRegister) {
+        dispatch(userAction.addUserInfo({ password, fullName, email, userInfoCreated }))
+
+      }
     } else {
       alert('Please enter valid email address for invoice purpose.')
     }

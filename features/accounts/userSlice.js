@@ -12,6 +12,7 @@ const userSlice = createSlice({
         email: '',
         fullName: '',
         token: null,
+        isRegister: false,
         profile: {
             bankCode: 0,
             email: '',
@@ -24,6 +25,7 @@ const userSlice = createSlice({
                 const { email, fullName } = action.payload
                 state.email = email
                 state.fullName = fullName
+                state.isRegister = true
             }
         },
         setUserProfile: {
@@ -38,6 +40,7 @@ const userSlice = createSlice({
             reducer(state, action) {
                 const { token } = action.payload
                 state.token = token
+                state.isRegister = false
             }
         },
         userLogout: {
