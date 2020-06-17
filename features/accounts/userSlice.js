@@ -42,7 +42,13 @@ const userSlice = createSlice({
             reducer(state, action) {
                 state
             }
-        }
+        },
+
+        resetPassword: {
+            reducer(state, action) {
+                state
+            }
+        },
     }
 })
 

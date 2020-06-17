@@ -7,7 +7,9 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 import LandingScreen from '../screens/LandingScreen';
 import LoginScreen from '../screens/LoginScreen';
 
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import ChangePasswordScreen from '../screens/ChangePasswordScreen';
+
 import SupportScreen from '../screens/Support';
 
 
@@ -19,6 +21,7 @@ const LandingNavigator = createStackNavigator(
     Landing: LandingScreen,
     TermsAndCondition: TermsAndConditionScreen,
     SupportScreen: SupportScreen,
+    ResetPassword: ResetPasswordScreen,
   }
 );
 
@@ -31,6 +34,8 @@ const switchNavigator = createSwitchNavigator({
   Login: LoginScreen,
 
   ChangePassword: ChangePasswordScreen,
+
+
   TermsAndCondition: TermsAndConditionScreen,
   AuthLoading: AuthLoadingScreen,
   Main: MainTabNavigator,

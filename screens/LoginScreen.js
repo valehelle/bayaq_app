@@ -33,6 +33,9 @@ export default function LoginScreen({ navigation }) {
     navigation.navigate("Landing")
   }
 
+  const forgotPasswordPressed = () => {
+    navigation.navigate("ResetPassword")
+  }
   return (
     <ScrollView className="scrollView" style={styles.container}>
       <View style={{ height: '30vh', justifyContent: 'flex-end' }}>
@@ -56,7 +59,10 @@ export default function LoginScreen({ navigation }) {
           secureTextEntry={true}
           style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
         />
-        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
+        <View style={{ color: 'white', marginTop: 10 }}>
+          <TouchableOpacity onPress={forgotPasswordPressed}><Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold' }}>Forgot Password?</Text></TouchableOpacity>
+        </View>
+        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10, marginTop: 10 }}>
           New to bayaq? Click here to
           <TouchableOpacity onPress={registerPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}> Register</Text></TouchableOpacity>.
         </Text>

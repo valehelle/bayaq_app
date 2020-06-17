@@ -2,7 +2,7 @@ import { takeLatest, select, put, call } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native';
 import { createAction } from '@reduxjs/toolkit'
 import userSlice from './userSlice'
-import { registerAPI, wakeUp, loginAPI, changePassword } from '../../services/api'
+import { registerAPI, wakeUp, loginAPI, changePassword, requestResetPassword } from '../../services/api'
 
 const userAction = userSlice.actions
 
@@ -68,7 +68,25 @@ export function* changePasswordSaga({ payload }) {
 
 }
 
+export function* resetPasswordSaga({ payload }) {
+    const { email, resetPasswordSuccess } = payload
+    const body = {
+        email: email,
+    }
+    const response = yield call(requestResetPassword, body)
+    if (response.ok) {
+
+        resetPasswordSuccess()
+    } else {
+        alert('Incorrect email format or email has already registered.')
+    }
+
+}
+
+
+
 export const userSaga = [
+    takeLatest(userAction.resetPassword.type, resetPasswordSaga),
     takeLatest(wakeUpAction.type, wakeUpSaga),
     takeLatest(userAction.addUserInfo.type, saveUserInfoSaga),
     takeLatest(userAction.changePassword.type, changePasswordSaga),

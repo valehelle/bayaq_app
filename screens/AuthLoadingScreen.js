@@ -39,7 +39,16 @@ export default function AuthLoadingScreen({ navigation }) {
   }
   async function privacyPage(navigation) {
     try {
-      navigation.navigate('TermsAndCondition');
+      setTimeout(() => navigation.navigate('TermsAndCondition'), 1000)
+    } catch (error) {
+      console.log(error)
+      alert('error')
+      // Error retrieving data
+    }
+  }
+  async function requestReset(navigation) {
+    try {
+      setTimeout(() => navigation.navigate('ResetPasswordScreen'), 1000)
     } catch (error) {
       console.log(error)
       alert('error')
@@ -72,6 +81,8 @@ export default function AuthLoadingScreen({ navigation }) {
     if (page == 'privacy') {
       privacyPage(navigation)
 
+    } else if (page == 'reset') {
+      requestReset(navigation)
     }
   }, [])
 

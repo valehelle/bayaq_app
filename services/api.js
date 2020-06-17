@@ -185,3 +185,18 @@ export const changePassword = (body) => {
 
     return fetchRequest(path, config)
 }
+
+export const requestResetPassword = (body, token) => {
+
+    const path = `/users/reset`
+    const config = {
+        method: 'POST',
+        "headers": {
+            ...headers,
+        },
+        body: JSON.stringify({ ...body })
+
+    }
+
+    return fetchRequest(path, config)
+}
