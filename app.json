@@ -36,6 +36,9 @@
       "bundleIdentifier": "com.bayaqapp.www",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
+    "facebookDisplayName": "Bayaq",
+    "facebookAutoInitEnabled": true,
+    "facebookAppId": "593490678184542",
     "web": {
       "config": {
         "firebase": {
