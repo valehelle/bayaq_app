@@ -52,8 +52,11 @@ export function* userLoginSaga({ payload }) {
 
 }
 
-export function* getUserTokenSaga() {
+export function* wakeUpSaga() {
     yield call(wakeUp)
+
+}
+export function* getUserTokenSaga() {
     const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken', '')
     if (userInfo !== null) {
         yield put(userAction.setUserToken({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
@@ -64,7 +67,6 @@ export function* getUserTokenSaga() {
 }
 
 export function* getUserInfoSaga() {
-    yield call(wakeUp)
     const userInfo = yield call(AsyncStorage.getItem, 'bayaqUserToken')
     yield put(userAction.setUserToken({ ...JSON.parse(userInfo), userInfoCreated: () => { } }))
     const response = yield call(getUserProfile, JSON.parse(userInfo))
@@ -85,9 +87,7 @@ export function* setUserBank({ payload }) {
     const response = yield call(setBankCode, body, userInfo.token)
 
 }
-export function* wakeUpSaga() {
-    yield call(wakeUp)
-}
+
 export function* userLogoutSaga() {
     yield call(AsyncStorage.removeItem, 'bayaqUserToken')
 }
@@ -119,5 +119,8 @@ export const userSaga = [
     takeLatest(userLogin.type, userLoginSaga),
     takeLatest(userAction.userLogout.type, userLogoutSaga),
     takeLatest(userAction.setUserBank.type, setUserBank),
-    takeLatest(getUserToken.type, getUserTokenSaga)
+    takeLatest(getUserToken.type, getUserTokenSaga),
+    takeLatest(getUserToken.type, wakeUpSaga),
+    takeLatest(getUserInfo.type, wakeUpSaga),
+
 ]
