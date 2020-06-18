@@ -66,7 +66,6 @@ export default function LoginScreen({ navigation }) {
               style={{
                 width: '100%',
                 height: 190,
-                backgroundColor: 'red'
               }}
               source={require('../assets/images/login.png')} />
           </View>
