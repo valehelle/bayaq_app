@@ -50,7 +50,6 @@ export default function PaymentScreen() {
             <WebView
               source={{ uri: paymentUrl }}
               onShouldStartLoadWithRequest={request => {
-                console.log(request.url)
                 if (request.url.startsWith('https://www.bayaqapp.com')) {
                   if (request.url.includes("paid%5D=true")) {
                     alert('Payment Success!')
