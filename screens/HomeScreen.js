@@ -151,8 +151,8 @@ const BillList = () => {
         </View>
 
         <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10 }}>
-          <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right' }}>Service Fee RM {toFormatSafe(Dinero({ amount: selectedBills.length * 50 }))}</Text>
-          <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {toFormatSafe(Dinero({ amount: amount + (selectedBills.length * 50) }))}</Text>
+          <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right' }}>Service Fee RM {toFormatSafe(Dinero({ amount: selectedBills.length * 99 }))}</Text>
+          <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {toFormatSafe(Dinero({ amount: amount + (selectedBills.length * 99) }))}</Text>
           <TouchableOpacity onPress={payBillsPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
             <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Pay Now</Text>
           </TouchableOpacity>

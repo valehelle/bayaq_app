@@ -45,18 +45,20 @@ export default function PaymentScreen() {
         </View>
       </View>
       <View style={{ flex: .9 }}>
-        <View style={{ height: '100%' }}>
+        <View style={{ height: '100%', backgroundColor: 'white' }}>
           {paymentUrl ?
             <WebView
               source={{ uri: paymentUrl }}
               onShouldStartLoadWithRequest={request => {
-                if (request.url.startsWith('https://www.bayaqapp.com/payment_status')) {
+                console.log(request.url)
+                if (request.url.startsWith('https://www.bayaqapp.com')) {
                   if (request.url.includes("paid%5D=true")) {
-                    alert('success')
+                    alert('Payment Success!')
+                    navigation.navigate("Receipt")
                   } else {
-                    alert('fails')
+                    alert('Your payment fail.')
+                    navigation.navigate("Home")
                   }
-                  navigation.navigate("Home")
                   return false
                 }
                 return true
