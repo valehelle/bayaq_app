@@ -78,7 +78,7 @@ export function* resetPasswordSaga({ payload }) {
 
         resetPasswordSuccess()
     } else {
-        alert('Incorrect email format or email has already registered.')
+        alert('Something went wrong :(')
     }
 
 }
