@@ -38,6 +38,7 @@
     "facebookDisplayName": "Bayaq",
     "facebookAutoInitEnabled": true,
     "facebookAutoLogAppEventsEnabled": true,
+    "facebookAdvertiserIDCollectionEnabled": true,
     "facebookAppId": "593490678184542",
     "web": {
       "config": {
