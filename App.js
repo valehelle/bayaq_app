@@ -13,6 +13,7 @@ import createSagaMiddleware from 'redux-saga'
 import mySaga from './sagas'
 import Constants from 'expo-constants';
 import * as WebBrowser from 'expo-web-browser';
+import * as Facebook from 'expo-facebook';
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
@@ -25,7 +26,12 @@ const store = configureStore({
 })
 
 sagaMiddleware.run(mySaga)
+async function logIn() {
+  console.log('fffff')
+  const helo = await Facebook.initializeAsync('593490678184542')
+  console.log(helo)
 
+}
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const _handleRedirect = event => {
@@ -36,7 +42,6 @@ export default function App(props) {
     }
 
     let data = Linking.parse(event.url);
-    console.log(data)
   };
   Linking.addEventListener('url', _handleRedirect);
   if (!isLoadingComplete && !props.skipLoadingScreen) {
