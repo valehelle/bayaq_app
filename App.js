@@ -26,12 +26,7 @@ const store = configureStore({
 })
 
 sagaMiddleware.run(mySaga)
-async function logIn() {
-  console.log('fffff')
-  const helo = await Facebook.initializeAsync('593490678184542')
-  console.log(helo)
 
-}
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const _handleRedirect = event => {
