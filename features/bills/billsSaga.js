@@ -96,7 +96,7 @@ export function* payBillsSaga({ payload }) {
 
 export function* getBillAmountSaga() {
     const bills = yield select(billsSelector)
-    const selectedBills = bills.filter((bill) => bill.billerCode == 68502 || bill.billerCode == 5454 || bill.billerCode == 4200)
+    const selectedBills = bills.filter((bill) => bill.billerCode == 68502 || bill.billerCode == 5454 || bill.billerCode == 4200 || bill.billerCode == 4135)
     const autoUpdate = yield select(isAutoUpdateSelector)
     if (autoUpdate) {
         for (let i = 0; i < selectedBills.length; i++) {

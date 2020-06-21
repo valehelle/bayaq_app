@@ -82,7 +82,7 @@ export default function AddAmountScreen({ navigation }) {
             setBillDetail(billDetail)
             setMyr(billDetail.amount.toString())
             if (billStatus != 'UPDATE') {
-                if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454 || billDetail.billerCode == 4200) {
+                if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454 || billDetail.billerCode == 4200 || bill.billerCode == 4135) {
 
                     dispatch(getBillAmountFromServerWithCallback({ bill: billDetail, callback: updateAmount }))
                     setIsLoading(true)

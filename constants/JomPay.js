@@ -78,6 +78,57 @@ export const lineNetwork = [
         location: 'Kuching',
         type: 'UTILITY'
     },
+    {
+        companyName: 'Air Kedah',
+        billerCode: '11122',
+        location: 'Kedah',
+        image: 'https://www.lsank.gov.my/wp-content/uploads/logo-1-1.png',
+        type: 'UTILITY'
+    },
+    {
+        companyName: 'Air Kelantan',
+        billerCode: '9217',
+        location: 'Kelantan',
+        image: 'https://pbs.twimg.com/profile_images/917292301231177728/nk16Ep8z.jpg',
+        type: 'UTILITY'
+    },
+
+    {
+        companyName: 'Air Pulau Pinang',
+        billerCode: '50385',
+        location: 'Pulau Pinang',
+        image: 'https://cf.shopee.com.my/file/13dfe296a05e1696a4f6e28ed01e3180',
+        type: 'UTILITY'
+    },
+
+
+    {
+        companyName: 'Air Perak',
+        billerCode: '4135',
+        location: 'Perak',
+        image: 'https://assets.bharian.com.my/images/articles/LAP_1555057043.jpg',
+        type: 'UTILITY'
+    }, {
+        companyName: 'Air Terengganu',
+        billerCode: '8144',
+        location: 'Terengganu',
+        image: 'https://assets.bharian.com.my/images/articles/air_ganu_1534396149.jpg',
+        type: 'UTILITY'
+    },
+    {
+        companyName: 'Air Negeri Sembilan',
+        billerCode: '3715',
+        location: 'Negeri Sembilan',
+        image: 'https://assets.bharian.com.my/images/articles/sains_1579588398.jpg',
+        type: 'UTILITY'
+    },
+    {
+        companyName: 'Air Johor',
+        billerCode: '3673',
+        location: 'Johor',
+        image: 'https://johorpress.com/wp-content/uploads/2018/07/saj.png',
+        type: 'UTILITY'
+    },
 ]
 
 
