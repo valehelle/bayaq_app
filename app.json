@@ -31,8 +31,9 @@
       "versionCode": 5
     },
     "ios": {
+      "buildNumber": "5",
       "supportsTablet": true,
-      "bundleIdentifier": "com.bayaqapp.www",
+      "bundleIdentifier": "com.ios.bayaqapp.www",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "facebookDisplayName": "Bayaq",
