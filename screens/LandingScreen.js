@@ -55,7 +55,7 @@ export default function LandingScreen({ navigation }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        behavior={Platform.OS == "ios" ? "padding" : "padding"}
         style={{
           backgroundColor: Colors.primaryColor,
           flex: 1,
@@ -85,6 +85,7 @@ export default function LandingScreen({ navigation }) {
             placeholderTextColor="lightgrey"
             onChangeText={(text) => setFullName(text)}
             value={fullName}
+            autoCapitalize='none'
             style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           <TextInput
@@ -94,6 +95,7 @@ export default function LandingScreen({ navigation }) {
             placeholder='Email'
             placeholderTextColor="lightgrey"
             keyboardType='email-address'
+            autoCapitalize='none'
             style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           <TextInput
@@ -103,6 +105,7 @@ export default function LandingScreen({ navigation }) {
             placeholder='Password'
             placeholderTextColor="lightgrey"
             secureTextEntry={true}
+            autoCapitalize='none'
             style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           <TouchableOpacity style={{ borderRadius: 10, marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
