@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -28,10 +28,11 @@
     ],
     "android": {
       "package": "com.bayaqapp.www",
-      "versionCode": 5
+      "versionCode": 6,
+      "googleServicesFile": "./google-services.json"
     },
     "ios": {
-      "buildNumber": "5",
+      "buildNumber": "6",
       "supportsTablet": true,
       "bundleIdentifier": "com.ios.bayaqapp.www",
       "googleServicesFile": "./GoogleService-Info.plist"
