@@ -26,7 +26,12 @@ sagaMiddleware.run(mySaga)
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
-  useEffect(() => Platform.OS === 'android' && Facebook.initializeAsync('593490678184542', 'Bayaq'), [])
+
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      Facebook.initializeAsync('593490678184542', 'Bayaq')
+    }
+  }, [])
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
