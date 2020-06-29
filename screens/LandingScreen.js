@@ -101,7 +101,7 @@ export default function LandingScreen({ navigation }) {
         </Text>
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10, marginTop: 30, textAlign: 'center' }}>
-          Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
+          Copyright &copy; 2020 Bayaq PLT | Contact admin@bayaqapp.com<Text> </Text>
         </Text>
 
       </View>

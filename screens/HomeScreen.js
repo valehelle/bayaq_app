@@ -238,7 +238,7 @@ export default function HomeScreen({ navigation }) {
 
       <View style={{ paddingVertical: 30 }}>
         <Text style={{ color: 'white', fontSize: 14, textAlign: 'center' }}>
-          Copyright &copy; 2020 Online Payment Solutions | Contact admin@bayaqapp.com<Text> </Text>
+          Copyright &copy; 2020 Bayaq PLT | Contact admin@bayaqapp.com<Text> </Text>
         </Text>
       </View>
     </ScrollView >
