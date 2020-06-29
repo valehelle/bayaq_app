@@ -1,7 +1,7 @@
 import { AppLoading, Linking } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import rootReducer from './reducers'
 import createSagaMiddleware from 'redux-saga'
 import mySaga from './sagas'
-
+import * as Facebook from 'expo-facebook';
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware()
 
@@ -26,6 +26,7 @@ sagaMiddleware.run(mySaga)
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
+  useEffect(() => Platform.OS === 'ios' && Facebook.initializeAsync('593490678184542', 'Bayaq'), [])
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
