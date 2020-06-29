@@ -226,7 +226,7 @@ export default function HomeScreen() {
 
 const BillCard = ({ first, last, icon, title, onPress }) => {
   return (
-    <TouchableOpacity activeOpacity={.5} onPress={onPress} style={{ paddingHorizontal: 10, width: screenWidth / 3.2 }}>
+    <TouchableOpacity activeOpacity={.5} onPress={onPress} style={{ paddingHorizontal: 10, width: screenWidth / 3.5 }}>
       <View style={{ backgroundColor: Colors.secondaryColor, borderRadius: 10, height: '100%', justifyContent: 'center' }}>
         <View style={{ height: 40 }}>
           {icon}
