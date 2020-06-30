@@ -59,7 +59,7 @@ const BillList = () => {
   }
   const payBillsPressed = () => {
     if (selectedBills.length >= 1) {
-      if (amount <= 50000) {
+      if (true) {
         const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
         if (allBillsFinishedLoading == undefined) {
 
