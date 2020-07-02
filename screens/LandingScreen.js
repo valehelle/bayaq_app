@@ -19,19 +19,26 @@ import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
 import { wakeUpAction } from '../features/accounts/userSaga'
 import Colors from '../constants/Colors'
 import Constants from 'expo-constants';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 const userAction = userSlice.actions
 
 export default function LandingScreen({ navigation }) {
   const [email, setEmail] = useState('')
   const [fullName, setFullName] = useState('')
   const [password, setPassword] = useState('')
+  const [checkBoxState, setCheckBoxState] = useState(false)
+
   const userInfo = useSelector(state => userInfoSelector(state))
   const dispatch = useDispatch()
   const submitPressed = () => {
     if (email != '') {
       if (!userInfo.isRegister) {
-        dispatch(userAction.addUserInfo({ password, fullName, email, userInfoCreated }))
+
+        if (checkBoxState) {
+          dispatch(userAction.addUserInfo({ password, fullName, email, userInfoCreated }))
+        } else {
+          alert('Please accept our terms and condition.')
+        }
 
       }
     } else {
@@ -61,7 +68,7 @@ export default function LandingScreen({ navigation }) {
           flex: 1,
           paddingTop: Constants.statusBarHeight + 10,
         }}>
-        <View style={{ flex: .5, justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+        <View style={{ flex: .3, justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
           <Image
             resizeMode='contain'
             style={{
@@ -70,15 +77,8 @@ export default function LandingScreen({ navigation }) {
             }}
             source={require('../assets/images/icon2.png')} />
           <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10 }}>Bayaq</Text>
-          <Image
-            resizeMode='cover'
-            style={{
-              width: '100%',
-              height: 160,
-            }}
-            source={require('../assets/images/landing.png')} />
         </View>
-        <View style={{ flex: .5, paddingHorizontal: 20, }}>
+        <View style={{ flex: .7, paddingHorizontal: 20, }}>
           <TextInput
             maxLength={40}
             placeholder='Full Name'
@@ -112,14 +112,19 @@ export default function LandingScreen({ navigation }) {
             <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Register</Text>
           </TouchableOpacity>
 
-          <Text style={{ color: 'white', fontSize: 11, marginBottom: 10 }}>
+          <View style={{ marginTop: 10, flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() => setCheckBoxState(!checkBoxState)}>
+              <MaterialCommunityIcons name={checkBoxState ? 'checkbox-marked' : 'checkbox-blank-outline'} size={24} color="white" />
+
+            </TouchableOpacity>
+            <Text onPress={() => navigation.navigate('Terms')} style={{ marginLeft: 5, color: 'white', fontSize: 12, fontWeight: 'bold', alignSelf: 'center' }}>I understand and accept the terms and condition.</Text>
+          </View>
+
+
+          <Text style={{ marginTop: 10, color: 'white', fontSize: 14, marginBottom: 10 }}>
             Already have an account? Click here to <Text onPress={loginPressed} style={{ fontSize: 12, fontWeight: 'bold' }}> Login</Text>.
         </Text>
 
-          <Text style={{ color: 'white', fontSize: 11, marginBottom: 10 }}>
-            By clicking submit you are agreeing to the<Text> </Text>
-            <Text onPress={() => navigation.navigate('Terms')} style={{ fontSize: 12, fontWeight: 'bold' }}>Terms and Conditions</Text>.
-        </Text>
 
         </View>
       </KeyboardAvoidingView>

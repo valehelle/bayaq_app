@@ -41,24 +41,26 @@ export default function LoginScreen({ navigation }) {
         flex: 1,
         paddingTop: Constants.statusBarHeight
       }}>
-        <View style={{ flex: .5 }}>
+        <View style={{ flex: .3 }}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingVertical: 10 }}>
             <Ionicons name="ios-arrow-back" size={24} color="white" />
           </TouchableOpacity>
           <View style={{
             justifyContent: 'center', alignItems: 'center'
           }}>
-            <Image
-              resizeMode='contain'
-              style={{
-                width: 70,
-                height: 70
-              }}
-              source={require('../assets/images/icon2.png')} />
-            <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
+            <View style={{ marginTop: 33 }}>
+              <Image
+                resizeMode='contain'
+                style={{
+                  width: 70,
+                  height: 70
+                }}
+                source={require('../assets/images/icon2.png')} />
+              <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10, marginBottom: 30 }}>Bayaq</Text>
+            </View>
           </View>
         </View>
-        <View style={{ flex: .5, paddingTop: 200, }}>
+        <View style={{ flex: .7, paddingTop: 200, }}>
           <TextInput
             maxLength={40}
             onChangeText={(text) => setEmail(text)}
