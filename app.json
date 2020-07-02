@@ -28,11 +28,11 @@
     ],
     "android": {
       "package": "com.bayaqapp.www",
-      "versionCode": 8,
+      "versionCode": 9,
       "googleServicesFile": "./google-services.json"
     },
     "ios": {
-      "buildNumber": "8",
+      "buildNumber": "9",
       "supportsTablet": true,
       "bundleIdentifier": "com.ios.bayaqapp.www",
       "googleServicesFile": "./GoogleService-Info.plist"
