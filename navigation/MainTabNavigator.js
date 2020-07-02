@@ -17,6 +17,7 @@ import Colors from '../constants/Colors'
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import PaymentScreen from '../screens/PaymentScreen';
 import TermsAndConditionScreen from '../screens/TermsAndConditionScreen';
+import CheckoutScreen from '../screens/CheckoutScreen';
 const config = Platform.select({
   web: { headerMode: 'screen', initialRouteName: 'Home' },
   default: {},
@@ -34,6 +35,7 @@ function HomeStackScreen() {
       <HomeStack.Screen name="InsertBillDetail" component={InsertBillDetailScreen} />
       <HomeStack.Screen name="AddAmount" component={AddAmountScreen} />
       <HomeStack.Screen name="SelectBank" component={SelectBankScreen} />
+      <HomeStack.Screen name="Checkout" component={CheckoutScreen} />
 
     </HomeStack.Navigator>
   );
@@ -59,7 +61,7 @@ const Tab = createBottomTabNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator tabBarOptions={{ inactiveTintColor: 'rgba(277,277,277,.4)', activeTintColor: 'white', style: { backgroundColor: Colors.bottomBar } }}>
-      <Tab.Screen name="Home" component={HomeStackScreen}
+      <Tab.Screen name="HomeStack" component={HomeStackScreen}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
@@ -83,6 +85,7 @@ function TabNavigator() {
           ),
         }}
       />
+
     </Tab.Navigator>
   );
 }

@@ -87,7 +87,7 @@ const InvoiceList = ({ navigation }) => {
                           </View>
                         )
                       })}
-                      <Text style={{ color: 'white', fontSize: 12, textAlign: 'right', marginTop: 10 }}>Service Fee: RM {toFormatSafe(Dinero({ amount: invoice.bills.length * 50 }))}</Text>
+                      <Text style={{ color: 'white', fontSize: 12, textAlign: 'right', marginTop: 10 }}>Service Fee: RM {toFormatSafe(Dinero({ amount: invoice.service_charge }))}</Text>
                       <Text style={{ color: 'white', fontSize: 14, fontWeight: '600', textAlign: 'right', marginTop: 5 }}>Total: RM {toFormatSafe(Dinero({ amount: invoice.amount }))}</Text>
                     </View>
                   </View>

@@ -21,9 +21,9 @@ import { Dimensions } from 'react-native';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { getBill, getBillAmount } from '../features/bills/billsSaga'
 import { getUserInfo } from '../features/accounts/userSaga'
 const billsAction = billsSlice.actions
@@ -34,8 +34,22 @@ import Colors from '../constants/Colors'
 import { banks } from '../constants/Banks'
 var moment = require('moment');
 const screenWidth = Math.round(Dimensions.get('window').width);
-
+import Modal from 'react-native-modal';
 import { electricity, water, telco, other } from '../constants/Bills'
+
+
+const toFormatSafe = (d) => {
+  const [units, subunits] = d
+    .toRoundedUnit(2)
+    .toString()
+    .split(".");
+  const stringified = subunits
+    ? [units, subunits.padEnd(2, "0")].join(".")
+    : [units, "00"].join(".");
+
+  return `${stringified}`;
+}
+
 
 const BillList = () => {
   const dispatch = useDispatch()
@@ -63,12 +77,8 @@ const BillList = () => {
         const allBillsFinishedLoading = bills.find((bill) => bill.loading === true)
         if (allBillsFinishedLoading == undefined) {
 
-          if (userInfo.profile.bankCode == "" || userInfo.profile.bankCode == "0") {
-            navigation.navigate('SelectBank', { proceedPayment: true })
-          } else {
-            navigation.navigate('Payment', { bankCode: userInfo.profile.bankCode })
+          navigation.navigate('Checkout', { selectedBills: selectedBills })
 
-          }
         } else {
           alert('Please wait until all bills finish getting the latest data.')
         }
@@ -90,17 +100,7 @@ const BillList = () => {
 
   }, [userInfo.token])
 
-  const toFormatSafe = (d) => {
-    const [units, subunits] = d
-      .toRoundedUnit(2)
-      .toString()
-      .split(".");
-    const stringified = subunits
-      ? [units, subunits.padEnd(2, "0")].join(".")
-      : [units, "00"].join(".");
 
-    return `${stringified}`;
-  }
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 90 }}>
@@ -151,16 +151,18 @@ const BillList = () => {
         </View>
 
         <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10 }}>
-          <Text style={{ fontSize: 12, color: 'grey', textAlign: 'right' }}>Service Fee RM {toFormatSafe(Dinero({ amount: selectedBills.length * 99 }))}</Text>
-          <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {toFormatSafe(Dinero({ amount: amount + (selectedBills.length * 99) }))}</Text>
+          <Text style={{ fontWeight: '600', fontSize: 20, textAlign: 'right' }}>Total RM {toFormatSafe(Dinero({ amount: amount }))}</Text>
           <TouchableOpacity onPress={payBillsPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
-            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Pay Now</Text>
+            <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center', fontSize: 20 }}>Proceed to Checkout</Text>
           </TouchableOpacity>
         </View>
       </View>
     </View >
   )
 }
+
+
+
 
 
 function capitalizeFirstLetter(string) {
@@ -182,11 +184,24 @@ export default function HomeScreen() {
   const userInfo = useSelector(state => userInfoSelector(state))
 
   const isSuccess = useSelector(state => isSuccessBillSelector(state))
+  const [isPayment, setIsPayment] = useState(false)
+  const [isPaymentSuccess, setIsPaymentSuccess] = useState(false)
+  const [referrenceID, setReferrenceID] = useState('')
+
   const navigation = useNavigation();
 
   const addBillPressed = ({ bills, title, image }) => {
     navigation.navigate('SelectBill', { bills, title, image })
   }
+  const router = useRoute()
+  useEffect(() => {
+    if (router.params) {
+      const { isPayment, paymentSuccess, referrenceID } = router.params
+      setIsPayment(isPayment)
+      setIsPaymentSuccess(paymentSuccess)
+      setReferrenceID(referrenceID)
+    }
+  }, [router.params])
 
   useEffect(() => {
     dispatch(getUserInfo())
@@ -194,7 +209,17 @@ export default function HomeScreen() {
 
   }, [])
 
+  const viewReceiptPressed = () => {
+    setIsPayment(false)
+    navigation.navigate("Receipt")
+  }
+  const cancelPressed = () => {
+    setIsPayment(false)
+  }
+
   const bank = banks.find((bank) => bank.code == userInfo.profile.bankCode)
+  const amount = useSelector(state => totalBillsAmountSelector(state))
+  const selectedBills = useSelector(state => selectedBillsSelector(state))
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
@@ -220,6 +245,34 @@ export default function HomeScreen() {
           </ScrollView>
         </View>
       </View>
+      <Modal isVisible={isPayment} backdropOpacity={.3}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <View style={{ backgroundColor: 'white', borderRadius: 5, padding: 20, minHeight: 300 }}>
+            <TouchableOpacity onPress={cancelPressed}>
+              <MaterialIcons name="cancel" size={30} color="black" style={{ alignSelf: 'flex-end' }} />
+            </TouchableOpacity>
+            {isPaymentSuccess ?
+              <>
+                <MaterialCommunityIcons name="checkbox-marked-circle" size={100} color="green" style={{ alignSelf: 'center' }} />
+                <Text style={{ textAlign: 'center', fontSize: 30, marginTop: 10 }}>RM {toFormatSafe(Dinero({ amount: amount + (selectedBills.length * 99) }))}</Text>
+                <Text style={{ textAlign: 'center', fontSize: 20, marginTop: 10 }}>Your payment is complete!</Text>
+                <Text style={{ textAlign: 'center', fontSize: 20, marginTop: 30 }}>Referrence ID:</Text>
+                <Text style={{ textAlign: 'center', fontSize: 20, marginTop: 5, marginBottom: 20 }}>{referrenceID}</Text>
+                <TouchableOpacity onPress={viewReceiptPressed} style={{ paddingHorizontal: 10, backgroundColor: Colors.secondaryColor, borderRadius: 5, paddingVertical: 10, marginTop: 5 }}>
+                  <Text style={{ color: 'white', textAlign: 'center' }}>View receipt</Text>
+                </TouchableOpacity>
+              </>
+              :
+              <>
+                <MaterialCommunityIcons name="cancel" size={100} color="red" style={{ alignSelf: 'center', marginTop: 30 }} />
+                <Text style={{ textAlign: 'center', fontSize: 20, marginTop: 10 }}>You payment was unsuccessfull.</Text>
+              </>
+            }
+
+          </View>
+
+        </View>
+      </Modal>
     </View >
   );
 }

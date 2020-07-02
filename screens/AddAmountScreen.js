@@ -130,7 +130,7 @@ export default function AddAmountScreen() {
         setIsLoading(false)
     }
     const billCreated = () => {
-        navigation.navigate('Home', { bill: null })
+        navigation.navigate('Home', { isPayment: false, paymentSuccess: false, referrenceID: '' })
     }
     const backButtonPressed = () => {
         navigation.goBack()

@@ -19,12 +19,20 @@ import billsSlice, { paymentUrlSelector } from '../features/bills/billsSlice'
 import Constants from 'expo-constants';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-
+import { StackActions } from '@react-navigation/native';
 
 const billsAction = billsSlice.actions
 
 const userAction = userSlice.actions
 
+
+const getReferrenceID = (url) => {
+  const removeLeftArray = url.split("billplz%5Bid%5D=")
+  const removeLeft = removeLeftArray[1]
+  const removeRightArray = removeLeft.split("&billplz%5Bpaid%5D=")
+  return removeRightArray[0]
+
+}
 export default function PaymentScreen() {
   const navigation = useNavigation()
   const dispatch = useDispatch()
@@ -38,10 +46,17 @@ export default function PaymentScreen() {
 
     <View style={{ flex: 1, backgroundColor: Colors.headerColor }}>
       <View style={{ flex: .1, paddingTop: Constants.statusBarHeight, }}>
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10, flex: .2 }}>
             <Ionicons name="ios-arrow-back" size={24} color="white" />
           </TouchableOpacity>
+          <View style={{ flex: .6, paddingHorizontal: 20, paddingVertical: 5 }}>
+            <Text style={{ textAlign: 'center', color: 'white', fontSize: 30, fontWeight: 'bold' }}>Payment</Text>
+          </View>
+          <View style={{ flex: .2, paddingHorizontal: 20, paddingVertical: 10 }}>
+
+
+          </View>
         </View>
       </View>
       <View style={{ flex: .9 }}>
@@ -50,13 +65,13 @@ export default function PaymentScreen() {
             <WebView
               source={{ uri: paymentUrl }}
               onShouldStartLoadWithRequest={request => {
+
                 if (request.url.startsWith('https://www.bayaqapp.com')) {
                   if (request.url.includes("paid%5D=true")) {
-                    alert('Payment Success!')
-                    navigation.navigate("Receipt")
+                    const referrenceID = getReferrenceID(request.url)
+                    navigation.navigate("Home", { isPayment: true, paymentSuccess: true, referrenceID })
                   } else {
-                    alert('Your payment fail.')
-                    navigation.navigate("Home")
+                    navigation.navigate("Home", { isPayment: true, paymentSuccess: false, referrenceID: '' })
                   }
                   return false
                 }
