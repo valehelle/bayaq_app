@@ -146,7 +146,7 @@ export default function AddAmountScreen() {
                     style: 'cancel',
                 },
                 {
-                    text: 'OK', onPress: () => {
+                    text: 'Yes', onPress: () => {
                         dispatch(billsAction.removeBill({ billId: billDetail.id }))
                         navigation.goBack()
                     }

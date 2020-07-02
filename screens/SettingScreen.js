@@ -38,7 +38,7 @@ export default function SettingScreen({ navigation }) {
           style: 'cancel',
         },
         {
-          text: 'OK', onPress: () => {
+          text: 'Yes', onPress: () => {
             dispatch(userAction.userLogout())
           }
         },
