@@ -63,42 +63,7 @@ export default function LandingScreen({ navigation }) {
           source={require('../assets/images/dashboard.png')} />
       </View>
       <View>
-        <Text style={{ color: 'white' }}>Full Name:</Text>
-        <TextInput
-          maxLength={40}
-          onChangeText={(text) => setFullName(text)}
-          value={fullName}
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
-        />
-        <Text style={{ color: 'white', marginTop: 10 }}>Email:</Text>
-        <TextInput
-          maxLength={40}
-          onChangeText={(text) => setEmail(text)}
-          value={email}
-          keyboardType='email-address'
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
-        />
-        <Text style={{ color: 'white', marginTop: 10 }}>Password:</Text>
-        <TextInput
-          maxLength={40}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry={true}
-          style={{ color: 'white', borderColor: 'white', marginTop: 10, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
-        />
-        <TouchableOpacity style={{ marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
-          <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Register</Text>
-        </TouchableOpacity>
 
-        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
-          Already have an account? Click here to
-          <TouchableOpacity onPress={loginPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}> Login</Text></TouchableOpacity>.
-        </Text>
-
-        <Text style={{ color: 'white', fontSize: 14, marginBottom: 10 }}>
-          By clicking submit you are agreeing to the<Text> </Text>
-          <TouchableOpacity onPress={termsPressed}><Text style={{ fontSize: 14, fontWeight: 'bold' }}>Terms and Conditions</Text></TouchableOpacity>.
-        </Text>
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10, marginTop: 30, textAlign: 'center' }}>
           Copyright &copy; 2020 Bayaq PLT | Contact admin@bayaqapp.com<Text> </Text>
