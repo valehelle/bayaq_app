@@ -14,7 +14,7 @@ import userSlice from '../features/accounts/userSlice'
 import { wakeUpAction } from '../features/accounts/userSaga'
 import Colors from '../constants/Colors'
 const userAction = userSlice.actions
-
+import * as Linking from 'expo-linking';
 export default function LandingScreen({ navigation }) {
   const [email, setEmail] = useState('')
   const [fullName, setFullName] = useState('')
@@ -60,7 +60,45 @@ export default function LandingScreen({ navigation }) {
           width: '100%',
           height: '80vh',
         }}
-          source={require('../assets/images/dashboard.png')} />
+          source={require('../assets/images/iphone.png')} />
+        <Text style={{ textAlign: 'center', color: 'white', fontSize: 30, marginTop: 100 }}>Download it now from both App Store and Google Play Store!</Text>
+        <View style={{ height: '200px', width: '100%', flexDirection: 'row', marginTop: 50 }}>
+          <TouchableOpacity style={{ height: '100%', width: '50%', flex: .7 }} onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.bayaqapp.www')}>
+            <Image resizeMode='contain' style={{
+              width: '100%',
+              height: '100%',
+
+            }}
+              source={{ uri: 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' }} />
+          </TouchableOpacity>
+          <Image resizeMode='contain' style={{
+            flex: .3,
+            width: 100,
+            height: 100,
+            alignSelf: 'center'
+          }}
+            source={require('../assets/images/android_qr.png')} />
+        </View>
+
+
+        <View style={{ height: '200px', width: '100%', flexDirection: 'row', marginTop: 100 }}>
+          <TouchableOpacity style={{ height: '100%', width: '50%', flex: .7 }} onPress={() => Linking.openURL('https://apps.apple.com/my/app/bayaq/id1519715626')}>
+            <Image resizeMode='contain' style={{
+              width: '85%',
+              height: '100%',
+              alignSelf: 'center'
+            }}
+              source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png' }} />
+          </TouchableOpacity>
+          <Image resizeMode='contain' style={{
+            flex: .3,
+            width: 100,
+            height: 100,
+            alignSelf: 'center'
+          }}
+            source={require('../assets/images/iphone_qr.png')} />
+        </View>
+
       </View>
       <View>
 
