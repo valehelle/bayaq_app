@@ -61,7 +61,7 @@ export default function LandingScreen({ navigation }) {
           height: '80vh',
         }}
           source={require('../assets/images/iphone.png')} />
-        <Text style={{ textAlign: 'center', color: 'white', fontSize: 30, marginTop: 100 }}>Download it now from both App Store and Google Play Store!</Text>
+        <Text style={{ textAlign: 'center', color: 'white', fontSize: 30, marginTop: 100 }}>Download it now from Google Play Store and Apple App Store!</Text>
         <View style={{ height: '200px', width: '100%', flexDirection: 'row', marginTop: 50 }}>
           <TouchableOpacity style={{ height: '100%', width: '50%', flex: .7 }} onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.bayaqapp.www')}>
             <Image resizeMode='contain' style={{
