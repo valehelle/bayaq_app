@@ -8,7 +8,6 @@ import { userInfoSelector } from '../accounts/userSlice'
 const userAction = userSlice.actions
 
 export const getUserInfo = createAction(`${userSlice.name}/getUserInfo`)
-export const userLogin = createAction(`${userSlice.name}/userLogin`)
 export const getUserToken = createAction(`${userSlice.name}/userToken`)
 
 export const wakeUpAction = createAction(`${userSlice.name}/wakeUp`)
@@ -116,7 +115,7 @@ export const userSaga = [
     takeLatest(userAction.resetPassword.type, resetPasswordSaga),
     takeLatest(userAction.addUserInfo.type, saveUserInfoSaga),
     takeLatest(getUserInfo.type, getUserInfoSaga),
-    takeLatest(userLogin.type, userLoginSaga),
+    takeLatest(userAction.userLogin.type, userLoginSaga),
     takeLatest(userAction.userLogout.type, userLogoutSaga),
     takeLatest(userAction.setUserBank.type, setUserBank),
     takeLatest(getUserToken.type, getUserTokenSaga),

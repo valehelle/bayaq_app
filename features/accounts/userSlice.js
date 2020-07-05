@@ -13,6 +13,7 @@ const userSlice = createSlice({
         fullName: '',
         token: null,
         isRegister: false,
+        isLogin: false,
         profile: {
             bankCode: 0,
             email: '',
@@ -33,7 +34,7 @@ const userSlice = createSlice({
                 state.profile.email = action.payload.email
                 state.profile.bankCode = action.payload.bank_code
                 state.profile.name = action.payload.name
-
+                state.isLogin = false
             }
         },
         setUserToken: {
@@ -41,11 +42,18 @@ const userSlice = createSlice({
                 const { token } = action.payload
                 state.token = token
                 state.isRegister = false
+                state.isLogin = false
+            }
+        },
+        userLogin: {
+            reducer(state, action) {
+                state.isLogin = true
             }
         },
         userLogout: {
             reducer(state, action) {
                 state.token = ''
+                state.isLogin = false
             }
         },
         setUserBank: {

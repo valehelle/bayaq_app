@@ -78,7 +78,14 @@ export default AppNavigator = () => {
       <Main.Navigator headerMode="none">
         {userInfo.token != '' ? <Main.Screen name="Main" component={MainTabNavigator} /> :
           <>
-            <Main.Screen name="Landing" component={LandingScreen} />
+            <Main.Screen name="Landing" component={LandingScreen}
+              options={{
+                title: 'Sign in',
+                // When logging out, a pop animation feels intuitive
+                // You can remove this if you want the default 'push' animation
+                animationTypeForReplace: !userInfo.token ? 'pop' : 'push',
+              }}
+            />
             <Main.Screen name="Login" component={LoginScreen} />
             <Main.Screen name="ResetPassword" component={ResetPasswordScreen} />
             <Main.Screen name="Terms" component={TermsAndConditionScreen} />

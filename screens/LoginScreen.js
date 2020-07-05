@@ -10,12 +10,14 @@ import {
   ScrollView,
   Keyboard,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ActivityIndicator
 } from 'react-native';
-import { useDispatch } from 'react-redux';
-import userSlice from '../features/accounts/userSlice'
-import Colors from '../constants/Colors'
+import { useDispatch, useSelector } from 'react-redux';
+import userSlice, { userInfoSelector } from '../features/accounts/userSlice'
 const userAction = userSlice.actions
+
+import Colors from '../constants/Colors'
 import { userLogin } from '../features/accounts/userSaga'
 import Constants from 'expo-constants';
 import { Ionicons } from '@expo/vector-icons';
@@ -24,9 +26,11 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const dispatch = useDispatch()
+  const userInfo = useSelector(state => userInfoSelector(state))
+
   const submitPressed = () => {
-    if (email != '') {
-      dispatch(userLogin({ password, email, userInfoCreated }))
+    if (email != '' && !userInfo.isLogin) {
+      dispatch(userAction.userLogin({ password, email, userInfoCreated }))
     } else {
       alert('Please enter valid email address')
     }
@@ -87,7 +91,10 @@ export default function LoginScreen({ navigation }) {
           <Text style={{ color: 'white', marginTop: 10, fontSize: 14 }} onPress={() => navigation.navigate('ResetPassword')} >Forgot Password?</Text>
 
           <TouchableOpacity style={{ borderRadius: 5, marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
-            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Login</Text>
+            {userInfo.isLogin ?
+              <ActivityIndicator size='small' color='white' style={{ height: 35, alignSelf: 'center' }} /> :
+              <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Login</Text>
+            }
           </TouchableOpacity>
 
         </View>
