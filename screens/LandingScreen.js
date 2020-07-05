@@ -10,7 +10,9 @@ import {
   TextInput,
   ScrollView,
   Keyboard,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  ActivityIndicator,
+  Alert
 } from 'react-native';
 import * as Analytics from 'expo-firebase-analytics';
 
@@ -37,7 +39,18 @@ export default function LandingScreen({ navigation }) {
         if (checkBoxState) {
           dispatch(userAction.addUserInfo({ password, fullName, email, userInfoCreated }))
         } else {
-          alert('Please accept our terms and condition.')
+          Alert.alert(
+            '',
+            'Please accept our terms and conditions.',
+            [
+              {
+                text: 'Okay', onPress: () => {
+                  console.log('okay')
+                }
+              },
+            ],
+            { cancelable: false }
+          )
         }
 
       }
@@ -109,13 +122,15 @@ export default function LandingScreen({ navigation }) {
             style={{ marginTop: 20, borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           <TouchableOpacity style={{ borderRadius: 10, marginTop: 20, marginBottom: 10, borderWidth: 1, borderColor: 'white', paddingVertical: 5 }} onPress={submitPressed}>
-            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Register</Text>
+            {userInfo.isRegister ?
+              <ActivityIndicator size='small' color='white' style={{ height: 35, alignSelf: 'center' }} /> :
+              <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Register</Text>
+            }
           </TouchableOpacity>
 
           <View style={{ marginTop: 10, flexDirection: 'row' }}>
             <TouchableOpacity onPress={() => setCheckBoxState(!checkBoxState)}>
               <MaterialCommunityIcons name={checkBoxState ? 'checkbox-marked' : 'checkbox-blank-outline'} size={24} color="white" />
-
             </TouchableOpacity>
             <Text onPress={() => navigation.navigate('Terms')} style={{ marginLeft: 5, color: 'white', fontSize: 12, fontWeight: 'bold', alignSelf: 'center' }}>I understand and accept the terms and condition.</Text>
           </View>
