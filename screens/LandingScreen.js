@@ -135,15 +135,17 @@ export default function LandingScreen({ navigation }) {
             <Text onPress={() => navigation.navigate('Terms')} style={{ marginLeft: 5, color: 'white', fontSize: 12, fontWeight: 'bold', alignSelf: 'center' }}>I understand and accept the terms and condition.</Text>
           </View>
 
+          <TouchableOpacity onPress={loginPressed}>
+            <Text style={{ paddingVertical: 20, color: 'white', fontSize: 14, marginBottom: 10 }}>
+              Already have an account? Click here to Login.
+            </Text>
+          </TouchableOpacity>
 
-          <Text style={{ marginTop: 10, color: 'white', fontSize: 14, marginBottom: 10 }}>
-            Already have an account? Click here to <Text onPress={loginPressed} style={{ fontSize: 12, fontWeight: 'bold' }}> Login</Text>.
-        </Text>
 
 
         </View>
       </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback >
   );
 }
 
