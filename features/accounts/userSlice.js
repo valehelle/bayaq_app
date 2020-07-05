@@ -50,6 +50,16 @@ const userSlice = createSlice({
                 state.isLogin = true
             }
         },
+        userLoginFail: {
+            reducer(state, action) {
+                state.isLogin = false
+            }
+        },
+        registerFail: {
+            reducer(state, action) {
+                state.isRegister = false
+            }
+        },
         userLogout: {
             reducer(state, action) {
                 state.token = ''

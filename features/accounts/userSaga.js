@@ -28,6 +28,8 @@ export function* saveUserInfoSaga({ payload }) {
         yield put(userAction.setUserToken({ token, userInfoCreated: () => { } }))
 
     } else {
+        yield put(userAction.registerFail())
+
         alert('Incorrect email format or email has already registered.')
     }
 
@@ -46,6 +48,8 @@ export function* userLoginSaga({ payload }) {
 
         yield put(userAction.setUserToken({ token, userInfoCreated: () => { } }))
     } else {
+        yield put(userAction.userLoginFail())
+
         alert('Incorrect email or password.')
     }
 
