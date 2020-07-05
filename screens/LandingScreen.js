@@ -90,6 +90,7 @@ export default function LandingScreen({ navigation }) {
             }}
             source={require('../assets/images/icon2.png')} />
           <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10 }}>Bayaq</Text>
+
         </View>
         <View style={{ flex: .7, paddingHorizontal: 20, }}>
           <TextInput
@@ -136,7 +137,7 @@ export default function LandingScreen({ navigation }) {
           </View>
 
           <TouchableOpacity onPress={loginPressed}>
-            <Text style={{ paddingVertical: 20, color: 'white', fontSize: 14, marginBottom: 10 }}>
+            <Text style={{ paddingVertical: 20, marginTop: 10, color: 'white', fontSize: 14, marginBottom: 10 }}>
               Already have an account? Click here to Login.
             </Text>
           </TouchableOpacity>

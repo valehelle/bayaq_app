@@ -67,7 +67,7 @@ export default function LoginScreen({ navigation }) {
             <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10 }}>Bayaq</Text>
           </View>
         </View>
-        <View style={{ flex: .7, paddingHorizontal: 20, }}>
+        <View style={{ flex: .5, paddingHorizontal: 20, }}>
           <TextInput
             maxLength={40}
             onChangeText={(text) => setEmail(text)}

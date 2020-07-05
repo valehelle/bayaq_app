@@ -123,23 +123,6 @@ export default function InsertBillDetailScreen() {
                 />
               </View>
             )}
-            {bill.type == 'PERLIS' && (
-              <View >
-                <TextInput
-                  style={{
-                    borderRadius: 10,
-                    borderColor: 'lightgrey',
-                    borderWidth: 1,
-                    padding: 10
-                  }}
-                  maxLength={40}
-                  placeholder="Bill Number"
-                  value={bill.ref2}
-                  keyboardType='phone-pad'
-                  onChangeText={(text) => setBill({ ...bill, ref2: text })}
-                />
-              </View>
-            )}
             {bill.billerCode === '40386' && (
               <View >
                 <TextInput

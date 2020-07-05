@@ -184,7 +184,7 @@ export default function AddAmountScreen() {
                                     alignSelf: 'center'
                                 }}
                             >
-                                {billInfo && <Image style={{ borderRadius: 10, height: '100%', width: '100%' }} source={{ uri: billInfo.image }} />}
+                                {billInfo && <Image style={{ borderRadius: 10, height: '100%', width: '100%', backgroundColor: 'white' }} source={{ uri: billInfo.image }} />}
                             </View>
                             <Text style={{ color: 'white', fontSize: 13, alignSelf: 'center', marginTop: 10 }}>{billDetail.companyName}</Text>
                             <ScrollView>
@@ -192,10 +192,6 @@ export default function AddAmountScreen() {
 
                                 {billInfo && billInfo.type == 'TELCO' && (
                                     <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Phone Number: {billDetail.ref2}</Text>
-
-                                )}
-                                {billInfo && billInfo.type == 'PERLIS' && (
-                                    <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Bill Number: {billDetail.ref2}</Text>
 
                                 )}
                                 {billInfo && billInfo.billerCode === '40386' && (
