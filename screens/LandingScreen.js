@@ -53,7 +53,7 @@ export default function LandingScreen({ navigation }) {
 
       </View>
       <View style={{ justifyContent: 'flex-end' }}>
-        <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>Pay multiple bills in one click</Text>
+        <Text style={{ fontWeight: '400', color: 'white', fontSize: 35, marginTop: 20 }}>The fastest way to pay your bills.</Text>
       </View>
       <View style={{ padding: 5, alignItems: 'center' }}>
         <Image resizeMode='contain' style={{
@@ -61,42 +61,67 @@ export default function LandingScreen({ navigation }) {
           height: '80vh',
         }}
           source={require('../assets/images/iphone.png')} />
-        <Text style={{ textAlign: 'center', color: 'white', fontSize: 30, marginTop: 100 }}>Download it now from Google Play Store and Apple App Store!</Text>
-        <View style={{ height: '200px', width: '100%', flexDirection: 'row', marginTop: 50 }}>
-          <TouchableOpacity style={{ height: '100%', width: '50%', flex: .7 }} onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.bayaqapp.www')}>
+        <Text style={{ textAlign: 'center', color: 'white', fontSize: 30, marginTop: 50 }}>Download it now from Google Play Store and Apple App Store!</Text>
+        <View className="d-none d-sm-block" style={{ width: "100%" }}>
+          <View style={{ height: '150px', width: '100%', flexDirection: 'row', marginTop: 50 }}>
+            <TouchableOpacity style={{ height: '100%', width: '50%', flex: .7 }} onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.bayaqapp.www')}>
+              <Image resizeMode='contain' style={{
+                width: '100%',
+                height: '100%',
+
+              }}
+                source={{ uri: 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' }} />
+            </TouchableOpacity>
             <Image resizeMode='contain' style={{
-              width: '100%',
-              height: '100%',
+              flex: .3,
+              width: 100,
+              height: 100,
+              alignSelf: 'center'
+            }}
+              source={require('../assets/images/android_qr.png')} />
+          </View>
+
+
+          <View style={{ height: '100px', width: '100%', flexDirection: 'row', marginTop: 100 }}>
+            <TouchableOpacity style={{ height: '100%', width: '50%', flex: .7 }} onPress={() => Linking.openURL('https://apps.apple.com/my/app/bayaq/id1519715626')}>
+              <Image resizeMode='contain' style={{
+                width: '85%',
+                height: '100%',
+                alignSelf: 'center'
+              }}
+                source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png' }} />
+            </TouchableOpacity>
+            <Image resizeMode='contain' style={{
+              flex: .3,
+              width: 100,
+              height: 100,
+              alignSelf: 'center'
+            }}
+              source={require('../assets/images/iphone_qr.png')} />
+          </View>
+
+        </View>
+        <View className="d-block d-sm-none" style={{ width: '100%', flexDirection: 'row', marginTop: 50 }}>
+          <TouchableOpacity style={{ height: '100%', width: '100%' }} onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.bayaqapp.www')}>
+            <Image resizeMode='contain' style={{
+              width: 250,
+              height: 100,
+              alignSelf: 'center'
 
             }}
               source={{ uri: 'https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' }} />
           </TouchableOpacity>
-          <Image resizeMode='contain' style={{
-            flex: .3,
-            width: 100,
-            height: 100,
-            alignSelf: 'center'
-          }}
-            source={require('../assets/images/android_qr.png')} />
         </View>
 
-
-        <View style={{ height: '200px', width: '100%', flexDirection: 'row', marginTop: 100 }}>
-          <TouchableOpacity style={{ height: '100%', width: '50%', flex: .7 }} onPress={() => Linking.openURL('https://apps.apple.com/my/app/bayaq/id1519715626')}>
+        <View className="d-block d-sm-none" style={{ width: '100%', flexDirection: 'row' }}>
+          <TouchableOpacity style={{ height: '100%', width: '100%' }} onPress={() => Linking.openURL('https://apps.apple.com/my/app/bayaq/id1519715626')}>
             <Image resizeMode='contain' style={{
-              width: '85%',
-              height: '100%',
+              width: 220,
+              height: 100,
               alignSelf: 'center'
             }}
               source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png' }} />
           </TouchableOpacity>
-          <Image resizeMode='contain' style={{
-            flex: .3,
-            width: 100,
-            height: 100,
-            alignSelf: 'center'
-          }}
-            source={require('../assets/images/iphone_qr.png')} />
         </View>
 
       </View>
