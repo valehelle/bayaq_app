@@ -129,7 +129,7 @@ export default function LandingScreen({ navigation }) {
 
 
         <Text style={{ color: 'white', fontSize: 14, marginBottom: 10, marginTop: 30, textAlign: 'center' }}>
-          Copyright &copy; 2020 Bayaq PLT | Contact admin@bayaqapp.com<Text> </Text>
+          Copyright &copy; 2020 Bayaq PLT | Contact admin@bayaqapp.com | <TouchableOpacity onPress={() => navigation.navigate("TermsAndCondition")}><Text>Terms and Condition</Text></TouchableOpacity>
         </Text>
 
       </View>
