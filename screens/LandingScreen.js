@@ -79,9 +79,9 @@ export default function LandingScreen({ navigation }) {
         style={{
           backgroundColor: Colors.primaryColor,
           flex: 1,
-          paddingTop: Constants.statusBarHeight + 10,
+          paddingTop: Constants.statusBarHeight,
         }}>
-        <View style={{ flex: .3, justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+        <View style={{ flex: .4, justifyContent: 'center', alignItems: 'center', overflow: 'hidden', paddingTop: 24 }}>
           <Image
             resizeMode='contain'
             style={{
@@ -92,7 +92,7 @@ export default function LandingScreen({ navigation }) {
           <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10 }}>Bayaq</Text>
 
         </View>
-        <View style={{ flex: .7, paddingHorizontal: 20, }}>
+        <View style={{ flex: .6, paddingHorizontal: 20, }}>
           <TextInput
             maxLength={40}
             placeholder='Full Name'
@@ -137,7 +137,7 @@ export default function LandingScreen({ navigation }) {
           </View>
 
           <TouchableOpacity onPress={loginPressed}>
-            <Text style={{ paddingVertical: 20, marginTop: 10, color: 'white', fontSize: 14, marginBottom: 10 }}>
+            <Text style={{ paddingVertical: 10, marginTop: 5, color: 'white', fontSize: 14, marginBottom: 10 }}>
               Already have an account? Click here to Login.
             </Text>
           </TouchableOpacity>

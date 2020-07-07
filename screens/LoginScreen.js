@@ -50,9 +50,9 @@ export default function LoginScreen({ navigation }) {
 
           backgroundColor: Colors.primaryColor,
           flex: 1,
-          paddingTop: Constants.statusBarHeight + 10,
+          paddingTop: Constants.statusBarHeight,
         }}>
-        <View style={{ flex: .3, overflow: 'hidden' }}>
+        <View style={{ flex: .4, overflow: 'hidden', }}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
             <Ionicons name="ios-arrow-back" size={24} color="white" />
           </TouchableOpacity>
@@ -67,7 +67,7 @@ export default function LoginScreen({ navigation }) {
             <Text style={{ marginLeft: 5, fontWeight: '600', color: 'white', fontSize: 20, marginTop: 10 }}>Bayaq</Text>
           </View>
         </View>
-        <View style={{ flex: .5, paddingHorizontal: 20, }}>
+        <View style={{ flex: .6, paddingHorizontal: 20, }}>
           <TextInput
             maxLength={40}
             onChangeText={(text) => setEmail(text)}
@@ -76,7 +76,7 @@ export default function LoginScreen({ navigation }) {
             placeholderTextColor="lightgrey"
             autoCapitalize='none'
             keyboardType='email-address'
-            style={{ borderRadius: 5, color: 'white', borderColor: 'white', marginTop: 33, borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
+            style={{ borderRadius: 5, color: 'white', borderColor: 'white', borderWidth: 1, paddingVertical: 5, paddingHorizontal: 10 }}
           />
           <TextInput
             maxLength={40}
