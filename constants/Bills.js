@@ -42,7 +42,7 @@ export const electricity = [
         billerCode: '40386',
         location: 'Serawak',
         type: 'UTILITY',
-        image: 'https://scontent.fkul16-1.fna.fbcdn.net/v/t1.0-9/69826041_2426035124148428_4041148558601093120_o.jpg?_nc_cat=111&_nc_sid=85a577&_nc_ohc=tyKr-AQnpY0AX_AKbX5&_nc_ht=scontent.fkul16-1.fna&oh=4425f70b618038aebb84057e2eed1de3&oe=5EFA1EF8'
+        image: 'https://pbs.twimg.com/profile_images/1172417488484589569/aGozuiT4_400x400.jpg'
     },
 
 ]

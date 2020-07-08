@@ -47,8 +47,8 @@ export default function SelectBillScreen() {
       <View style={{ flex: .8, backgroundColor: 'white', flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 15, paddingTop: 10 }}>
         {bills.map((bill, index) =>
           <View key={index} style={{
-            width: screenWidth * .23, padding: 5,
-
+            width: (screenWidth - 30) / 4,
+            padding: 5
           }} >
             <View
               style={{
