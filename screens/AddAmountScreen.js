@@ -111,28 +111,31 @@ export default function AddAmountScreen() {
             setBillDetail(billDetail)
             setMyr(billDetail.amount.toString())
             if (billStatus != 'UPDATE') {
-                if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454 || billDetail.billerCode == 4200 || billDetail.billerCode == 8144 || billDetail.billerCode == 9217) {
-
-                    dispatch(getBillAmountFromServerWithCallback({ bill: billDetail, callback: updateAmount }))
-                    setIsLoading(true)
-                }
                 setBillStatus('CREATE')
             } else {
                 setBillStatus('UPDATE')
+            }
+            if (billDetail.billerCode == 68502 || billDetail.billerCode == 5454 || billDetail.billerCode == 4200 || billDetail.billerCode == 8144 || billDetail.billerCode == 9217) {
+
+
             }
         }
 
     }, [])
     const updateAmount = ({ amount }) => {
         const newAmount = Dinero({ amount: amount }).toFormat("0.00")
+
         setMyr(newAmount.toString())
         setIsLoading(false)
     }
     const billCreated = () => {
         navigation.navigate('Home', { isPayment: false, paymentSuccess: false, referrenceID: '' })
     }
-    const backButtonPressed = () => {
-        navigation.goBack()
+    const getLatestAmount = () => {
+        if (!isLoading) {
+            dispatch(getBillAmountFromServerWithCallback({ bill: billDetail, callback: updateAmount }))
+        }
+        setIsLoading(true)
     }
     const deleteButtonPressed = () => {
         Alert.alert(
@@ -162,42 +165,55 @@ export default function AddAmountScreen() {
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: '20%' }}>
-                            <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+                            <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 5 }}>
                                 <Ionicons name="ios-arrow-back" size={24} color="white" />
                             </TouchableOpacity>
                         </View>
                         {billStatus === 'UPDATE' &&
                             <View style={{ width: '80%', alignItems: 'flex-end' }}>
-                                <TouchableOpacity onPress={deleteButtonPressed} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+                                <TouchableOpacity onPress={deleteButtonPressed} style={{ paddingHorizontal: 20, paddingVertical: 5 }}>
                                     <MaterialIcons name="delete" size={24} color="white" />
                                 </TouchableOpacity>
                             </View>}
                     </View>
-                    <View style={{ height: '100%', flex: 1, justifyContent: 'center', }}>
-                        <View style={{ justifyContent: 'center', paddingHorizontal: 20 }}>
-                            <View
-                                style={{
-                                    height: screenWidth * .2,
-                                    width: screenWidth * .2,
-                                    borderRadius: 10,
-                                    alignSelf: 'center'
-                                }}
-                            >
-                                {billInfo && <Image style={{ borderRadius: 10, height: '100%', width: '100%', backgroundColor: 'white' }} source={{ uri: billInfo.image }} />}
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <View style={{ paddingHorizontal: 20 }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <View
+                                    style={{
+                                        height: screenWidth * .2,
+                                        width: screenWidth * .2,
+                                        borderRadius: 10,
+                                    }}
+                                >
+                                    {billInfo && <Image style={{ borderRadius: 10, height: '100%', width: '100%', backgroundColor: 'white' }} source={{ uri: billInfo.image }} />}
+                                </View>
                             </View>
-                            <Text style={{ color: 'white', fontSize: 13, alignSelf: 'center', marginTop: 10 }}>{billDetail.companyName}</Text>
-                            <ScrollView>
-                                <Text style={{ color: 'white', fontSize: 13, marginTop: 5, fontWeight: 'bold' }}>Account Number: {billDetail.ref1}</Text>
 
-                                {billInfo && billInfo.type == 'TELCO' && (
-                                    <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Phone Number: {billDetail.ref2}</Text>
+                            <Text style={{ color: 'white', fontSize: 13, alignSelf: 'center', marginTop: 5 }}>{billDetail.companyName}</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={{ flex: .5 }}>
+                                    <Text style={{ color: 'white', fontSize: 13, fontWeight: 'bold' }}>Account Number</Text>
+                                    <Text style={{ color: 'white', fontSize: 13 }}>{billDetail.ref1}</Text>
+                                </View>
+                                <View style={{ flex: .5 }}>
 
-                                )}
-                                {billInfo && billInfo.billerCode === '40386' && (
-                                    <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold' }} >Contract Account Number: {billDetail.ref2}</Text>
+                                    {billInfo && billInfo.type == 'TELCO' && (
+                                        <>
+                                            <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold', textAlign: 'right' }}>Phone Number</Text>
+                                            <Text style={{ color: 'white', fontSize: 13, marginTop: 1, textAlign: 'right' }}>{billDetail.ref2}</Text>
+                                        </>
 
-                                )}
-                            </ScrollView>
+                                    )}
+                                    {billInfo && billInfo.billerCode === '40386' && (
+                                        <>
+                                            <Text style={{ color: 'white', fontSize: 13, marginTop: 1, fontWeight: 'bold', textAlign: 'right' }} >Contract Account Number</Text>
+                                            <Text style={{ color: 'white', fontSize: 13, marginTop: 1, textAlign: 'right' }}>{billDetail.ref2}</Text>
+                                        </>
+                                    )}
+                                </View>
+                            </View>
+
 
                         </View>
 
@@ -206,17 +222,24 @@ export default function AddAmountScreen() {
             </View>
             <View style={{ flex: .8, backgroundColor: 'white', paddingTop: 10 }}>
                 <View style={{ flex: .2, justifyContent: 'center', paddingHorizontal: 20 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', borderRadius: 5, borderWidth: 1, borderColor: 'lightgrey', paddingHorizontal: 20 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center', borderRadius: 5, borderWidth: 1, borderColor: 'lightgrey', paddingHorizontal: 5 }}>
                         <View style={{ flex: .4, justifyContent: 'center', }}>
                             <Text style={{ color: 'grey', textAlign: 'center', fontSize: 11 }}>Insert bill amount</Text>
                         </View>
                         <View style={{ flex: .6, }}>
                             {isLoading ?
-                                <ActivityIndicator size='small' color={Colors.secondaryColor} style={{ height: 35, alignSelf: 'flex-end', marginRight: 60 }} /> :
+                                <ActivityIndicator size='small' color={Colors.secondaryColor} style={{ height: 42, alignSelf: 'flex-end', marginRight: 60 }} /> :
                                 <Text style={{ color: Colors.secondaryColor, fontSize: 35, textAlign: 'right' }}>RM{myr}</Text>
                             }
                         </View>
                     </View>
+                    {
+                        (billDetail.billerCode == 68502 || billDetail.billerCode == 5454 || billDetail.billerCode == 4200 || billDetail.billerCode == 8144 || billDetail.billerCode == 9217) &&
+                        <TouchableOpacity style={{ paddingVertical: 10, paddingRight: 5 }} onPress={getLatestAmount}>
+                            <Text style={{ textAlign: 'right', color: Colors.secondaryColor }}>Get latest amount</Text>
+                        </TouchableOpacity>
+                    }
+
                 </View>
                 <View style={{ flex: .7, paddingHorizontal: 20, justifyContent: 'center' }}>
                     <View style={{ flex: .2, flexDirection: 'row' }}>

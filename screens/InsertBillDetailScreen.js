@@ -57,7 +57,7 @@ export default function InsertBillDetailScreen() {
   }
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: Colors.headerColor }}>
+      <KeyboardAvoidingView keyboardVerticalOffset={Platform.OS == "ios" ? 0 : 50} behavior={Platform.OS == "ios" ? "padding" : "height"} style={{ flex: 1, backgroundColor: Colors.headerColor }}>
         <ImageBackground source={image} style={{ flex: .4 }}>
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.3)', paddingTop: Constants.statusBarHeight, }}>
             <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
@@ -68,7 +68,7 @@ export default function InsertBillDetailScreen() {
             </View>
           </View>
         </ImageBackground>
-        <View style={{ flex: .8, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
+        <View style={{ flex: .6, backgroundColor: 'white', paddingHorizontal: 20, paddingTop: 10 }}>
           <View style={{ top: -(screenWidth * .28) / 2 }}>
             <View
               style={{
@@ -156,11 +156,11 @@ export default function InsertBillDetailScreen() {
               </View>
             )}
           </View>
-          <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10, left: 20 }}>
-            <TouchableOpacity style={{ borderWidth: 1, borderColor: 'lightgrey', borderRadius: 10, paddingVertical: 10 }} onPress={createBillPressed}>
-              <Text style={{ fontSize: 20, fontWeight: '600', textAlign: 'center', color: Colors.secondaryColor }}>Next</Text>
-            </TouchableOpacity>
-          </View>
+        </View>
+        <View style={{ flex: .2, width: '100%', backgroundColor: 'white', paddingHorizontal: 20, justifyContent: 'center' }}>
+          <TouchableOpacity style={{ borderWidth: 1, borderColor: 'lightgrey', borderRadius: 10, paddingVertical: 10 }} onPress={createBillPressed}>
+            <Text style={{ fontSize: 20, fontWeight: '600', textAlign: 'center', color: Colors.secondaryColor }}>Next</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView >
     </TouchableWithoutFeedback>

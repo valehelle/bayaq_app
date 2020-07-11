@@ -27,8 +27,9 @@ export function* addBillSaga({ payload }) {
     }
     const response = yield call(createBillAPI, param, userInfo.token)
     if (response.ok) {
+        const { bill } = yield response.json()
         yield put(billsAction.getBill())
-        yield put(billsAction.addBillSuccess())
+        yield put(billsAction.addBillSuccess({ bill }))
         billCreated()
     } else {
         alert('Ops please try again later.')
@@ -103,7 +104,7 @@ export function* getBillAmountSaga() {
     if (autoUpdate) {
         for (let i = 0; i < selectedBills.length; i++) {
             const bill = selectedBills[i]
-            yield put(getBillAmountFromServer(bill))
+            // yield put(getBillAmountFromServer(bill))
         }
         yield put(billsAction.autoUpdate())
     }
@@ -197,7 +198,7 @@ export function* updateBillSaga({ payload }) {
     const response = yield call(updateBillAPI, param, userInfo.token)
 
     if (response.ok) {
-        yield put(billsAction.updateBillSuccess())
+        yield put(billsAction.updateBillSuccess({ bill }))
         yield put(billsAction.getBill())
         billCreated()
     } else {

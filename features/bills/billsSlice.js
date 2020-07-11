@@ -61,6 +61,10 @@ const billsSlice = createSlice({
         addBillSuccess: {
             reducer(state, action) {
                 state.isAddingBill = false
+                const billSuccess = action.payload.bill
+                const selectedBills = state.selectedBills.filter((bill) => bill.id != billSuccess.id)
+                const newSelectedBills = [...selectedBills, billSuccess]
+                state.selectedBills = billSuccess.amount > 0 ? newSelectedBills : selectedBills
             }
         },
         setBillStatus: {
@@ -89,7 +93,6 @@ const billsSlice = createSlice({
             reducer(state, action) {
                 const bills = action.payload
                 state.list = bills
-                state.selectedBills = bills.filter((bill) => bill.amount > 0)
             }
         },
         updateBill: {
@@ -99,7 +102,11 @@ const billsSlice = createSlice({
         },
         updateBillSuccess: {
             reducer(state, action) {
+                const billSuccess = action.payload.bill
                 state.isAddingBill = false
+                const selectedBills = state.selectedBills.filter((bill) => bill.id != billSuccess.id)
+                const newSelectedBills = [...selectedBills, billSuccess]
+                state.selectedBills = billSuccess.amount > 0 ? newSelectedBills : selectedBills
 
             }
         },
