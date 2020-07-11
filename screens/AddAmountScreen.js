@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Alert, Image } from 'react-native';
-import { updateBill } from '../features/bills/billsSaga'
 import { useDispatch, useSelector } from 'react-redux';
 import Dinero from 'dinero.js'
 import { getBillAmountFromServerWithCallback } from '../features/bills/billsSaga'
@@ -94,7 +93,7 @@ export default function AddAmountScreen() {
             const amount = Dinero({ amount: parseInt(floatAmount), currency: 'MYR' }).getAmount()
             const newBill = { ...billDetail, amount: amount }
             if (billStatus == 'UPDATE') {
-                dispatch(updateBill({ bill: newBill, billCreated }))
+                dispatch(billsAction.updateBill({ bill: newBill, billCreated }))
             } else {
                 dispatch(billsAction.addBill({ bill: newBill, billCreated }))
             }
@@ -244,7 +243,12 @@ export default function AddAmountScreen() {
                 <View style={{ flex: .1 }}>
                     <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 10, paddingHorizontal: 20 }}>
                         <TouchableOpacity style={{ borderWidth: 1, borderColor: 'lightgrey', borderRadius: 5, paddingVertical: 10 }} onPress={changeBill}>
-                            <Text style={{ fontWeight: '600', textAlign: 'center', color: Colors.secondaryColor }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
+                            {isAddingBill ?
+                                <ActivityIndicator size='small' color={Colors.secondaryColor} style={{ height: 35, alignSelf: 'center' }} />
+                                :
+                                <Text style={{ fontWeight: '600', textAlign: 'center', color: Colors.secondaryColor }}>{billStatus == 'UPDATE' ? 'Update' : 'Create'}</Text>
+                            }
+
                         </TouchableOpacity>
                     </View>
                 </View>

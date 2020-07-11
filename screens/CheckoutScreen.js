@@ -115,7 +115,7 @@ export default function CheckoutScreen() {
               </View>
             )
           })}
-          <View style={{ marginTop: 15, flexDirection: 'row' }}  >
+          <View style={{ marginTop: 15, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'grey', paddingTop: 10 }}  >
             <View style={{ flex: .5, flexGrow: 1 }}>
               <Text style={{ fontSize: 14, fontWeight: '600', }}>Sub Total</Text>
             </View>
@@ -131,7 +131,7 @@ export default function CheckoutScreen() {
               <Text style={{ marginRight: 8, fontSize: 14, fontWeight: 'bold', textAlign: 'right' }}>RM {toFormatSafe(Dinero({ amount: selectedBills.length * 99 }))}</Text>
             </View>
           </View>
-          <View style={{ marginTop: 30, flexDirection: 'row' }}  >
+          <View style={{ marginTop: 15, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'grey', paddingTop: 10 }}  >
             <View style={{ flex: .5, flexGrow: 1 }}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', }}>Total Amount</Text>
             </View>

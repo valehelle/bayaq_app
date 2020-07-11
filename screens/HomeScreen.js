@@ -110,6 +110,7 @@ const BillList = () => {
           {loading ?
             <View style={{ height: '90%', justifyContent: 'center' }}>
               <ActivityIndicator size={25} color={Colors.secondaryColor} style={{ paddingTop: 20, paddingBottom: 10 }} />
+              <Text style={{ textAlign: 'center' }}>Getting your bills.</Text>
             </View>
             :
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingHorizontal: 10, }}>

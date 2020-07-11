@@ -9,7 +9,6 @@ import { v4 as uuidv4 } from 'uuid';
 const billsAction = billsSlice.actions
 
 
-export const updateBill = createAction(`${billsSlice.name}/updateBillSaga`)
 export const getBillAmount = createAction(`${billsSlice.name}/getBillAmountSaga`)
 export const getBillAmountFromServer = createAction(`${billsSlice.name}/getBillAmountFromServerSaga`)
 export const getBillAmountFromServerWithCallback = createAction(`${billsSlice.name}/getBillAmountFromServerWithCallbackSaga`)
@@ -198,6 +197,7 @@ export function* updateBillSaga({ payload }) {
     const response = yield call(updateBillAPI, param, userInfo.token)
 
     if (response.ok) {
+        yield put(billsAction.updateBillSuccess())
         yield put(billsAction.getBill())
         billCreated()
     } else {
@@ -210,7 +210,7 @@ export function* updateBillSaga({ payload }) {
 export const billSaga = [
     takeLatest(billsAction.addBill.type, addBillSaga),
     takeLatest(billsAction.getBill, getBillSaga),
-    takeLatest(updateBill.type, updateBillSaga),
+    takeLatest(billsAction.updateBill, updateBillSaga),
     takeLatest(billsAction.getPaymentUrl.type, getPaymentUrlSaga),
     takeLatest(billsAction.setBill, getBillAmountSaga),
     takeEvery(getBillAmountFromServer.type, getBillAmountFromServerSaga),
