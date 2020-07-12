@@ -28,8 +28,13 @@ export function* addBillSaga({ payload }) {
     const response = yield call(createBillAPI, param, userInfo.token)
     if (response.ok) {
         const { bill } = yield response.json()
-        yield put(billsAction.getBill())
-        yield put(billsAction.addBillSuccess({ bill }))
+        const formattedBill = {
+            ...bill,
+            companyName: bill.company_name,
+            billerCode: bill.biller_code
+        }
+        //yield put(billsAction.getBill())
+        yield put(billsAction.addBillSuccess({ bill: formattedBill }))
         billCreated()
     } else {
         alert('Ops please try again later.')
@@ -199,7 +204,7 @@ export function* updateBillSaga({ payload }) {
 
     if (response.ok) {
         yield put(billsAction.updateBillSuccess({ bill }))
-        yield put(billsAction.getBill())
+        // yield put(billsAction.getBill())
         billCreated()
     } else {
         alert('Cannot update bill')

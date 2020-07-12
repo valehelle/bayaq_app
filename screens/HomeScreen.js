@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { TouchableOpacity as TouchableOpacityHandler } from 'react-native-gesture-handler'
 import {
   Image,
@@ -36,7 +36,7 @@ var moment = require('moment');
 const screenWidth = Math.round(Dimensions.get('window').width);
 import Modal from 'react-native-modal';
 import { electricity, water, telco, other } from '../constants/Bills'
-
+import * as Animatable from 'react-native-animatable';
 
 const toFormatSafe = (d) => {
   const [units, subunits] = d
@@ -124,46 +124,48 @@ const BillList = () => {
             :
             <ScrollView showsVerticalScrollIndicator={false} style={{}}>
               {
-                bills.length > 0 ? bills.map((bill) => {
+                bills.length > 0 ? bills.map((bill, index) => {
                   return (
-                    <View style={{ flexDirection: 'row' }} key={bill.id}  >
-                      <TouchableOpacity style={{ flex: .1, justifyContent: 'center', }} onPress={() => billCheckPressed(bill)}>
-                        {isBillLoading(bill.id) ? <ActivityIndicator size={31} color={Colors.secondaryColor} /> : isBillSelected(bill.id) ? <MaterialCommunityIcons style={{}} name="checkbox-marked-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} /> : <MaterialCommunityIcons name="checkbox-blank-circle-outline" color={Colors.secondaryColor} size={31} />}
-                      </TouchableOpacity>
+                    <Animatable.View animation="fadeInUp" key={bill.id} delay={index * 150}>
+                      <View style={{ flexDirection: 'row' }}  >
+                        <TouchableOpacity style={{ flex: .1, justifyContent: 'center', }} onPress={() => billCheckPressed(bill)}>
+                          {isBillLoading(bill.id) ? <ActivityIndicator size={31} color={Colors.secondaryColor} /> : isBillSelected(bill.id) ? <MaterialCommunityIcons style={{}} name="checkbox-marked-circle" color={isBillSelected(bill.id) ? Colors.secondaryColor : "lightgrey"} size={31} /> : <MaterialCommunityIcons name="checkbox-blank-circle-outline" color={Colors.secondaryColor} size={31} />}
+                        </TouchableOpacity>
 
-                      <View style={{
-                        flex: .9, backgroundColor: 'white',
-
-
-                        marginTop: 10,
-                        paddingLeft: 10
-                      }}>
                         <View style={{
-                          flexDirection: 'row',
-                          borderBottomWidth: 1,
-                          borderBottomColor: 'lightgrey',
-                          paddingBottom: 5,
+                          flex: .9, backgroundColor: 'white',
+
+
+                          marginTop: 10,
+                          paddingLeft: 10
                         }}>
+                          <View style={{
+                            flexDirection: 'row',
+                            borderBottomWidth: 1,
+                            borderBottomColor: 'lightgrey',
+                            paddingBottom: 5,
+                          }}>
 
-                          <View style={{ flex: .4, flexGrow: 1 }}>
+                            <View style={{ flex: .4, flexGrow: 1 }}>
 
-                            <Text style={{ fontSize: 16, fontWeight: '600', color: isBillSelected(bill.id) ? 'black' : "black" }}>{bill.companyName}</Text>
-                            <Text style={{ paddingVertical: 5, fontSize: 14, color: isBillSelected(bill.id) ? 'black' : "black" }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
+                              <Text style={{ fontSize: 16, fontWeight: '600', color: isBillSelected(bill.id) ? 'black' : "black" }}>{bill.companyName}</Text>
+                              <Text style={{ paddingVertical: 5, fontSize: 14, color: isBillSelected(bill.id) ? 'black' : "black" }}>{bill.ref1}{bill.ref2 != null && ` (${bill.ref2})`}</Text>
 
+                            </View>
+
+                            <View style={{ flex: .6, }}>
+                              <Text style={{ paddingRight: 20, fontSize: 16, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? 'black' : "black" }}>RM {toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
+                              <TouchableOpacity style={{ paddingRight: 20, paddingVertical: 5 }} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? Colors.secondaryColor : Colors.secondaryColor }}>Edit</Text>
+
+                              </TouchableOpacity>
+
+                            </View>
                           </View>
 
-                          <View style={{ flex: .6, }}>
-                            <Text style={{ paddingRight: 20, fontSize: 16, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? 'black' : "black" }}>RM {toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
-                            <TouchableOpacity style={{ paddingRight: 20, paddingVertical: 5 }} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
-                              <Text style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? Colors.secondaryColor : Colors.secondaryColor }}>Edit</Text>
-
-                            </TouchableOpacity>
-
-                          </View>
                         </View>
-
                       </View>
-                    </View>
+                    </Animatable.View>
                   )
                 })
                   : <View style={{ paddingVertical: 10, minHeight: 150, justifyContent: 'center', alignItems: 'center' }}>
@@ -204,6 +206,32 @@ const shortName = (name) => {
   }
 
 }
+const billList = [
+  {
+    title: 'Water',
+    bills: water,
+    image: require('../assets/images/water.png'),
+    icon: <Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />
+  },
+  {
+    title: 'Electricity',
+    bills: electricity,
+    image: require('../assets/images/electricity.png'),
+    icon: <SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />
+  },
+  {
+    title: 'Telco',
+    bills: telco,
+    image: require('../assets/images/telco.png'),
+    icon: <Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />
+  },
+  {
+    title: 'Other',
+    bills: other,
+    image: require('../assets/images/others.png'),
+    icon: <Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />
+  },
+]
 export default function HomeScreen() {
   const dispatch = useDispatch()
   const [selectedTab, setSelectedTab] = useState('Home')
@@ -253,7 +281,7 @@ export default function HomeScreen() {
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.3)', paddingTop: Constants.statusBarHeight }}>
 
           <View style={{ height: '100%', justifyContent: 'center', marginTop: 20 }}>
-            <Text style={{ marginBottom: 70, height: 100, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{shortName(userInfo.profile.name)}</Text>
+            {userInfo.profile.name != "" && <Animatable.Text animation="fadeInDown" style={{ marginBottom: 70, height: 100, width: '100%', color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' }}>{shortName(userInfo.profile.name)}</Animatable.Text>}
           </View>
         </View>
       </ImageBackground>
@@ -261,10 +289,14 @@ export default function HomeScreen() {
         <BillList />
         <View style={{ position: 'absolute', top: -75, height: 150 }}>
           <ScrollView showsHorizontalScrollIndicator={false} horizontal style={{ height: '100%' }} contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 10 }}>
-            <BillCard first onPress={() => addBillPressed({ bills: electricity, title: 'Electricity', image: require('../assets/images/electricity.png') })} icon={<SimpleLineIcons name="energy" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Electricity" />
-            <BillCard onPress={() => addBillPressed({ bills: water, title: 'Water', image: require('../assets/images/water.png') })} icon={<Feather name="droplet" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Water" />
-            <BillCard onPress={() => addBillPressed({ bills: telco, title: 'Telco', image: require('../assets/images/telco.png') })} icon={<Feather name="phone" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Telco" />
-            <BillCard last onPress={() => addBillPressed({ bills: other, title: 'Other', image: require('../assets/images/others.png') })} icon={<Feather name="wifi" size={40} color="white" style={{ alignSelf: 'center' }} />} title="Others" />
+            {
+              billList.map((bill, index) => (
+                <Animatable.View animation="slideInRight" key={bill.title} delay={index * 150}>
+                  <BillCard onPress={() => addBillPressed({ bills: bill.bills, title: bill.title, image: bill.image })} icon={bill.icon} title={bill.title} />
+                </Animatable.View>
+              ))
+            }
+
           </ScrollView>
         </View>
       </View>

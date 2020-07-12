@@ -65,6 +65,9 @@ const billsSlice = createSlice({
                 const selectedBills = state.selectedBills.filter((bill) => bill.id != billSuccess.id)
                 const newSelectedBills = [...selectedBills, billSuccess]
                 state.selectedBills = billSuccess.amount > 0 ? newSelectedBills : selectedBills
+                state.list = [...state.list, billSuccess]
+
+
             }
         },
         setBillStatus: {
@@ -108,6 +111,9 @@ const billsSlice = createSlice({
                 const newSelectedBills = [...selectedBills, billSuccess]
                 state.selectedBills = billSuccess.amount > 0 ? newSelectedBills : selectedBills
 
+
+                const index = state.list.findIndex((bill) => bill.id === billSuccess.id)
+                state.list[index] = billSuccess
             }
         },
         payBills: {
