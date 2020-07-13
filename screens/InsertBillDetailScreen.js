@@ -103,7 +103,6 @@ export default function InsertBillDetailScreen() {
               maxLength={40}
               onChangeText={(text) => setBill({ ...bill, ref1: text })}
               value={bill.ref1}
-              keyboardType='phone-pad'
               placeholder='Account Number'
             />
             {bill.type == 'TELCO' && (
@@ -118,7 +117,6 @@ export default function InsertBillDetailScreen() {
                   maxLength={40}
                   placeholder="Phone Number"
                   value={bill.ref2}
-                  keyboardType='phone-pad'
                   onChangeText={(text) => setBill({ ...bill, ref2: text })}
                 />
               </View>
