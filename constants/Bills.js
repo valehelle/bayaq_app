@@ -147,6 +147,12 @@ export const other = [
         image: 'https://lh3.googleusercontent.com/1VDiL6nRRTdbUHUz_seXyrBWkS6xpACiFzuqAID3hg487K0qHN1m2fMdE_Bjkrry1q2B=s360'
     },
     {
+        companyName: 'Unifi Mobile',
+        billerCode: '3608',
+        type: 'INTERNET',
+        image: 'https://img.involve.asia/ia_logo/1429_aJEOmZdB.jpg'
+    },
+    {
         companyName: 'Streamyx',
         billerCode: '2345',
         type: 'INTERNET',
