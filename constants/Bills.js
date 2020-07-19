@@ -141,6 +141,12 @@ export const other = [
         image: 'https://img.involve.asia/ia_logo/1429_aJEOmZdB.jpg'
     },
     {
+        companyName: 'TIME',
+        billerCode: '5553',
+        type: 'INTERNET',
+        image: 'https://lh3.googleusercontent.com/1VDiL6nRRTdbUHUz_seXyrBWkS6xpACiFzuqAID3hg487K0qHN1m2fMdE_Bjkrry1q2B=s360'
+    },
+    {
         companyName: 'Streamyx',
         billerCode: '2345',
         type: 'INTERNET',

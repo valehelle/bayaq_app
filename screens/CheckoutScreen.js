@@ -139,6 +139,9 @@ export default function CheckoutScreen() {
               <Text style={{ marginRight: 8, fontSize: 20, fontWeight: 'bold', textAlign: 'right' }}>RM {toFormatSafe(Dinero({ amount: amount + (selectedBills.length * 99) }))}</Text>
             </View>
           </View>
+          <View style={{ height: 100 }}>
+
+          </View>
         </ScrollView>
         <View style={{ flex: .2 }}>
           <View style={{ position: 'absolute', bottom: 0, width: '100%', backgroundColor: 'white', paddingBottom: 5, paddingHorizontal: 20 }}>

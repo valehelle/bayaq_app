@@ -103,7 +103,7 @@ export default function InsertBillDetailScreen() {
               maxLength={40}
               onChangeText={(text) => setBill({ ...bill, ref1: text })}
               value={bill.ref1}
-              placeholder='Account Number'
+              placeholder={bill.billerCode != '88880' ? 'Account Number' : 'Ref-1'}
             />
             {bill.type == 'TELCO' && (
               <View>
