@@ -95,7 +95,8 @@ const billsSlice = createSlice({
         setBill: {
             reducer(state, action) {
                 const bills = action.payload
-                state.list = bills
+                const newBills = bills.map(bill => ({ ...bill, amount: 0 }))
+                state.list = newBills
             }
         },
         updateBill: {
@@ -136,6 +137,11 @@ const billsSlice = createSlice({
             }
         },
         removeBill: {
+            reducer(state, action) {
+                state
+            }
+        },
+        removeBillSuccess: {
             reducer(state, action) {
                 const { billId } = action.payload
                 state.list = state.list.filter((bill) => bill.id != billId)

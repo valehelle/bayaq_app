@@ -179,7 +179,8 @@ export function* removeBillSaga({ payload }) {
     }
     const response = yield call(deleteBillAPI, param, userInfo.token)
     if (response.ok) {
-        yield put(billsAction.getBill())
+        yield put(billsAction.removeBillSuccess({ billId }))
+
     } else {
         alert('Failed to remove bill')
     }

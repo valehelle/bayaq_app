@@ -105,7 +105,8 @@ const BillList = () => {
       isBillSelected(bill.id) ? dispatch(billsAction.removeSelectedBills({ bill })) : dispatch(billsAction.setSelectedBills({ bill }))
 
     } else {
-      alert('Please add the amount to the bill.')
+      const newBill = { ...bill, amount: Dinero({ amount: bill.amount }).toFormat("0.00") }
+      navigation.navigate('AddAmount', { bill: newBill, billStatus: 'UPDATE' })
     }
   }
 
@@ -156,7 +157,7 @@ const BillList = () => {
                             <View style={{ flex: .6, }}>
                               <Text style={{ paddingRight: 20, fontSize: 16, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? 'black' : "black" }}>RM {toFormatSafe(Dinero({ amount: bill.amount }))}</Text>
                               <TouchableOpacity style={{ paddingRight: 20, paddingVertical: 5 }} onPress={() => !isBillLoading(bill.id) && billPressed(bill)} >
-                                <Text style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? Colors.secondaryColor : Colors.secondaryColor }}>Edit</Text>
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', textAlign: 'right', color: isBillSelected(bill.id) ? Colors.secondaryColor : Colors.secondaryColor }}>Edit amount</Text>
 
                               </TouchableOpacity>
 
