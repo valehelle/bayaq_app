@@ -115,6 +115,10 @@ export default function CheckoutScreen() {
               </View>
             )
           })}
+          {selectedBills.length === 1 &&
+            <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ color: Colors.secondaryColor, marginTop: 15, fontWeight: 'bold', fontSize: 16 }}>Add more bills</Text></TouchableOpacity>
+          }
+
           <View style={{ marginTop: 15, flexDirection: 'row', borderTopWidth: 1, borderTopColor: 'grey', paddingTop: 10 }}  >
             <View style={{ flex: .5, flexGrow: 1 }}>
               <Text style={{ fontSize: 14, fontWeight: '600', }}>Sub Total</Text>
